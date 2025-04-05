@@ -20,3 +20,12 @@ vim.keymap.set('n', '<Leader>-ust', function()
 	vim.cmd('normal A = useState(')
 	vim.api.nvim_feedkeys('a', 'n', true)
 end, { noremap = false })
+
+
+-- Paste param (eg: xyz in clipboard becomes xyz={xyz})
+vim.keymap.set('n', '<Leader>ypp', function() 
+	vim.cmd('normal a ')
+	vim.cmd('normal pa=')
+	vim.cmd('normal pysiw{:w<Cr>f ')
+end, { noremap = false })
+
