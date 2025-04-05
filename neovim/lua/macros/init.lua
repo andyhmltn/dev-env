@@ -1,0 +1,7 @@
+require('macros.react')
+require('macros.flash')
+require('macros.neovim')
+require('macros.camelsnek')
+require('macros.telescope')
+require('macros.shortcuts')
+require('macros.substitute')

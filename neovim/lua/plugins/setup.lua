@@ -14,16 +14,6 @@ require("telescope").setup(
     }
 )
 
-require("nvim-treesitter.configs").setup(
-    {
-        ensure_installed = {"tsx", "typescript", "rust"},
-        highlight = {
-            enable = true,
-            additional_vim_regex_highlighting = false
-        }
-    }
-)
-
 require("Comment").setup()
 require("substitute").setup()
 require("tailwind-tools").setup()
@@ -34,7 +24,6 @@ require("spectre").setup()
 -- Set up mini.pairs with custom mappings
 require("mini.pairs").setup({})
 
-require("typescript-tools").setup {}
 require("flash").setup(
     {
         modes = {
@@ -67,4 +56,19 @@ require("nvim-tree").setup(
         }
     }
 )
+
+vim.defer_fn(function()
+  vim.cmd('TSEnable highlight')
+end, 100)
+
+
+
+-- TODO
+-- Prettier command with Coc
+-- vim.api.nvim_create_user_command("Prettier", function()
+--   vim.fn["CocAction"]("runCommand", "prettier.formatFile")
+-- end, {})
+
+
+return {}
 
