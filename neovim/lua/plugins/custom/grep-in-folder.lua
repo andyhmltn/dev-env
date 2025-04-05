@@ -1,4 +1,6 @@
---[[ local telescope = require("telescope")
+
+
+local telescope = require("telescope")
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 local builtin = require("telescope.builtin")
@@ -11,7 +13,7 @@ function live_grep_in_folder()
         {
             prompt_title = "Select Directory",
             -- find_command = { "find", ".", "-type", "d", "-maxdepth", "2" },  -- List directories only
-            cwd = vim.fn.getcwd(), ]]
+            cwd = vim.fn.getcwd(),
             find_command = {"find", ".", "-type", "d"},
             attach_mappings = function(prompt_bufnr, map)
                 local function set_directory()

@@ -1,3 +1,4 @@
+
 -- Create a react component tag from word
 vim.keymap.set('n', '<Leader>-crt', function() 
 	vim.cmd('normal ysiw>')
@@ -27,5 +28,12 @@ vim.keymap.set('n', '<Leader>ypp', function()
 	vim.cmd('normal a ')
 	vim.cmd('normal pa=')
 	vim.cmd('normal pysiw{:w<Cr>f ')
+end, { noremap = false })
+
+-- Copy the current filename to the clipboard, formatted as a component name
+vim.keymap.set('n', '<Leader>-nn', function() 
+	vim.cmd('put %')
+	vim.cmd('normal $F.yT/ddpV:CamelB<Cr>')
+	vim.cmd('normal _vUviwx')
 end, { noremap = false })
 
