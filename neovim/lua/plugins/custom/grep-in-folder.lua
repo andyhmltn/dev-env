@@ -1,13 +1,10 @@
 
 
-local telescope = require("telescope")
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
-local builtin = require("telescope.builtin")
-local themes = require("telescope.themes")
 
 -- Function to search in a specific folder
-function live_grep_in_folder()
+local function live_grep_in_folder()
     -- Select a folder first
     require("telescope.builtin").find_files(
         {
@@ -44,7 +41,7 @@ function live_grep_in_folder()
     )
 end
 
-function live_grep_previous_folder()
+local function live_grep_previous_folder()
     print(vim.g.selected_dir)
     require("telescope.builtin").live_grep(
         {
@@ -53,7 +50,7 @@ function live_grep_previous_folder()
     )
 end
 
-vim.api.nvim_set_keymap("n", "<leader>fg", ":lua live_grep_in_folder()<CR>", {noremap = true, silent = true})
-vim.api.nvim_set_keymap("n", "<leader>-fg", ":lua live_grep_previous_folder()<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>fg", ":lua live_grep_in_folder()", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>-fg", ":lua live_grep_previous_folder()", {noremap = true, silent = true})
 
 

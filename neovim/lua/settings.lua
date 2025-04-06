@@ -1,22 +1,15 @@
--- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
- 
 vim.opt.showtabline = 2
 vim.o.tabline = "./%t"
- 
 vim.opt.termguicolors = true
- 
 -- formatting settings
 vim.opt.smartindent = true
- 
 -- Searching options
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.inccommand = "split"
- 
- 
 -- Enable enter as next target for vim Leap
 vim.g.leap_target_next_key = "<CR>"
 
@@ -37,6 +30,7 @@ vim.g.mapleader = " "
 -- Environment variables or plugin-specific globals
 vim.g.claude_map_send_chat_message = "<leader>cs"
 
+vim.opt.cmdheight = 1
 
 vim.g.NERDTreeMinimalMenu = 1
 
@@ -65,6 +59,7 @@ keymap("n", "{", "{zz", opts)
 
 -- Set clipboard
 vim.opt.clipboard = "unnamedplus"
+vim.opt.signcolumn = "yes"
 
 -- UltiSnips
 vim.g.UltiSnipsExpandTrigger = "<tab>"

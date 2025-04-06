@@ -1,7 +1,3 @@
-local builtin = require("telescope.builtin")
-local actions = require("telescope.actions")
-local action_state = require("telescope.actions.state")
-
 local searches = {
     {label = "Graph schema", prefix = "graph", suffix = "schema"},
     {label = "Graph resolvers", prefix = "graph", suffix = "resolvers"},
@@ -13,12 +9,15 @@ local searches = {
     {label = "Transport Kafka", prefix = "", suffix = "transportkafka"}
 }
 
+local builtin = require("telescope.builtin")
+local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
 local conf = require("telescope.config").values
 local scandir = require("plenary.scandir")
 
-function volcano_dirs(callback)
+local function volcano_dirs(callback)
     local dir_path = "packages/apps"
 
     -- Get subdirectories (just one depth)
@@ -47,7 +46,7 @@ function volcano_dirs(callback)
                 }
             ),
             sorter = conf.generic_sorter({}),
-            attach_mappings = function(prompt_bufnr, map)
+            attach_mappings = function(prompt_bufnr)
                 actions.select_default:replace(
                     function()
                         -- Get the currently "selected" entry (could be nil)
@@ -73,21 +72,14 @@ function volcano_dirs(callback)
     ):find()
 end
 
-function wildcard_search(prefix, suffix, doNotAutoSelect)
-    local pickers = require("telescope.pickers")
-    local finders = require("telescope.finders")
-    local actions = require("telescope.actions")
-    local action_state = require("telescope.actions.state")
-    local builtin = require("telescope.builtin")
-    local conf = require("telescope.config").values
-
+local function wildcard_search(prefix, suffix, doNotAutoSelect)
     volcano_dirs(
         function(selected)
             local pattern = prefix .. selected .. suffix
             builtin.git_files(
                 {
                     prompt_title = "Git Files (" .. pattern .. ")",
-                    initial_mode = doNotAutoSelect and "normal" or insert,
+                    initial_mode = doNotAutoSelect and "normal" or "insert",
                     attach_mappings = function(git_bufnr, _)
                         local picker2 = action_state.get_current_picker(git_bufnr)
                         if picker2 and picker2.set_prompt then
@@ -114,13 +106,7 @@ function wildcard_search(prefix, suffix, doNotAutoSelect)
     )
 end
 
-function pick_wildcard_search()
-    local pickers = require("telescope.pickers")
-    local finders = require("telescope.finders")
-    local actions = require("telescope.actions")
-    local action_state = require("telescope.actions.state")
-    local conf = require("telescope.config").values
-
+local function pick_wildcard_search()
     pickers.new(
         {},
         {
