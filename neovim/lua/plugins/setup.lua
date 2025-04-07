@@ -3,15 +3,15 @@ local utils = require("telescope.utils")
 local actions = require("telescope.actions")
 
 require("telescope").setup(
-    {
-        defaults = {
-            mappings = {n = {["q"] = actions.close}}
-        },
-        pickers = {
-            find_files = {theme = "dropdown"},
-            live_grep = {theme = "dropdown"}
-        }
-    }
+	{
+		defaults = {
+			mappings = { n = { ["q"] = actions.close } }
+		},
+		pickers = {
+			find_files = { theme = "dropdown" },
+			live_grep = { theme = "dropdown" }
+		}
+	}
 )
 
 
@@ -27,50 +27,40 @@ require("spectre").setup()
 require("mini.pairs").setup({})
 
 require("flash").setup(
-    {
-        modes = {
-            char = {
-                enabled = false,
-                jump_labels = false,
-                highlight = {
-                    backdrop = false,
-                    matches = false
-                }
-            }
-        }
-    }
+	{
+		modes = {
+			char = {
+				enabled = false,
+				jump_labels = false,
+				highlight = {
+					backdrop = false,
+					matches = false
+				}
+			}
+		}
+	}
 )
 
 require("nvim-tree").setup(
-    {
-        diagnostics = {
-            enable = false
-        },
-        actions = {
-            open_file = {
-                quit_on_open = true
-            }
-        },
-        respect_buf_cwd = true,
-        view = {
-            side = "left",
-            width = 40
-        }
-    }
+	{
+		diagnostics = {
+			enable = false
+		},
+		actions = {
+			open_file = {
+				quit_on_open = true
+			}
+		},
+		respect_buf_cwd = true,
+		view = {
+			side = "left",
+			width = 40
+		}
+	}
 )
 
 vim.defer_fn(function()
-  vim.cmd('TSEnable highlight')
+	vim.cmd('TSEnable highlight')
 end, 100)
 
-
-
--- TODO
--- Prettier command with Coc
--- vim.api.nvim_create_user_command("Prettier", function()
---   vim.fn["CocAction"]("runCommand", "prettier.formatFile")
--- end, {})
-
-
 return {}
-
