@@ -14,5 +14,6 @@ Mac OS Dev Setup
 10. Ghostty (todo, automatic installation? config in version control)
 	10. https://github.com/catppuccin/ghostty
 11. Hotkey (todo, config)
-12. Homerow download
+12. Aerospace (install and config)
+13. Homerow download
 	11. Reminder to set keyboard shortcut cmd+shift+/ for search

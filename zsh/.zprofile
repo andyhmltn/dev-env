@@ -1,3 +1,4 @@
+
 alias n="nvim $@"
 
 eval "$(zoxide init zsh)"
@@ -11,4 +12,24 @@ neovimdev() {
 	[ -n "$dir" ] && n "$dir"
 }
 
-alias dev=neovimdev
+# dev() {
+# 	local dir
+# 	dir=$(find ~/development -mindepth 1 -maxdepth 1 -type d | fzf)
+# 	[ -n "$dir" ] && cd "$dir"
+# }
+
+
+alias nd=neovimdev
+
+c() {
+	local dir
+	dir=$(find ~/development -mindepth 1 -maxdepth 1 -type d | fzf)
+	[ -n "$dir" ] && cd "$dir"
+}
+
+alias go="/opt/homebrew/bin/go"
+export PATH="$HOME/go/bin:$PATH"
+
+export EDITOR=nvim
+export VISUAL=nvim
+

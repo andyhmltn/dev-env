@@ -13,6 +13,8 @@ vim.opt.inccommand = "split"
 -- Enable enter as next target for vim Leap
 vim.g.leap_target_next_key = "<CR>"
 
+vim.env.PATH = "/opt/homebrew/bin:" .. vim.env.PATH
+
 -- General options
 vim.opt.relativenumber = true
 vim.opt.number = true
@@ -29,6 +31,10 @@ vim.g.mapleader = " "
 
 -- Environment variables or plugin-specific globals
 vim.g.claude_map_send_chat_message = "<leader>cs"
+vim.g.claude_map_implement = "<Leader>ci"
+vim.g.claude_map_open_chat = "<Leader>-ai"
+vim.g.claude_map_send_chat_message = "<C-]>"
+vim.g.claude_map_cancel_response = "<Leader>cx"
 
 vim.opt.cmdheight = 1
 

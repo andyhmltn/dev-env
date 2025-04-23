@@ -11,6 +11,9 @@ return {
 	-- Tmux navigation
 	{ "christoomey/vim-tmux-navigator" },
 
+	-- AI
+	{ "pasky/claude.vim" },
+
 	-- Dev tools
 	{ "windwp/nvim-spectre" },
 	{ "kdheepak/lazygit.nvim" },
@@ -63,7 +66,7 @@ return {
 		dependencies = { "neovim/nvim-lspconfig" },
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "ts-lua", "gopls" },
+				ensure_installed = { "gopls" },
 			})
 		end
 	},
@@ -169,7 +172,7 @@ return {
 				mapping = {
 					["<Up>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
-							cmp.select_next_item()
+							cmp.select_prev_item()
 						else
 							fallback()
 						end
@@ -184,15 +187,6 @@ return {
 					["<Tab>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_next_item()
-						else
-							fallback()
-						end
-					end, { "i", "s" }),
-					["<S-Tab>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-							cmp.select_prev_item()
-						elseif luasnip.jumpable(-1) then
-							luasnip.jump(-1)
 						else
 							fallback()
 						end
