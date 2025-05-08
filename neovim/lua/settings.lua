@@ -15,6 +15,8 @@ vim.g.leap_target_next_key = "<CR>"
 
 vim.env.PATH = "/opt/homebrew/bin:" .. vim.env.PATH
 
+vim.g.python3_host_prog = "/Users/andy/.venvs/nvim/bin/python"
+
 -- General options
 vim.opt.relativenumber = true
 vim.opt.number = true
