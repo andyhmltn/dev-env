@@ -1,5 +1,3 @@
-local builtin = require("telescope.builtin")
-local utils = require("telescope.utils")
 local actions = require("telescope.actions")
 
 require("telescope").setup(
@@ -58,6 +56,18 @@ require("nvim-tree").setup(
 		}
 	}
 )
+
+require("noice").setup({
+  presets = {
+    long_message_to_split = true, -- Redirect long messages to a split window
+    bottom_search = true,         -- Optional: Classic bottom cmdline for search
+    command_palette = true,       -- Optional: Position cmdline and popupmenu together
+  },
+})
+
+require("notify").setup({
+	background_colour = "#000000",
+})
 
 vim.defer_fn(function()
 	vim.cmd('TSEnable highlight')
