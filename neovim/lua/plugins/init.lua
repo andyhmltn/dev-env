@@ -47,6 +47,17 @@ return {
 	-- Themes
 	{ "catppuccin/nvim",                    name = "catppuccin" },
 
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {},
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"rcarriga/nvim-notify",
+		}
+	},
+
+
 	-- Tailwind
 	{ "luckasRanarison/tailwind-tools.nvim" },
 
