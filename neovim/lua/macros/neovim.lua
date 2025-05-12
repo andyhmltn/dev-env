@@ -17,7 +17,8 @@ end, { noremap = false })
 vim.keymap.set('n', '<Leader>S', require("spectre").open, { noremap = false })
 
 -- Lazygit
-vim.keymap.set("n", "<leader>gg", ":!tmux new-window -c " .. vim.fn.getcwd() .. " -- lazygit <CR><CR>", { silent = true })
+-- vim.keymap.set("n", "<leader>gg", ":!tmux new-window -c " .. vim.fn.getcwd() .. " -- lazygit <CR><CR>", { silent = true })
+vim.keymap.set("n", "<leader>gg", ":!tmux new-window lazygit <CR><CR>", { silent = true })
 
 -- Open vertical split
 vim.keymap.set("n", "<leader>W", "<C-w>v<C-W>w ", { silent = true })
