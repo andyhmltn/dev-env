@@ -40,11 +40,6 @@ vim.g.vimwiki_list = {{
 }}
 
 -- Colorscheme
--- vim.cmd [[
---   colorscheme catppuccin-macchiato
---   set background=dark
--- ]]
-
 require("catppuccin").setup({
   transparent_background = true,
 })
