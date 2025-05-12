@@ -12,7 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.opt.cmdheight = 0
-vim.opt.shortmess:append("TF")
 
 require("lazy").setup("plugins")
 
@@ -55,7 +54,7 @@ vim.cmd.colorscheme "catppuccin-macchiato"
 vim.o.guifont = "Iosevka Nerd Font:h12"
 
 -- Suppress swap file messages
-vim.o.shortmess = "A"
+vim.opt.shortmess = "TAF"
 
 -- Prettier command with Coc
 vim.api.nvim_create_user_command("Prettier", function()
