@@ -4,7 +4,7 @@ local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 
 -- Function to search in a specific folder
-local function live_grep_in_folder()
+function live_grep_in_folder()
     -- Select a folder first
     require("telescope.builtin").find_files(
         {
@@ -41,7 +41,7 @@ local function live_grep_in_folder()
     )
 end
 
-local function live_grep_previous_folder()
+function live_grep_previous_folder()
     print(vim.g.selected_dir)
     require("telescope.builtin").live_grep(
         {

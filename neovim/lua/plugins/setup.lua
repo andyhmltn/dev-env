@@ -6,8 +6,9 @@ require("telescope").setup(
 			mappings = { n = { ["q"] = actions.close } }
 		},
 		pickers = {
-			find_files = { theme = "dropdown" },
-			live_grep = { theme = "dropdown" }
+			git_files = { theme = "ivy" },
+			find_files = { theme = "ivy" },
+			live_grep = { theme = "ivy" }
 		}
 	}
 )

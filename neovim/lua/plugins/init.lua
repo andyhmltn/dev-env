@@ -152,15 +152,28 @@ return {
 					bufopts)
 				vim.keymap.set("n", "]g", function() vim.diagnostic.goto_next({ float = false }) end,
 					bufopts)
-				-- Optional: Format on save, or define a command
-				vim.api.nvim_create_user_command("Format", function()
-					vim.lsp.buf.format()
-				end, {})
+
+				client.server_capabilities.documentFormattingProvider = false
+				client.server_capabilities.documentRangeFormattingProvider = false
 			end,
 
 			settings = {
 			},
 		}
+	},
+	{
+		"stevearc/conform.nvim",
+		opts = {
+			format_on_save = { timeout_ms = 3000, lsp_fallback = false },
+			formatters_by_ft = {
+				javascript      = { "prettier" },
+				javascriptreact = { "prettier" },
+				typescript      = { "prettier" },
+				typescriptreact = { "prettier" },
+				json            = { "prettier" },
+				markdown        = { "prettier" },
+			},
+		},
 	},
 	{
 		'stevearc/dressing.nvim',
