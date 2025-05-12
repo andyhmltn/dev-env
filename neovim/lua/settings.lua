@@ -20,7 +20,8 @@ vim.g.python3_host_prog = "/Users/andy/.venvs/nvim/bin/python"
 -- General options
 vim.opt.relativenumber = true
 vim.opt.number = true
-vim.opt.cmdheight = 2
+-- vim.opt.cmdheight = 2
+vim.opt.cmdheight = 0
 vim.opt.swapfile = false
 vim.opt.hlsearch = false
 vim.opt.timeoutlen = 5000

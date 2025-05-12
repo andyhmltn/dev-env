@@ -11,6 +11,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.opt.cmdheight = 0
+vim.opt.shortmess:append("TF")
+
 require("lazy").setup("plugins")
 
 
