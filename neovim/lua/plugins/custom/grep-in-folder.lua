@@ -50,7 +50,7 @@ function live_grep_previous_folder()
     )
 end
 
-vim.api.nvim_set_keymap("n", "<leader>fg", ":lua live_grep_in_folder()", {noremap = true, silent = true})
-vim.api.nvim_set_keymap("n", "<leader>-fg", ":lua live_grep_previous_folder()", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>fg", ":lua live_grep_in_folder()<cr>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>-fg", ":lua live_grep_previous_folder()<cr>", {noremap = true, silent = true})
 
 

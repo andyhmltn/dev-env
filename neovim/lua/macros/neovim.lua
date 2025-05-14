@@ -40,7 +40,7 @@ vim.keymap.set('n', '<Leader>-otd', function()
 	vim.cmd('split')
 	vim.cmd('wincmd w')
 	vim.cmd('e ~/vimwiki/index.md')
-	vim.cmd('resize 15')
+	vim.cmd('resize 40')
 end, { noremap = false })
 
 -- Error diagnostics

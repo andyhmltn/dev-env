@@ -3,12 +3,17 @@ local actions = require("telescope.actions")
 require("telescope").setup(
 	{
 		defaults = {
-			mappings = { n = { ["q"] = actions.close } }
+			mappings = { n = { ["q"] = actions.close } },
+			layout_config = {
+			},
 		},
 		pickers = {
-			git_files = { theme = "ivy" },
-			find_files = { theme = "ivy" },
-			live_grep = { theme = "ivy" }
+			git_files = {
+				theme = "ivy",
+				path_display = { "truncate" }
+			},
+			find_files = { theme = "ivy", path_display = { "truncate" } },
+			live_grep = { theme = "ivy", path_display = { "truncate" } }
 		}
 	}
 )
@@ -59,11 +64,11 @@ require("nvim-tree").setup(
 )
 
 require("noice").setup({
-  presets = {
-    long_message_to_split = true, -- Redirect long messages to a split window
-    bottom_search = true,         -- Optional: Classic bottom cmdline for search
-    command_palette = true,       -- Optional: Position cmdline and popupmenu together
-  },
+	presets = {
+		long_message_to_split = true, -- Redirect long messages to a split window
+		bottom_search = true, -- Optional: Classic bottom cmdline for search
+		command_palette = true, -- Optional: Position cmdline and popupmenu together
+	},
 })
 
 require("notify").setup({
