@@ -1,5 +1,3 @@
-
--- Create a react component tag from word
 vim.keymap.set('n', '<Leader>-crt', function()
 	vim.cmd('normal ysiw>')
 	vim.cmd('normal ea/')

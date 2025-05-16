@@ -71,7 +71,10 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.signcolumn = "yes"
 
 -- UltiSnips
-vim.g.UltiSnipsExpandTrigger = "<tab>"
+-- let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/my_snips']
+
+vim.g.UltiSnipsSnippetDirectories = { vim.fn.expand('~/.config/nvim/snippets') }
+vim.g.UltiSnipsExpandTrigger = "<c-j>"
 vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
 vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
 
