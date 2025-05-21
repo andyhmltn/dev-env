@@ -24,7 +24,8 @@ vim.opt.number = true
 vim.opt.cmdheight = 0
 vim.opt.swapfile = false
 vim.opt.hlsearch = false
-vim.opt.timeoutlen = 500
+vim.opt.timeoutlen = 800
+vim.opt.ttimeoutlen = 10
 
 -- Shell options (prefer last set shell)
 vim.opt.shell = "/bin/bash -i"
