@@ -1,18 +1,3 @@
--- Open neovim config
-vim.keymap.set('n', '<Leader>-cfg', function()
-	vim.cmd('e ~/.config/nvim/init.lua')
-end, { noremap = false })
-
--- Reload neovim config
-vim.keymap.set('n', '<Leader>-ccfg', function()
-	vim.cmd('luafile ~/.config/nvim/lua/macros/init.lua')
-end, { noremap = false })
-
--- Run PlugInstall
-vim.keymap.set('n', '<Leader>-pi', function()
-	vim.cmd('PackerSync')
-end, { noremap = false })
-
 -- Spectre
 vim.keymap.set('n', '<Leader>S', require("spectre").open, { noremap = false })
 

@@ -24,7 +24,7 @@ vim.opt.number = true
 vim.opt.cmdheight = 0
 vim.opt.swapfile = false
 vim.opt.hlsearch = false
-vim.opt.timeoutlen = 5000
+vim.opt.timeoutlen = 500
 
 -- Shell options (prefer last set shell)
 vim.opt.shell = "/bin/bash -i"
@@ -52,7 +52,7 @@ local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
 -- Prevent unnamed register overwrite on paste in visual mode
-keymap("x", "p", [["pgv\"" .. vim.v.register .. "y"]], { expr = true, silent = true })
+keymap("x", "p", [["pgv\"" .. v:register .. "y"]], { expr = true, silent = true })
 
 -- Black hole register for 'd' and 'c' (no yank)
 keymap("n", "d", '"_d', opts)

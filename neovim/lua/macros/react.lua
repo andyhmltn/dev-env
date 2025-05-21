@@ -28,6 +28,13 @@ vim.keymap.set('n', '<Leader>ypp', function()
 	vim.cmd('normal pysiw{:w<Cr>f ')
 end, { noremap = false })
 
+-- Insert a className on the current tag
+vim.keymap.set('n', '<Leader>-cn', function()
+	vim.cmd('normal _f>i className="')
+	vim.cmd('normal l')
+	vim.cmd('startinsert')
+end, { noremap = false })
+
 -- Copy the current filename to the clipboard, formatted as a component name
 vim.keymap.set('n', '<Leader>-nn', function()
 	vim.cmd('put %')
@@ -84,6 +91,6 @@ end, { noremap = false })
 
 -- Convert current word to exported interface
 vim.keymap.set('n', '<Leader>-i',function()
-	vim.cmd("normal viwyIexport interface ")
+	vim.cmd("normal viwyIinterface ")
 	vim.cmd("normal A {}")
 end, { noremap = false })
