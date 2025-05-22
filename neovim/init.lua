@@ -22,6 +22,7 @@ require('plugins.setup')
 require('plugins.custom.grep-in-folder')
 require('plugins.custom.smart-paste-arg')
 require('plugins.custom.wildcard-search')
+require('plugins.custom.eslint').setup()
 
 require('macros')
 
@@ -55,3 +56,4 @@ vim.opt.shortmess = "TAF"
 vim.api.nvim_create_user_command("Prettier", function()
   vim.fn["CocAction"]("runCommand", "prettier.formatFile")
 end, {})
+
