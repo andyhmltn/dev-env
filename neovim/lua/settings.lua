@@ -69,8 +69,7 @@ keymap("n", "{", "{zz", opts)
 vim.opt.clipboard = "unnamedplus"
 vim.opt.signcolumn = "yes"
 
--- UltiSnips
--- let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/my_snips']
+vim.o.showmode = false
 
 vim.g.UltiSnipsSnippetDirectories = { vim.fn.expand('~/.config/nvim/snippets') }
 vim.g.UltiSnipsExpandTrigger = "<c-j>"

@@ -50,10 +50,31 @@ return {
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
-		opts = {},
+		opts = {
+
+		},
 		dependencies = {
 			"MunifTanjim/nui.nvim",
-			"rcarriga/nvim-notify",
+			{
+				"rcarriga/nvim-notify",
+				opts = {
+				  max_width = function()
+				    return math.floor(vim.o.columns * 0.40)
+				  end,
+
+				  top_down = false,
+
+				  stages   = "static",
+				  timeout  = 3000,
+				},
+
+				-- make EVERY vim.notify() use nvim-notify (Noice piggy-backs on that)
+				config = function(_, opts)
+				  local notify = require("notify")
+				  notify.setup(opts)
+				  vim.notify = notify
+				end,
+		      },
 		}
 	},
 
@@ -244,6 +265,12 @@ return {
 	  version = false, -- Never set this value to "*"! Never!
 	  opts = {
 	    provider = "claude",
+	    claude = {
+		    model = "claude-sonnet-4-20250514"
+	    },
+	    windows = {
+		    width = 75
+	    }
 	  },
 	  -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
 	  build = "make",
@@ -253,41 +280,8 @@ return {
 	    "stevearc/dressing.nvim",
 	    "nvim-lua/plenary.nvim",
 	    "MunifTanjim/nui.nvim",
-	    "echasnovski/mini.pick", -- for file_selector provider mini.pick
 	    "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-	    "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
 	    "ibhagwan/fzf-lua", -- for file_selector provider fzf
-	    "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-	    "zbirenbaum/copilot.lua", -- for providers='copilot'
-	    {
-	      -- support for image pasting
-	      "HakonHarnes/img-clip.nvim",
-	      event = "VeryLazy",
-	      opts = {
-		-- recommended settings
-		default = {
-		  embed_image_as_base64 = false,
-		  prompt_for_file_name = false,
-		  drag_and_drop = {
-		    insert_mode = true,
-		  },
-		  -- required for Windows users
-		  use_absolute_path = true,
-		},
-	      },
-	    },
-	    {
-	      -- Make sure to set this up properly if you have lazy=true
-	      'MeanderingProgrammer/render-markdown.nvim',
-	      opts = {
-		file_types = { "markdown", "Avante" },
-		windows = {
-			position = 'right',
-			width = 100
-		}
-	      },
-	      ft = { "markdown", "Avante" },
-	    },
 	  },
 	}
 }

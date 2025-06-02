@@ -57,17 +57,24 @@ require("nvim-tree").setup(
 		},
 		respect_buf_cwd = true,
 		view = {
-			side = "left",
+			side = "right",
 			width = 40
 		}
 	}
 )
 
 require("noice").setup({
+	routes = {
+		{
+			view = 'notify',
+			filter = { event = 'msg_showmode' }
+		}
+
+	},
 	presets = {
-		long_message_to_split = true, -- Redirect long messages to a split window
-		bottom_search = true, -- Optional: Classic bottom cmdline for search
-		command_palette = true, -- Optional: Position cmdline and popupmenu together
+		long_message_to_split = true,
+		bottom_search = true,
+		command_palette = true,
 	},
 })
 
