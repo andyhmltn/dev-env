@@ -102,11 +102,105 @@ function M.run()
   end
 end
 
+function M.run_backend()
+  -- buffer-local so we don't touch other projects
+  vim.opt_local.makeprg = MAKEPRG
+  vim.opt_local.errorformat = ERRORFORMAT
+  
+  -- Show a notification that linting is in progress
+  local has_noice, noice = pcall(require, "noice")
+  if has_noice then
+    noice.notify("Backend linting in progress...", "info", {
+      title = "ESLint",
+      timeout = 3000,
+    })
+  else
+    vim.notify("Backend linting in progress...", vim.log.levels.INFO)
+  end
+  
+  -- Run the linting asynchronously using vim.fn.jobstart
+  local cmd = vim.o.shell .. " -c '" .. MAKEPRG .. "'"
+  
+  -- Start the job
+  local output = {}
+  local job_id = vim.fn.jobstart(cmd, {
+    on_stdout = function(_, data)
+      if data then
+        for _, line in ipairs(data) do
+          if line ~= "" then
+            table.insert(output, line)
+          end
+        end
+      end
+    end,
+    on_stderr = function(_, data)
+      if data then
+        for _, line in ipairs(data) do
+          if line ~= "" then
+            table.insert(output, line)
+          end
+        end
+      end
+    end,
+    on_exit = function(_, exit_code)
+      vim.schedule(function()
+        -- Clear the current quickfix list
+        vim.fn.setqflist({}, 'r')
+        
+        -- Parse the output using errorformat
+        local qf_entries = {}
+        for _, line in ipairs(output) do
+          local filename, lnum, col, text = string.match(line, "([^:]+):(%d+):(%d+): (.*)")
+          if filename and lnum and col and text then
+            table.insert(qf_entries, {
+              filename = filename,
+              lnum = tonumber(lnum),
+              col = tonumber(col),
+              text = text,
+            })
+          end
+        end
+        
+        -- Set the quickfix list with the parsed entries
+        vim.fn.setqflist(qf_entries, 'r')
+        
+        -- Show a completion notification
+        if has_noice then
+          noice.notify("Backend linting complete", "success", {
+            title = "ESLint",
+            timeout = 3000,
+          })
+        else
+          vim.notify("Backend linting complete", vim.log.levels.INFO)
+        end
+        
+        -- Open the quickfix window if there are errors
+        if #qf_entries > 0 then
+          vim.cmd("copen")
+        else
+          vim.notify("No linting errors found", vim.log.levels.INFO)
+        end
+      end)
+    end,
+    stdout_buffered = false,
+    stderr_buffered = false,
+  })
+  
+  if job_id <= 0 then
+    vim.notify("Failed to start linting job", vim.log.levels.ERROR)
+  end
+end
+
 function M.setup()
   vim.keymap.set(
     "n", "<leader>el",
     M.run,
     { desc = "Lint ./frontend → quickfix (async)" }
+  )
+  vim.keymap.set(
+    "n", "<leader>bl",
+    M.run_backend,
+    { desc = "Lint ./backend → quickfix (async)" }
   )
 end
 

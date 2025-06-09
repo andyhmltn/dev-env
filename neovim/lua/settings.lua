@@ -26,7 +26,7 @@ vim.opt.timeoutlen = 800
 vim.opt.ttimeoutlen = 10
 
 -- Shell options (prefer last set shell)
-vim.opt.shell = "/bin/bash -i"
+vim.opt.shell = "/bin/bash"
 
 -- Set leader key
 vim.g.mapleader = " "
