@@ -71,11 +71,6 @@ vim.opt.signcolumn = "yes"
 
 vim.o.showmode = false
 
-vim.g.UltiSnipsSnippetDirectories = { vim.fn.expand('~/.config/nvim/snippets') }
-vim.g.UltiSnipsExpandTrigger = "<c-j>"
-vim.g.UltiSnipsJumpForwardTrigger = "<c-b>"
-vim.g.UltiSnipsJumpBackwardTrigger = "<c-z>"
-
 vim.diagnostic.config({
   virtual_text = true,
   float = {
