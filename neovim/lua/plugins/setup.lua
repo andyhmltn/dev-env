@@ -6,6 +6,21 @@ require("telescope").setup(
 			mappings = { n = { ["q"] = actions.close } },
 			layout_config = {
 			},
+			preview = {
+				timeout = 100,
+				debounce = 50,
+			},
+			file_ignore_patterns = { "node_modules", ".git/" },
+			vimgrep_arguments = {
+				"rg",
+				"--color=never",
+				"--no-heading",
+				"--with-filename",
+				"--line-number",
+				"--column",
+				"--smart-case",
+				"--trim",
+			},
 		},
 		pickers = {
 			git_files = {
@@ -13,7 +28,25 @@ require("telescope").setup(
 				path_display = { "truncate" }
 			},
 			find_files = { theme = "ivy", path_display = { "truncate" } },
-			live_grep = { theme = "ivy", path_display = { "truncate" } }
+			live_grep = { theme = "ivy", path_display = { "truncate" } },
+			lsp_references = {
+				layout_strategy = "vertical",
+				layout_config = {
+					width = 0.99,
+					height = 0.99,
+					preview_height = 0.6,
+				},
+				path_display = { "truncate" },
+				show_line = true,
+				initial_mode = "normal",
+				cache_picker = {
+					num_pickers = 10,
+				},
+				include_declaration = false,
+				include_current_line = false,
+				fname_width = 30,
+				trim_text = true,
+			}
 		}
 	}
 )

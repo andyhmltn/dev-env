@@ -28,6 +28,13 @@ vim.keymap.set('n', '<Leader>-otd', function()
 	vim.cmd('resize 40')
 end, { noremap = false })
 
+vim.keymap.set('n', '<c-t>', function()
+	vim.cmd('split')
+	vim.cmd('wincmd w')
+	vim.cmd('e ~/vimwiki/index.md')
+	vim.cmd('resize 40')
+end, { noremap = false })
+
 -- Error diagnostics
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic" })
 

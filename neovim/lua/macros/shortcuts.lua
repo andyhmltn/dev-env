@@ -6,6 +6,8 @@ vim.keymap.set('n', '<Leader>-gs', '/[]<Cr>', { noremap = false })
 --  Buffer surfing
 vim.keymap.set('n', '<Leader>-gtl', ':BufSurfBack<CR>', { noremap = false })
 vim.keymap.set('n', '<Leader>-btl', ':BufSurfForward<CR>', { noremap = false })
+vim.keymap.set('n', '<c-a>', ':BufSurfBack<CR>', { noremap = false })
+vim.keymap.set('n', '<c-f>', ':BufSurfForward<CR>', { noremap = false })
 
 -- Symbols
 vim.keymap.set("n", "<leader>t",":Namu symbols<cr>" , {
