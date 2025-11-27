@@ -27,7 +27,7 @@ ls.add_snippets("typescriptreact", {
     t("Props> = ({"),
     t({"", "  "}),
     i(3),
-    t({"", "}) => {", "  return () "}),
+    t({"", "}) => {", "  return (<div></div>) "}),
     i(4),
     t({";", "};"}),
   }),
