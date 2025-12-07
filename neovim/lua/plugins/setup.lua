@@ -55,7 +55,9 @@ require("telescope").setup(
 
 require("Comment").setup()
 require("substitute").setup()
-require("tailwind-tools").setup()
+require("tailwind-tools").setup({
+	server = { override = false },
+})
 require("namu").setup()
 require("mini.starter").setup()
 require("spectre").setup()

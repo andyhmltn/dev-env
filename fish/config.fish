@@ -29,8 +29,8 @@ abbr ':q!' 'tmux kill-pane'
 alias scripts 'cat package.json | jq .scripts'
 
 
-eval (zoxide init fish | source)
-alias cd z
+# eval (zoxide init fish | source)
+# alias cd z
 alias gg lazygit
 
-
+set --universal nvm_default_version 20

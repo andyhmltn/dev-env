@@ -104,44 +104,46 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
-			local lspconfig = require("lspconfig")
-			local on_attach = function(client, bufnr)
-				-- Keymaps for LSP
-				local bufopts = { noremap = true, silent = true, buffer = bufnr }
-				vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-				vim.keymap.set("n", "gr", function() require('telescope.builtin').lsp_references() end, bufopts)
-				vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-				vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-				vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
-				vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
-				vim.keymap.set("n", "[g", function() vim.diagnostic.goto_prev({ float = false }) end,
-					bufopts)
-				vim.keymap.set("n", "]g", function() vim.diagnostic.goto_next({ float = false }) end,
-					bufopts)
-				-- Optional: Format on save, or define a command
-				vim.api.nvim_create_user_command("Format", function()
-					vim.lsp.buf.format()
-				end, {})
-			end
-
-			lspconfig.gopls.setup({
-				on_attach = function(client, bufnr)
-					-- Create a command or auto-cmd to format on save
-					vim.api.nvim_create_autocmd("BufWritePre", {
-						buffer = bufnr, -- only for current buffer
-						callback = function()
-							vim.lsp.buf.format({ bufnr = bufnr })
-						end,
-					})
-
-					on_attach(client, bufnr)
+			-- Set up LSP keymaps via LspAttach autocmd (Neovim 0.11+ recommended approach)
+			vim.api.nvim_create_autocmd("LspAttach", {
+				callback = function(args)
+					local bufnr = args.buf
+					local bufopts = { noremap = true, silent = true, buffer = bufnr }
+					vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+					vim.keymap.set("n", "gr", function() require('telescope.builtin').lsp_references() end, bufopts)
+					vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
+					vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+					vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
+					vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
+					vim.keymap.set("n", "[g", function() vim.diagnostic.goto_prev({ float = false }) end, bufopts)
+					vim.keymap.set("n", "]g", function() vim.diagnostic.goto_next({ float = false }) end, bufopts)
+					vim.api.nvim_create_user_command("Format", function()
+						vim.lsp.buf.format()
+					end, {})
 				end,
-				settings = {
-				}
 			})
 
-			lspconfig.lua_ls.setup({
-				on_attach = on_attach,
+			-- Configure gopls using vim.lsp.config (Neovim 0.11+)
+			vim.lsp.config.gopls = {
+				cmd = { "gopls" },
+				filetypes = { "go", "gomod", "gowork", "gotmpl" },
+				root_markers = { "go.work", "go.mod", ".git" },
+				settings = {},
+			}
+
+			-- Format Go files on save
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				pattern = { "*.go" },
+				callback = function(args)
+					vim.lsp.buf.format({ bufnr = args.buf })
+				end,
+			})
+
+			-- Configure lua_ls using vim.lsp.config (Neovim 0.11+)
+			vim.lsp.config.lua_ls = {
+				cmd = { "lua-language-server" },
+				filetypes = { "lua" },
+				root_markers = { ".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml", "selene.yml", ".git" },
 				settings = {
 					Lua = {
 						diagnostics = { globals = { "vim" } },
@@ -149,7 +151,10 @@ return {
 						telemetry = { enable = false },
 					}
 				}
-			})
+			}
+
+			-- Enable the configured LSP servers
+			vim.lsp.enable({ "gopls", "lua_ls" })
 		end
 	},
 	{
@@ -309,43 +314,43 @@ return {
 			})
 		end
 	},
-	{
-		"davidmh/mdx.nvim",
-		config = true,
-		dependencies = { "nvim-treesitter/nvim-treesitter" }
-	},
-	{
-		"greggh/claude-code.nvim",
-		requires = {
-			"nvim-lua/plenary.nvim"
-		},
-		config = function()
-			require('claude-code').setup()
-		end
-	},
-	{
-	  "yetone/avante.nvim",
-	  event = "VeryLazy",
-	  version = false, -- Never set this value to "*"! Never!
-	  opts = {
-	    provider = "claude",
-	    claude = {
-		    model = "claude-sonnet-4-20250514"
-	    },
-	    windows = {
-		    width = 75
-	    }
-	  },
-	  -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-	  build = "make",
-	  -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-	  dependencies = {
-	    "nvim-treesitter/nvim-treesitter",
-	    "stevearc/dressing.nvim",
-	    "nvim-lua/plenary.nvim",
-	    "MunifTanjim/nui.nvim",
-	    "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-	    "ibhagwan/fzf-lua", -- for file_selector provider fzf
-	  },
-	}
+	-- {
+	-- 	"davidmh/mdx.nvim",
+	-- 	config = true,
+	-- 	dependencies = { "nvim-treesitter/nvim-treesitter" }
+	-- },
+	-- {
+	-- 	"greggh/claude-code.nvim",
+	-- 	requires = {
+	-- 		"nvim-lua/plenary.nvim"
+	-- 	},
+	-- 	config = function()
+	-- 		require('claude-code').setup()
+	-- 	end
+	-- },
+	-- {
+	--   "yetone/avante.nvim",
+	--   event = "VeryLazy",
+	--   version = false, -- Never set this value to "*"! Never!
+	--   opts = {
+	--     provider = "claude",
+	--     claude = {
+	-- 	    model = "claude-sonnet-4-20250514"
+	--     },
+	--     windows = {
+	-- 	    width = 75
+	--     }
+	--   },
+	--   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+	--   build = "make",
+	--   -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+	--   dependencies = {
+	--     "nvim-treesitter/nvim-treesitter",
+	--     "stevearc/dressing.nvim",
+	--     "nvim-lua/plenary.nvim",
+	--     "MunifTanjim/nui.nvim",
+	--     "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+	--     "ibhagwan/fzf-lua", -- for file_selector provider fzf
+	--   },
+	-- }
 }
