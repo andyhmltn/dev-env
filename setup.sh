@@ -10,5 +10,6 @@ echo "Setting up dev environment..."
 "$SCRIPT_DIR/neovim/setup.sh"
 "$SCRIPT_DIR/tmux/setup.sh"
 "$SCRIPT_DIR/fish/setup.sh"
+"$SCRIPT_DIR/claude/setup.sh"
 
 echo "Dev environment setup complete!"
