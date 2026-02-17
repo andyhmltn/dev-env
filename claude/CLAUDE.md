@@ -11,7 +11,21 @@ YOU MUST ensure all prettier / tsc checks pass before a change is finished. When
 pnpm run check:lint && pnpm run check:tsc && pnpm run check:prettier
 ```
 
-Always use Context7 MCP when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.
+Exception: Side effects are unavoidable for DB/API interactions. Isolate them and name clearly—createNewUser obviously has side effects, but calculateTotal should be pure.
+
+Always use Zread MCP when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.
+
+# Prefer Direct Code
+
+Write the simplest code that solves today's problem. Avoid abstractions, cleverness, or "might be helpful later" patterns until real needs emerge. Direct code is easier to build, understand, and debug. Generalize later when actual patterns reveal themselves.
+
+# Prefer Composition Over Inheritance
+
+Favor "has-a" over "is-a" relationships. Build objects/functions from smaller reusable parts rather than class hierarchies. Inheritance locks you into early abstractions that are costly to change. Composition stays flexible with fewer assumptions.
+
+# Prefer Pure Functions and Immutable Data
+
+Favor functions that produce the same output given the same inputs. Avoid mutating data structures. Pure functions are isolated and repeatable; immutable data is set once. Both reduce cognitive load and places for bugs to hide.
 
 # Long-Running Agent Workflow
 
