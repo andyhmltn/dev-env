@@ -11,6 +11,10 @@ YOU MUST ensure all prettier / tsc checks pass before a change is finished. When
 pnpm run check:lint && pnpm run check:tsc && pnpm run check:prettier
 ```
 
+Do not use emdashes, ever
+
+Never use eslint-disable-line or eslint-disable-next-line. Fix the underlying issue instead (e.g. use refs to break dependency cycles in useEffect).
+
 Exception: Side effects are unavoidable for DB/API interactions. Isolate them and name clearly—createNewUser obviously has side effects, but calculateTotal should be pure.
 
 Always use Zread MCP when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.
@@ -27,59 +31,20 @@ Favor "has-a" over "is-a" relationships. Build objects/functions from smaller re
 
 Favor functions that produce the same output given the same inputs. Avoid mutating data structures. Pure functions are isolated and repeatable; immutable data is set once. Both reduce cognitive load and places for bugs to hide.
 
-# Long-Running Agent Workflow
+# CLI Tools
 
-For complex, multi-session projects use these skills:
+Prefer these installed CLI tools over built-in equivalents when using Bash:
 
-## Skills Available
+- `rg` (ripgrep) instead of grep -- respects .gitignore, faster. Use `rg -l` to list matching files, `rg -c` for counts, `rg --json` for structured output
+- `fd` instead of find -- simpler syntax, respects .gitignore. Use `fd -e tsx` to find by extension, `fd -t f pattern` for files
+- `duckdb` for analyzing CSV/JSON/Parquet data with SQL instead of chaining awk/sed/jq
+- `xh` instead of curl -- cleaner output, separates headers/status/body. Use `xh GET url` or `xh POST url key=value`
+- `semgrep` for static analysis and pattern matching across codebases. Use `semgrep --config auto .` or write custom rules
+- `just` as task runner -- check for a Justfile before writing ad-hoc shell commands
+- `watchexec` for watching file changes -- use `watchexec -e ts,tsx -- command` instead of polling loops
+- `delta` for readable diffs -- use `git diff | delta --no-gitconfig --line-numbers` for structured diff output
 
-1. **initializer** - Run ONCE at project start
-   - Sets up feature_list.json with all requirements
-   - Creates init.sh startup script
-   - Initializes claude-progress.txt log
-   - Makes initial git commit
-
-2. **coding-agent** - Run REPEATEDLY for development
-   - Gets oriented by reading progress files and git log
-   - Works on ONE feature at a time
-   - Tests thoroughly before marking features complete
-   - Commits work and updates progress log
-   - Leaves codebase in clean, working state
-
-3. **test-agent** - Run for thorough testing
-   - Uses browser automation for end-to-end testing
-   - Tests user flows as a real user would
-   - Documents bugs with screenshots
-   - Only marks features passing if truly working
-
-## Usage Pattern
-
-```bash
-# First session - setup environment
-/initializer
-"Build a [description of your app]"
-
-# Development sessions - repeat as needed
-/coding-agent
-
-# Testing sessions - verify features
-/test-agent
-```
-
-## Key Files Created
-
-- `feature_list.json` - All features with pass/fail status
-- `claude-progress.txt` - Session-by-session progress log
-- `init.sh` - Script to start dev environment
-- `test-results.md` - Detailed test reports (created by test-agent)
-
-## Benefits
-
-- Work incrementally across many context windows
-- Never lose track of progress or forget features
-- Clean git history with recovery points
-- Thorough testing catches bugs early
-- Clear handoffs between sessions
+When scoping searches, prefer `rg -l pattern` or `fd pattern` first, then Read specific files. This reduces token output compared to reading entire directories.
 
 # Permissions
 
