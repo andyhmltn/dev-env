@@ -20,7 +20,21 @@ end
 set -gx NVM_DIR $HOME/.nvm
 
 function nvm
-    bass source ~/.nvm/nvm.sh --no-use ';' nvm $argv
+    set -l output (bass source ~/.nvm/nvm.sh --no-use ';' nvm $argv 2>&1)
+    echo $output
+    set -l node_ver (string match -r 'v[0-9]+\.[0-9]+\.[0-9]+' -- $output)
+    if test -n "$node_ver"
+        set -l node_dir "$NVM_DIR/versions/node/$node_ver/bin"
+        if test -d "$node_dir"
+            set -l cleaned_path
+            for p in $PATH
+                if not string match -q "$NVM_DIR/versions/node/*/bin" -- $p
+                    set -a cleaned_path $p
+                end
+            end
+            set -gx PATH $node_dir $cleaned_path
+        end
+    end
 end
 
 function nvm_find_nvmrc
