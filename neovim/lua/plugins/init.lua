@@ -188,22 +188,33 @@ return {
 	{
 		"stevearc/conform.nvim",
 		opts = {
-			  format_on_save = {
-			    lsp_fallback = false,
-			    timeout_ms   = 1000,
-			    format_on_save       = true,
-			  },
-			  formatters = {
-			    prettierd = { command = "prettierd", stdin = true },
-			  },
-			  formatters_by_ft = {
-			    javascript      = { "prettierd" },
-			    javascriptreact = { "prettierd" },
-			    typescript      = { "prettierd" },
-			    typescriptreact = { "prettierd" },
-			    json            = { "prettierd" },
-			    markdown        = { "prettierd" },
-			  },
+			format_on_save = function(bufnr)
+				local bufname = vim.api.nvim_buf_get_name(bufnr)
+				local dir = vim.fn.fnamemodify(bufname, ":h")
+				local biome_config = vim.fs.find("biome.json", { path = dir, upward = true, type = "file" })
+				if #biome_config > 0 then
+					return {
+						timeout_ms = 1000,
+						lsp_fallback = false,
+						formatters = { "biome" },
+					}
+				end
+				return {
+					timeout_ms = 1000,
+					lsp_fallback = false,
+				}
+			end,
+			formatters = {
+				prettierd = { command = "prettierd", stdin = true },
+			},
+			formatters_by_ft = {
+				javascript      = { "prettierd" },
+				javascriptreact = { "prettierd" },
+				typescript      = { "prettierd" },
+				typescriptreact = { "prettierd" },
+				json            = { "prettierd" },
+				markdown        = { "prettierd" },
+			},
 		},
 	},
 	{
