@@ -3,3 +3,4 @@ shell-integration = fish
 font-family = "Menlo Bold"
 font-size = 18
 background-opacity = 0.9
+theme = Catppuccin Mocha
