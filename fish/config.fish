@@ -26,6 +26,45 @@ end
 
 set -gx NVM_DIR $HOME/.nvm
 
+function nvm
+    set -l output (bass source ~/.nvm/nvm.sh --no-use ';' nvm $argv 2>&1)
+    echo $output
+    set -l node_ver (string match -r 'v[0-9]+\.[0-9]+\.[0-9]+' -- $output)
+    if test -n "$node_ver"
+        set -l node_dir "$NVM_DIR/versions/node/$node_ver/bin"
+        if test -d "$node_dir"
+            set -l cleaned_path
+            for p in $PATH
+                if not string match -q "$NVM_DIR/versions/node/*/bin" -- $p
+                    set -a cleaned_path $p
+                end
+            end
+            set -gx PATH $node_dir $cleaned_path
+        end
+    end
+end
+
+function nvm_find_nvmrc
+    bass source ~/.nvm/nvm.sh --no-use ';' nvm_find_nvmrc
+end
+
+function load_nvm --on-variable="PWD"
+    set -l default_node_version (nvm version default)
+    set -l node_version (nvm version)
+    set -l nvmrc_path (nvm_find_nvmrc)
+    if test -n "$nvmrc_path"
+        set -l nvmrc_node_version (nvm version (cat $nvmrc_path))
+        if test "$nvmrc_node_version" = "N/A"
+            nvm install (cat $nvmrc_path)
+        else if test "$nvmrc_node_version" != "$node_version"
+            nvm use $nvmrc_node_version
+        end
+    else if test "$node_version" != "$default_node_version"
+        echo "Reverting to default Node version"
+        nvm use default
+    end
+end
+
 alias aws-login 'aws sso login --sso-session my-sso'
 alias gg 'lazygit'
 alias q 'tmux kill-pane'
@@ -50,3 +89,5 @@ if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
+
+export PATH="$HOME/.local/bin:$PATH"

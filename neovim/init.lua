@@ -40,6 +40,12 @@ vim.g.vimwiki_list = {{
   ext = 'md',
 }}
 
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    vim.cmd("%argdelete")
+  end,
+})
+
 -- Colorscheme
 require("catppuccin").setup({
   transparent_background = true,
