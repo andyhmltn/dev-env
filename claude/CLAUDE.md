@@ -19,6 +19,26 @@ Exception: Side effects are unavoidable for DB/API interactions. Isolate them an
 
 Always use Zread MCP when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.
 
+# Serena (Semantic Code Navigation)
+
+MUST Use Serena MCP tools BEFORE trying grep, find, Glob, or Grep for code navigation, exploration and documentation tasks. Serena provides symbol-level, LSP-powered code intelligence:
+
+- `find_symbol` for locating symbols (functions, classes, variables) -- prefer over grep/Glob for code lookups
+- `find_referencing_symbols` for finding all usages of a symbol -- prefer over Grep for "where is X used?"
+- `get_symbols_overview` for listing top-level symbols in a file -- prefer over reading entire files
+- `rename_symbol` for project-wide renames -- prefer over find-and-replace
+- `replace_symbol_body` / `insert_after_symbol` / `insert_before_symbol` for semantic edits
+
+Fallback order: Serena semantic tools -> Grep/Glob -> rg/fd via Bash
+
+After making significant changes or learning something important about the project, update auto-memory files so insights persist across sessions.
+
+Keep the Serena project index up to date by calling `restart_language_server` after large external edits or when symbol resolution seems stale.
+
+# Sequential Thinking
+
+Use the `sequentialthinking` MCP tool for complex problem-solving that benefits from structured reasoning -- architecture decisions, debugging multi-step issues, planning implementations, or any task where you need to think through steps carefully before acting. Break the problem into numbered thought steps, revise earlier thoughts if needed, and branch when exploring alternatives.
+
 # Prefer Direct Code
 
 Write the simplest code that solves today's problem. Avoid abstractions, cleverness, or "might be helpful later" patterns until real needs emerge. Direct code is easier to build, understand, and debug. Generalize later when actual patterns reveal themselves.
