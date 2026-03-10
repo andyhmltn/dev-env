@@ -1,5 +1,12 @@
 eval (/opt/homebrew/bin/brew shellenv)
 
+# Auto-start tmux if not already inside tmux
+if status is-interactive
+    and not set -q TMUX
+    and command -q tmux
+    exec tmux new-session -A -s main
+end
+
 alias zp 'nvim ~/.config/fish/config.fish; source ~/.config/fish/config.fish'
 alias n 'nvim $argv'
 
@@ -63,16 +70,24 @@ alias gg 'lazygit'
 alias q 'tmux kill-pane'
 alias t 'tmux'
 alias p 'pnpm $argv'
+alias cf 'npx claude-flow@alpha $argv'
 abbr :q 'tmux kill-pane'
 abbr ':q!' 'tmux kill-pane'
 alias scripts 'cat package.json | jq .scripts'
+alias build-raw 'xcodebuild -scheme "CoachFit-RawCoaching" -configuration Release -destination "generic/platform=iOS"'
 
 
-# eval (zoxide init fish | source)
-# alias cd z
+eval (zoxide init fish | source)
+alias cd z
 alias gg lazygit
 
 set --universal nvm_default_version 20
 
+# pnpm
+set -gx PNPM_HOME "/Users/andy/Library/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
 
 export PATH="$HOME/.local/bin:$PATH"
