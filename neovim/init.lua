@@ -47,10 +47,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
 })
 
 -- Colorscheme
-require("catppuccin").setup({
-  transparent_background = true,
+require("tokyonight").setup({
+  transparent = true,
 })
-vim.cmd.colorscheme "catppuccin-macchiato"
+vim.cmd.colorscheme "tokyonight-moon"
 
 -- Font (GUI only)
 vim.o.guifont = "Iosevka Nerd Font:h12"
