@@ -43,7 +43,7 @@ return {
 	},
 
 	-- Themes
-	{ "catppuccin/nvim",                    name = "catppuccin" },
+	{ "folke/tokyonight.nvim" },
 
 	{
 		"folke/noice.nvim",
@@ -187,35 +187,48 @@ return {
 	},
 	{
 		"stevearc/conform.nvim",
-		opts = {
-			format_on_save = function(bufnr)
-				local bufname = vim.api.nvim_buf_get_name(bufnr)
-				local dir = vim.fn.fnamemodify(bufname, ":h")
-				local biome_config = vim.fs.find("biome.json", { path = dir, upward = true, type = "file" })
-				if #biome_config > 0 then
+		opts = function()
+			local util = require("conform.util")
+			return {
+				format_on_save = function(bufnr)
+					local bufname = vim.api.nvim_buf_get_name(bufnr)
+					local dir = vim.fn.fnamemodify(bufname, ":h")
+					local biome_config = vim.fs.find("biome.json", { path = dir, upward = true, type = "file" })
+					if #biome_config > 0 then
+						return {
+							timeout_ms = 2000,
+							lsp_fallback = false,
+							formatters = { "biome" },
+						}
+					end
 					return {
-						timeout_ms = 1000,
+						timeout_ms = 2000,
 						lsp_fallback = false,
-						formatters = { "biome" },
 					}
-				end
-				return {
-					timeout_ms = 1000,
-					lsp_fallback = false,
-				}
-			end,
-			formatters = {
-				prettierd = { command = "prettierd", stdin = true },
-			},
-			formatters_by_ft = {
-				javascript      = { "prettierd" },
-				javascriptreact = { "prettierd" },
-				typescript      = { "prettierd" },
-				typescriptreact = { "prettierd" },
-				json            = { "prettierd" },
-				markdown        = { "prettierd" },
-			},
-		},
+				end,
+				formatters = {
+					prettierd = {
+						command = "prettierd",
+						stdin = true,
+						cwd = util.root_file({
+							".prettierrc",
+							".prettierrc.js",
+							".prettierrc.json",
+							"prettier.config.js",
+							"package.json",
+						}),
+					},
+				},
+				formatters_by_ft = {
+					javascript      = { "prettierd" },
+					javascriptreact = { "prettierd" },
+					typescript      = { "prettierd" },
+					typescriptreact = { "prettierd" },
+					json            = { "prettierd" },
+					markdown        = { "prettierd" },
+				},
+			}
+		end,
 	},
 	{
 		'stevearc/dressing.nvim',
@@ -325,43 +338,23 @@ return {
 			})
 		end
 	},
-	-- {
-	-- 	"davidmh/mdx.nvim",
-	-- 	config = true,
-	-- 	dependencies = { "nvim-treesitter/nvim-treesitter" }
-	-- },
-	-- {
-	-- 	"greggh/claude-code.nvim",
-	-- 	requires = {
-	-- 		"nvim-lua/plenary.nvim"
-	-- 	},
-	-- 	config = function()
-	-- 		require('claude-code').setup()
-	-- 	end
-	-- },
-	-- {
-	--   "yetone/avante.nvim",
-	--   event = "VeryLazy",
-	--   version = false, -- Never set this value to "*"! Never!
-	--   opts = {
-	--     provider = "claude",
-	--     claude = {
-	-- 	    model = "claude-sonnet-4-20250514"
-	--     },
-	--     windows = {
-	-- 	    width = 75
-	--     }
-	--   },
-	--   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-	--   build = "make",
-	--   -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-	--   dependencies = {
-	--     "nvim-treesitter/nvim-treesitter",
-	--     "stevearc/dressing.nvim",
-	--     "nvim-lua/plenary.nvim",
-	--     "MunifTanjim/nui.nvim",
-	--     "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-	--     "ibhagwan/fzf-lua", -- for file_selector provider fzf
-	--   },
-	-- }
+	{
+	  "afewyards/codereview.nvim",
+	  dependencies = { "nvim-lua/plenary.nvim" },
+	  cmd = {
+	    "CodeReview",
+	    "CodeReviewAI",
+	    "CodeReviewAIFile",
+	    "CodeReviewStart",
+	    "CodeReviewSubmit",
+	    "CodeReviewApprove",
+	    "CodeReviewOpen",
+	    "CodeReviewPipeline",
+	    "CodeReviewComments",
+	    "CodeReviewFiles",
+	    "CodeReviewToggleScroll",
+	    "CodeReviewCommits",
+	  },
+	  opts = {},
+	}
 }
