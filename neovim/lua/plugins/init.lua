@@ -43,7 +43,7 @@ return {
 	},
 
 	-- Themes
-	{ "catppuccin/nvim",                    name = "catppuccin" },
+	{ "folke/tokyonight.nvim" },
 
 	{
 		"folke/noice.nvim",
@@ -325,43 +325,23 @@ return {
 			})
 		end
 	},
-	-- {
-	-- 	"davidmh/mdx.nvim",
-	-- 	config = true,
-	-- 	dependencies = { "nvim-treesitter/nvim-treesitter" }
-	-- },
-	-- {
-	-- 	"greggh/claude-code.nvim",
-	-- 	requires = {
-	-- 		"nvim-lua/plenary.nvim"
-	-- 	},
-	-- 	config = function()
-	-- 		require('claude-code').setup()
-	-- 	end
-	-- },
-	-- {
-	--   "yetone/avante.nvim",
-	--   event = "VeryLazy",
-	--   version = false, -- Never set this value to "*"! Never!
-	--   opts = {
-	--     provider = "claude",
-	--     claude = {
-	-- 	    model = "claude-sonnet-4-20250514"
-	--     },
-	--     windows = {
-	-- 	    width = 75
-	--     }
-	--   },
-	--   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-	--   build = "make",
-	--   -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-	--   dependencies = {
-	--     "nvim-treesitter/nvim-treesitter",
-	--     "stevearc/dressing.nvim",
-	--     "nvim-lua/plenary.nvim",
-	--     "MunifTanjim/nui.nvim",
-	--     "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-	--     "ibhagwan/fzf-lua", -- for file_selector provider fzf
-	--   },
-	-- }
+	{
+	  "afewyards/codereview.nvim",
+	  dependencies = { "nvim-lua/plenary.nvim" },
+	  cmd = {
+	    "CodeReview",
+	    "CodeReviewAI",
+	    "CodeReviewAIFile",
+	    "CodeReviewStart",
+	    "CodeReviewSubmit",
+	    "CodeReviewApprove",
+	    "CodeReviewOpen",
+	    "CodeReviewPipeline",
+	    "CodeReviewComments",
+	    "CodeReviewFiles",
+	    "CodeReviewToggleScroll",
+	    "CodeReviewCommits",
+	  },
+	  opts = {},
+	}
 }

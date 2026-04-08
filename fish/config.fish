@@ -32,14 +32,14 @@ alias q 'tmux kill-pane'
 alias t 'tmux'
 alias p 'pnpm $argv'
 alias cf 'npx claude-flow@alpha $argv'
+alias cc 'claude'
 abbr :q 'tmux kill-pane'
 abbr ':q!' 'tmux kill-pane'
 alias scripts 'cat package.json | jq .scripts'
 alias build-raw 'xcodebuild -scheme "CoachFit-RawCoaching" -configuration Release -destination "generic/platform=iOS"'
 
 
-eval (zoxide init fish | source)
-alias cd z
+zoxide init fish --cmd cd | source
 alias gg lazygit
 
 # pnpm
@@ -50,6 +50,5 @@ end
 # pnpm end
 
 export PATH="$HOME/.local/bin:$PATH"
-set -gx PATH $HOME/.cargo/bin $PATH
 set -gx PATH $HOME/.cargo/bin $PATH
 fish_add_path /Users/andy/.bun/bin
