@@ -50,3 +50,6 @@ end
 # pnpm end
 
 export PATH="$HOME/.local/bin:$PATH"
+set -gx PATH $HOME/.cargo/bin $PATH
+set -gx PATH $HOME/.cargo/bin $PATH
+fish_add_path /Users/andy/.bun/bin

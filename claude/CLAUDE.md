@@ -19,6 +19,21 @@ Exception: Side effects are unavoidable for DB/API interactions. Isolate them an
 
 Always use Zread MCP when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.
 
+Use Serena MCP for semantic code operations: symbol lookups, finding references, refactoring across files, and understanding code structure. Serena provides IDE-like capabilities through LSP integration. ALWAYS prefer Serena tools over grep, find, or ripgrep when searching for code. Serena understands code semantically (symbol definitions, references, call hierarchies) while grep only does text matching.
+
+When starting a Serena session:
+1. Call `activate_project` with the project name (e.g., "nordfel")
+2. Check `check_onboarding_performed` - if memories exist, skip onboarding
+3. Use `list_memories` and `read_memory` to retrieve relevant context
+4. Write memories after significant refactors or architectural decisions
+
+# After Significant Changes
+
+After completing major refactors, new features, or architectural changes:
+1. Update Serena memories with new patterns/architecture
+2. Update relevant docs in `docs/` directory
+3. Ensure documentation reflects current file structure and APIs
+
 # Prefer Direct Code
 
 Write the simplest code that solves today's problem. Avoid abstractions, cleverness, or "might be helpful later" patterns until real needs emerge. Direct code is easier to build, understand, and debug. Generalize later when actual patterns reveal themselves.
