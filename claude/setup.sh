@@ -7,7 +7,6 @@ rm -f ~/.claude/CLAUDE.md
 rm -f ~/.claude.json
 
 ln -sf "$SCRIPT_DIR/CLAUDE.md" ~/.claude/CLAUDE.md
-ln -sf "$SCRIPT_DIR/.claude.json" ~/.claude.json
 
 mkdir -p ~/.claude/skills
 mkdir -p ~/.claude/commands
