@@ -31,7 +31,6 @@ alias gg 'lazygit'
 alias q 'tmux kill-pane'
 alias t 'tmux'
 alias p 'pnpm'
-alias cf 'npx claude-flow@alpha'
 alias cc 'claude'
 abbr :q 'tmux kill-pane'
 abbr ':q!' 'tmux kill-pane'
@@ -50,3 +49,6 @@ end
 # pnpm end
 
 export PATH="$HOME/.local/bin:$PATH"
+
+set -gx PATH $HOME/.cargo/bin $PATH
+fish_add_path /Users/andy/.bun/bin

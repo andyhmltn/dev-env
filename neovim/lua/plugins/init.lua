@@ -187,59 +187,35 @@ return {
 	},
 	{
 		"stevearc/conform.nvim",
-		opts = function()
-			local util = require("conform.util")
-			return {
-				format_on_save = function(bufnr)
-					local bufname = vim.api.nvim_buf_get_name(bufnr)
-					local dir = vim.fn.fnamemodify(bufname, ":h")
-					local prettier_config = vim.fs.find(
-						{ ".prettierrc", ".prettierrc.js", ".prettierrc.json", "prettier.config.js" },
-						{ path = dir, upward = true, type = "file" }
-					)
-					if #prettier_config > 0 then
-						return {
-							timeout_ms = 2000,
-							lsp_fallback = false,
-							formatters = { "prettierd" },
-						}
-					end
-					local biome_config = vim.fs.find("biome.json", { path = dir, upward = true, type = "file" })
-					if #biome_config > 0 then
-						return {
-							timeout_ms = 2000,
-							lsp_fallback = false,
-							formatters = { "biome" },
-						}
-					end
+		opts = {
+			format_on_save = function(bufnr)
+				local bufname = vim.api.nvim_buf_get_name(bufnr)
+				local dir = vim.fn.fnamemodify(bufname, ":h")
+				local biome_config = vim.fs.find("biome.json", { path = dir, upward = true, type = "file" })
+				if #biome_config > 0 then
 					return {
-						timeout_ms = 2000,
+						timeout_ms = 1000,
 						lsp_fallback = false,
+						formatters = { "biome" },
 					}
-				end,
-				formatters = {
-					prettierd = {
-						command = "prettierd",
-						stdin = true,
-						cwd = util.root_file({
-							".prettierrc",
-							".prettierrc.js",
-							".prettierrc.json",
-							"prettier.config.js",
-							"package.json",
-						}),
-					},
-				},
-				formatters_by_ft = {
-					javascript      = { "prettierd" },
-					javascriptreact = { "prettierd" },
-					typescript      = { "prettierd" },
-					typescriptreact = { "prettierd" },
-					json            = { "prettierd" },
-					markdown        = { "prettierd" },
-				},
-			}
-		end,
+				end
+				return {
+					timeout_ms = 1000,
+					lsp_fallback = false,
+				}
+			end,
+			formatters = {
+				prettierd = { command = "prettierd", stdin = true },
+			},
+			formatters_by_ft = {
+				javascript      = { "prettierd" },
+				javascriptreact = { "prettierd" },
+				typescript      = { "prettierd" },
+				typescriptreact = { "prettierd" },
+				json            = { "prettierd" },
+				markdown        = { "prettierd" },
+			},
+		},
 	},
 	{
 		'stevearc/dressing.nvim',
