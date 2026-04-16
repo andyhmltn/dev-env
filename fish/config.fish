@@ -8,7 +8,7 @@ if status is-interactive
 end
 
 alias zp 'nvim ~/.config/fish/config.fish; source ~/.config/fish/config.fish'
-alias n 'nvim $argv'
+alias n 'nvim'
 
 function c
     set -l dir (find ~/dev -mindepth 1 -maxdepth 1 -type d | fzf)
@@ -30,8 +30,8 @@ alias aws-login 'aws sso login --sso-session my-sso'
 alias gg 'lazygit'
 alias q 'tmux kill-pane'
 alias t 'tmux'
-alias p 'pnpm $argv'
-alias cf 'npx claude-flow@alpha $argv'
+alias p 'pnpm'
+alias cf 'npx claude-flow@alpha'
 alias cc 'claude'
 abbr :q 'tmux kill-pane'
 abbr ':q!' 'tmux kill-pane'

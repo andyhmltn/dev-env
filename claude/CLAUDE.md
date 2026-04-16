@@ -59,6 +59,7 @@ Prefer these installed CLI tools over built-in equivalents when using Bash:
 
 - `rg` (ripgrep) instead of grep -- respects .gitignore, faster. Use `rg -l` to list matching files, `rg -c` for counts, `rg --json` for structured output
 - `fd` instead of find -- simpler syntax, respects .gitignore. Use `fd -e tsx` to find by extension, `fd -t f pattern` for files
+- `duckdb` for database access & reading
 - `duckdb` for analyzing CSV/JSON/Parquet data with SQL instead of chaining awk/sed/jq
 - `xh` instead of curl -- cleaner output, separates headers/status/body. Use `xh GET url` or `xh POST url key=value`
 - `semgrep` for static analysis and pattern matching across codebases. Use `semgrep --config auto .` or write custom rules
