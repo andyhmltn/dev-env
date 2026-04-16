@@ -17,6 +17,16 @@ FORMULAE=(
     ripgrep     # Fast search (rg)
     tmux        # Terminal multiplexer
     zoxide      # Smarter cd command
+    biome
+    duckdb
+    fd
+    fnm
+    gh
+    lua-language-server
+    tailwindcss-language-server
+    tree
+    uv
+    xh
 )
 
 # Casks
