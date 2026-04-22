@@ -240,8 +240,8 @@
             bindings = <
 &mt LALT TAB  &kp Q  &kp W  &kp E  &kp R  &kp T           &kp Y  &kp U  &kp I            &kp O           &kp P      &kp UNDER
 &lt 3 ESC     &kp A  &kp S  &kp D  &kp F  &kp G           &kp H  &kp J  &kp K            &kp L           &kp DOT    &kp SQT
-&kp LSHFT     &kp Z  &kp X  &kp C  &kp V  &kp B           &kp N  &kp M  &mt LCTRL COMMA  &mt LGUI EXCL   &kp MINUS  &kp COLON
-                        &kp LSHFT  &kp BSPC  &mo 1         &lt_enter 2 RET  &kp SPACE  &kp LCTRL
+&mo 5         &kp Z  &kp X  &kp C  &kp V  &kp B           &kp N  &kp M  &mt LCTRL COMMA  &mt LGUI EXCL   &kp MINUS  &kp COLON
+                        &kp LSHFT  &kp BSPC  &mo 1         &lt_enter 2 RET  &kp SPACE  &kp LGUI
             >;
         };
 
@@ -290,12 +290,12 @@
             >;
         };
 
-        cmd_layer {
+        aero_layer {
             bindings = <
-&trans     &kp LG(Q)  &kp LG(W)  &kp LG(E)  &kp LG(R)  &kp LG(T)           &kp LG(Y)  &kp LG(U)  &kp LG(I)  &kp LG(O)  &kp LG(P)  &trans
-&kp RALT   &kp LG(A)  &kp LG(S)  &kp LG(D)  &kp LG(F)  &trans              &kp LG(H)  &kp LG(J)  &kp LG(K)  &kp LG(L)  &trans     &trans
-&kp LSHFT  &kp LG(Z)  &kp LG(X)  &kp LG(C)  &kp LG(V)  &kp LG(B)           &kp LG(N)  &trans     &trans     &trans     &trans     &trans
-                        &trans  &trans  &trans                             &trans  &kp LG(SPACE)  &trans
+&trans  &trans  &trans  &trans                 &trans                &trans          &trans         &trans         &trans         &trans         &trans  &trans
+&trans  &trans  &trans  &kp LA(LG(RS(SPACE)))  &kp LA(LG(LS(FSLH)))  &trans          &kp LA(LS(H))  &kp LA(LS(J))  &kp LA(LS(K))  &kp LA(LS(L))  &trans  &trans
+&trans  &trans  &trans  &trans                 &trans                &trans          &trans         &trans         &trans         &trans         &trans  &trans
+                        &trans  &trans  &trans                                       &trans  &trans  &trans
             >;
         };
     };

@@ -1,0 +1,30 @@
+parse_config:
+  raw_binding_map:
+    "&m_sp_otd":        "⎵-otd"
+    "&m_esc_w_cr":      ":w↵"
+    "&m_sp_gg":         "⎵gg"
+    "&m_q_bang_cr":     ":q!↵"
+    "&m_sp_ca":         "⎵ca"
+    "&m_sp_dash":       "⎵-"
+    "&m_tmux_z":        "tmux z"
+    "&m_tmux_c":        "tmux c"
+    "&m_tmux_x":        "tmux x"
+    "&m_tmux_copy":     "tmux cp"
+    "&m_tmux_l":        "tmux l"
+    "&m_tmux_split_h":  "tmux—"
+    "&m_tmux_split_v":  "tmux|"
+    "&m_jump_prev_diag": "[g"
+    "&m_jump_next_diag": "]g"
+    "&m_tick_A":        "`A"
+    "&m_tick_B":        "`B"
+    "&m_tick_C":        "`C"
+    "&m_sp_gtl":        "⎵-gtl"
+    "&m_sp_btl":        "⎵-btl"
+    "&m_slash_slash":   "//"
+    "&m_fat_arrow":     "=>"
+    "&m_dotdot_slash":  "../"
+    "&m_55_star":       "55*"
+    "&m_col_plus_1_col": ":+1:"
+
+draw_config:
+  shrink_wide_legends: 9
