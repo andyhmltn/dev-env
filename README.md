@@ -54,10 +54,13 @@ dev-env/
 │   ├── .claude.json
 │   ├── commands/
 │   └── skills/
+├── config/                       # ZMK Corne config (must live at repo root)
+│   ├── corne.keymap
+│   ├── corne.conf
+│   └── west.yml
 ├── keyboard/
 │   ├── README.md                 # Corne firmware + keymap docs
 │   ├── build.yaml                # ZMK build matrix
-│   ├── config/                   # corne.keymap, corne.conf, west.yml
 │   ├── draw.sh                   # Regenerates keymap.svg
 │   ├── keymap-drawer.config.yaml
 │   ├── keymap.svg

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-KEYMAP="$REPO_ROOT/keyboard/config/corne.keymap"
+KEYMAP="$REPO_ROOT/config/corne.keymap"
 CONFIG="$REPO_ROOT/keyboard/keymap-drawer.config.yaml"
 OUT="$REPO_ROOT/keyboard/keymap.svg"
 

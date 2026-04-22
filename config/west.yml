@@ -8,4 +8,4 @@ manifest:
       revision: v0.3.0
       import: app/west.yml
   self:
-    path: keyboard/config
+    path: config

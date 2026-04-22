@@ -5,7 +5,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'keyboard/config/**'
+      - 'config/**'
       - 'keyboard/build.yaml'
       - '.github/workflows/build-corne.yml'
 
@@ -13,5 +13,4 @@ jobs:
   build:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3.0
     with:
-      config_path: keyboard/config
       build_matrix_path: keyboard/build.yaml
