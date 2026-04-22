@@ -241,7 +241,7 @@
 &mt LALT TAB  &kp Q  &kp W  &kp E  &kp R  &kp T           &kp Y  &kp U  &kp I            &kp O           &kp P      &kp UNDER
 &lt 3 ESC     &kp A  &kp S  &kp D  &kp F  &kp G           &kp H  &kp J  &kp K            &kp L           &kp DOT    &kp SQT
 &kp LSHFT     &kp Z  &kp X  &kp C  &kp V  &kp B           &kp N  &kp M  &mt LCTRL COMMA  &mt LGUI EXCL   &kp MINUS  &kp COLON
-                        &kp LGUI  &kp BSPC  &mo 1         &lt_enter 2 RET  &kp SPACE  &kp LSHFT
+                        &kp LSHFT  &kp BSPC  &mo 1         &lt_enter 2 RET  &kp SPACE  &kp LCTRL
             >;
         };
 
