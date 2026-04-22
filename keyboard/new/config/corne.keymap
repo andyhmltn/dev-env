@@ -1,0 +1,284 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+
+/ {
+    behaviors {
+        lt_enter: lt_enter {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            flavor = "tap-preferred";
+            bindings = <&mo>, <&kp>;
+        };
+    };
+
+    macros {
+        m_sp_otd: m_sp_otd {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp SPACE>, <&kp MINUS>, <&kp O>, <&kp T>, <&kp D>;
+        };
+
+        m_esc_w_cr: m_esc_w_cr {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp ESC>, <&kp COLON>, <&kp W>, <&kp ENTER>;
+        };
+
+        m_sp_gg: m_sp_gg {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp SPACE>, <&kp G>, <&kp G>;
+        };
+
+        m_q_bang_cr: m_q_bang_cr {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp COLON>, <&kp Q>, <&kp EXCL>, <&kp ENTER>;
+        };
+
+        m_sp_ca: m_sp_ca {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp SPACE>, <&kp C>, <&kp A>;
+        };
+
+        m_sp_dash: m_sp_dash {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp SPACE>, <&kp MINUS>;
+        };
+
+        m_tmux_z: m_tmux_z {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp LC(B)>, <&kp Z>;
+        };
+
+        m_tmux_c: m_tmux_c {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp LC(B)>, <&kp C>;
+        };
+
+        m_jump_prev_diag: m_jump_prev_diag {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp LBKT>, <&kp G>;
+        };
+
+        m_jump_next_diag: m_jump_next_diag {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp RBKT>, <&kp G>;
+        };
+
+        m_tick_A: m_tick_A {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp GRAVE>, <&kp LS(A)>;
+        };
+
+        m_tick_B: m_tick_B {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp GRAVE>, <&kp LS(B)>;
+        };
+
+        m_tick_C: m_tick_C {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp GRAVE>, <&kp LS(C)>;
+        };
+
+        m_tmux_x: m_tmux_x {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp LC(B)>, <&kp X>;
+        };
+
+        m_tmux_copy: m_tmux_copy {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp LC(B)>, <&kp LBKT>;
+        };
+
+        m_tmux_l: m_tmux_l {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp LC(B)>, <&kp L>;
+        };
+
+        m_tmux_split_h: m_tmux_split_h {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp LC(B)>, <&kp DQT>;
+        };
+
+        m_tmux_split_v: m_tmux_split_v {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp LC(B)>, <&kp PRCNT>;
+        };
+
+        m_sp_gtl: m_sp_gtl {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp SPACE>, <&kp MINUS>, <&kp G>, <&kp T>, <&kp L>;
+        };
+
+        m_sp_btl: m_sp_btl {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp SPACE>, <&kp MINUS>, <&kp B>, <&kp T>, <&kp L>;
+        };
+
+        m_slash_slash: m_slash_slash {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp FSLH>, <&kp FSLH>;
+        };
+
+        m_fat_arrow: m_fat_arrow {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp EQUAL>, <&kp GT>;
+        };
+
+        m_dotdot_slash: m_dotdot_slash {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp DOT>, <&kp DOT>, <&kp FSLH>;
+        };
+
+        m_55_star: m_55_star {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp N5>, <&kp N5>, <&kp KP_MULTIPLY>;
+        };
+
+        m_col_plus_1_col: m_col_plus_1_col {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>;
+            tap-ms = <30>;
+            bindings = <&kp COLON>, <&kp KP_PLUS>, <&kp N1>, <&kp COLON>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            bindings = <
+&mt LALT TAB  &kp Q  &kp W  &kp E  &kp R  &kp T           &kp Y  &kp U  &kp I            &kp O           &kp P      &kp UNDER
+&lt 3 ESC     &kp A  &kp S  &kp D  &kp F  &kp G           &kp H  &kp J  &kp K            &kp L           &kp DOT    &kp SQT
+&kp LSHFT     &kp Z  &kp X  &kp C  &kp V  &kp B           &kp N  &kp M  &mt LCTRL COMMA  &mt LGUI EXCL   &kp MINUS  &kp COLON
+                        &kp LGUI  &kp BSPC  &mo 1         &lt_enter 2 RET  &kp SPACE  &kp LSHFT
+            >;
+        };
+
+        fn_layer {
+            bindings = <
+&kp LA(LG(J))  &m_sp_otd   &m_esc_w_cr  &m_sp_gg    &kp LG(C)          &kp LG(V)           &m_tmux_x  &m_tmux_copy  &m_tmux_l        &kp LC(R)        &kp LC(B)              &trans
+&m_q_bang_cr   &m_sp_ca    &kp LC(S)    &m_sp_dash  &kp LG(T)          &mo 6               &kp LEFT   &kp DOWN      &kp UP           &kp RIGHT        &kp LA(LG(RS(SPACE)))  &kp LA(LG(LS(FSLH)))
+&kp LA(LG(H))  &m_tmux_z   &kp LG(R)    &m_tmux_c   &m_jump_prev_diag  &m_jump_next_diag   &kp LC(B)  &kp LC(C)     &m_tmux_split_h  &m_tmux_split_v  &m_sp_gtl              &m_sp_btl
+                        &trans  &trans  &trans                                             &mo 4  &kp LC(SPACE)  &trans
+            >;
+        };
+
+        sym_layer {
+            bindings = <
+&trans       &kp PRCNT  &kp PLUS      &kp CARET        &kp STAR    &trans        &kp LT     &kp GT     &kp LBRC  &kp RBRC  &m_55_star         &trans
+&kp LC(RET)  &kp BSLH   &kp SEMI      &m_slash_slash   &kp QMARK   &kp DLLR      &kp FSLH   &kp LC(R)  &kp LPAR  &kp RPAR  &kp AT             &trans
+&trans       &kp AMPS   &m_fat_arrow  &m_dotdot_slash  &kp PIPE    &kp EQUAL     &kp GRAVE  &kp DQT    &kp LBKT  &kp RBKT  &m_col_plus_1_col  &kp LG(TAB)
+                        &trans  &trans  &mo 4                                    &trans  &trans  &trans
+            >;
+        };
+
+        num_layer {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans          &kp N0    &kp N7  &kp N8  &kp N9  &kp EQUAL  &trans
+&trans  &trans  &trans  &trans  &trans  &trans          &kp HOME  &kp N4  &kp N5  &kp N6  &kp PLUS   &to 0
+&trans  &trans  &trans  &trans  &trans  &trans          &kp END   &kp N1  &kp N2  &kp N3  &kp MINUS  &to 0
+                        &trans  &trans  &trans          &trans  &kp N0  &trans
+            >;
+        };
+
+        scrn_layer {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans          &kp LG(SPACE)       &kp LA(LG(LS(N8)))  &trans              &trans              &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans          &kp LG(N4)          &kp LA(LG(LC(N2)))  &kp LA(LG(LC(N3)))  &kp LA(LG(LC(N4)))  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans          &kp LA(LG(LS(N5)))  &kp LA(LG(LS(N6)))  &kp LA(LG(LS(N7)))  &trans              &trans  &trans
+                        &trans  &trans  &trans          &trans  &trans  &trans
+            >;
+        };
+
+        unused_layer {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &trans
+                        &trans  &trans  &trans          &trans  &trans  &trans
+            >;
+        };
+
+        cmd_layer {
+            bindings = <
+&trans     &kp LG(Q)  &kp LG(W)  &kp LG(E)  &kp LG(R)  &kp LG(T)           &kp LG(Y)  &kp LG(U)  &kp LG(I)  &kp LG(O)  &kp LG(P)  &trans
+&kp RALT   &kp LG(A)  &kp LG(S)  &kp LG(D)  &kp LG(F)  &trans              &kp LG(H)  &kp LG(J)  &kp LG(K)  &kp LG(L)  &trans     &trans
+&kp LSHFT  &kp LG(Z)  &kp LG(X)  &kp LG(C)  &kp LG(V)  &kp LG(B)           &kp LG(N)  &trans     &trans     &trans     &trans     &trans
+                        &trans  &trans  &trans                             &trans  &kp LG(SPACE)  &trans
+            >;
+        };
+    };
+};
