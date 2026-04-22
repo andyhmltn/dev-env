@@ -6,62 +6,12 @@ on:
     branches: [main]
     paths:
       - 'keyboard/new/config/**'
+      - 'keyboard/new/build.yaml'
       - '.github/workflows/build-corne.yml'
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    container:
-      image: zmkfirmware/zmk-build-arm:stable
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - shield: 'corne_left nice_view_adapter nice_view'
-            artifact_name: corne_left
-          - shield: 'corne_right nice_view_adapter nice_view'
-            artifact_name: corne_right
-
-    steps:
-      - name: Checkout config repo
-        uses: actions/checkout@v4
-        with:
-          path: config_repo
-
-      - name: Clone ZMK
-        run: git clone --depth 1 https://github.com/zmkfirmware/zmk.git zmk
-
-      - name: Cache Zephyr workspace
-        uses: actions/cache@v4
-        with:
-          path: |
-            zmk/modules/
-            zmk/zephyr/
-          key: zephyr-${{ runner.os }}-${{ hashFiles('zmk/app/west.yml') }}
-          restore-keys: |
-            zephyr-${{ runner.os }}-
-
-      - name: West init and update
-        working-directory: zmk
-        run: |
-          west init -l app
-          west update
-          west zephyr-export
-
-      - name: Build firmware
-        working-directory: zmk/app
-        run: |
-          west build -b nice_nano@2 -- \
-            -DSHIELD="${{ matrix.shield }}" \
-            -DZMK_CONFIG="${GITHUB_WORKSPACE}/config_repo/keyboard/new/config"
-
-      - name: Stage artifact
-        run: |
-          mkdir -p artifacts
-          cp zmk/app/build/zephyr/zmk.uf2 artifacts/${{ matrix.artifact_name }}.uf2
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.artifact_name }}
-          path: artifacts/${{ matrix.artifact_name }}.uf2
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    with:
+      build_matrix_path: keyboard/new/build.yaml
+      config_path: keyboard/new/config
