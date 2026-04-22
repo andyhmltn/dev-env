@@ -13,6 +13,24 @@
         };
     };
 
+    combos {
+        compatible = "zmk,combos";
+
+        combo_boot_left {
+            timeout-ms = <50>;
+            key-positions = <0 5>;
+            bindings = <&bootloader>;
+            layers = <0>;
+        };
+
+        combo_boot_right {
+            timeout-ms = <50>;
+            key-positions = <6 11>;
+            bindings = <&bootloader>;
+            layers = <0>;
+        };
+    };
+
     macros {
         m_sp_otd: m_sp_otd {
             compatible = "zmk,behavior-macro";
