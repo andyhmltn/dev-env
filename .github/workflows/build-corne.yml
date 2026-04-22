@@ -51,7 +51,7 @@ jobs:
       - name: Build firmware
         working-directory: zmk/app
         run: |
-          west build -b nice_nano_v2 -- \
+          west build -b nice_nano@2 -- \
             -DSHIELD="${{ matrix.shield }}" \
             -DZMK_CONFIG="${GITHUB_WORKSPACE}/config_repo/keyboard/new/config"
 
