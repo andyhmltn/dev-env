@@ -1,5 +1,5 @@
 -- Spectre
-vim.keymap.set('n', '<Leader>S', require("spectre").open, { noremap = false })
+vim.keymap.set('n', '<Leader>S', function() require("spectre").open() end, { noremap = false })
 
 -- Lazygit
 -- vim.keymap.set("n", "<leader>gg", ":!tmux new-window -c " .. vim.fn.getcwd() .. " -- lazygit <CR><CR>", { silent = true })

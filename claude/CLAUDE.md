@@ -13,6 +13,12 @@ YOU MUST ensure all prettier / tsc checks pass before a change is finished. When
 pnpm run check:lint && pnpm run check:tsc && pnpm run check:prettier
 ```
 
+When running `pnpm install` in genny, you must first export the required auth tokens:
+
+```
+export GITHUB_TOKEN=$(gh auth token); export TIPTAP_PRO_TOKEN=123
+```
+
 Do not use emdashes, ever
 
 Never use eslint-disable-line or eslint-disable-next-line. Fix the underlying issue instead (e.g. use refs to break dependency cycles in useEffect).
