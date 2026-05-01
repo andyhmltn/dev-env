@@ -2,5 +2,11 @@ command = /opt/homebrew/bin/fish
 shell-integration = fish
 font-family = "Menlo Bold"
 font-size = 18
-background-opacity = 0.9
 theme = Tokyo Night Moon
+
+macos-option-as-alt = true
+
+keybind = super+h=text:\x08
+keybind = super+j=text:\x0a
+keybind = super+k=text:\x0b
+keybind = super+l=text:\x0c
