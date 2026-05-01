@@ -8,7 +8,7 @@ if status is-interactive
 end
 
 alias zp 'nvim ~/.config/fish/config.fish; source ~/.config/fish/config.fish'
-alias n 'nvim $argv'
+alias n 'nvim'
 
 function c
     set -l dir (find ~/dev -mindepth 1 -maxdepth 1 -type d | fzf)
@@ -30,9 +30,7 @@ alias aws-login 'aws sso login --sso-session my-sso'
 alias gg 'lazygit'
 alias q 'tmux kill-pane'
 alias t 'tmux'
-alias p 'pnpm $argv'
-alias cf 'npx claude-flow@alpha $argv'
-alias cc 'claude'
+alias p 'pnpm'
 abbr :q 'tmux kill-pane'
 abbr ':q!' 'tmux kill-pane'
 alias scripts 'cat package.json | jq .scripts'
@@ -50,5 +48,7 @@ end
 # pnpm end
 
 export PATH="$HOME/.local/bin:$PATH"
+
 set -gx PATH $HOME/.cargo/bin $PATH
 fish_add_path /Users/andy/.bun/bin
+

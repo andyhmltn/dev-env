@@ -13,6 +13,12 @@ YOU MUST ensure all prettier / tsc checks pass before a change is finished. When
 pnpm run check:lint && pnpm run check:tsc && pnpm run check:prettier
 ```
 
+When running `pnpm install` in genny, you must first export the required auth tokens:
+
+```
+export GITHUB_TOKEN=$(gh auth token); export TIPTAP_PRO_TOKEN=123
+```
+
 Do not use emdashes, ever
 
 Never use eslint-disable-line or eslint-disable-next-line. Fix the underlying issue instead (e.g. use refs to break dependency cycles in useEffect).
@@ -59,7 +65,7 @@ Prefer these installed CLI tools over built-in equivalents when using Bash:
 
 - `rg` (ripgrep) instead of grep -- respects .gitignore, faster. Use `rg -l` to list matching files, `rg -c` for counts, `rg --json` for structured output
 - `fd` instead of find -- simpler syntax, respects .gitignore. Use `fd -e tsx` to find by extension, `fd -t f pattern` for files
-- `duckdb` for analyzing CSV/JSON/Parquet data with SQL instead of chaining awk/sed/jq
+- `duckdb` for analyzing CSV/JSON/Parquet data with SQL instead of chaining awk/sed/jq or database access & reading
 - `xh` instead of curl -- cleaner output, separates headers/status/body. Use `xh GET url` or `xh POST url key=value`
 - `semgrep` for static analysis and pattern matching across codebases. Use `semgrep --config auto .` or write custom rules
 - `just` as task runner -- check for a Justfile before writing ad-hoc shell commands

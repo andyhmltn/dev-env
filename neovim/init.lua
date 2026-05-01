@@ -1,6 +1,5 @@
 require('settings')
 
--- Lazy.nvim setup
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -13,32 +12,38 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.opt.cmdheight = 0
 
-require("lazy").setup("plugins")
+require("lazy").setup("plugins", {
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "gzip", "tarPlugin", "zipPlugin", "tohtml", "tutor", "netrwPlugin",
+      },
+    },
+  },
+})
 
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  callback = function()
+    require('plugins.custom.grep-in-folder')
+    require('plugins.custom.smart-paste-arg')
+    require('plugins.custom.wildcard-search')
+    require('plugins.custom.eslint').setup()
+    require('macros')
+  end,
+})
 
--- Custom settings
-require('plugins.setup')
-
-require('plugins.custom.grep-in-folder')
-require('plugins.custom.smart-paste-arg')
-require('plugins.custom.wildcard-search')
-require('plugins.custom.eslint').setup()
-
-require('macros')
-
--- Disable annoying popup about swap files
 vim.api.nvim_create_autocmd("SwapExists", {
   callback = function()
     vim.v.swapchoice = 'e'
   end,
 })
 
--- Vimwiki config
-vim.g.vimwiki_list = {{
+vim.g.vimwiki_list = { {
   path = '~/vimwiki/',
   syntax = 'markdown',
   ext = 'md',
-}}
+} }
 
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
@@ -46,20 +51,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
--- Colorscheme
-require("tokyonight").setup({
-  transparent = true,
-})
-vim.cmd.colorscheme "tokyonight-moon"
-
--- Font (GUI only)
 vim.o.guifont = "Iosevka Nerd Font:h12"
 
--- Suppress swap file messages
 vim.opt.shortmess = "TAF"
-
--- Prettier command with Coc
-vim.api.nvim_create_user_command("Prettier", function()
-  vim.fn["CocAction"]("runCommand", "prettier.formatFile")
-end, {})
-
