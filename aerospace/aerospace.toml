@@ -194,7 +194,7 @@ on-mode-changed = []
     alt-shift-y = 'move-node-to-workspace Y'
     alt-shift-z = 'move-node-to-workspace Z'
 
-    ctrl-alt-shift-t = 'exec-and-forget bash -c "WS=$(aerospace list-workspaces --all --empty | head -1) && [ -n \"$WS\" ] && aerospace move-node-to-workspace $WS && aerospace workspace $WS"'
+    ctrl-alt-shift-t = 'exec-and-forget WS=$(aerospace list-workspaces --monitor all --empty | head -1) && [ -n "$WS" ] && aerospace move-node-to-workspace $WS && aerospace workspace $WS'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'

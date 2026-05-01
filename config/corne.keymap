@@ -268,7 +268,7 @@
             bindings = <
 &trans  &trans  &trans  &trans  &trans  &kp LC(LA(LS(T)))          &kp N0    &kp N7  &kp N8  &kp N9  &kp EQUAL  &trans
 &trans  &trans  &trans  &trans  &trans  &mo 5           &kp HOME  &kp N4  &kp N5  &kp N6  &kp PLUS   &to 0
-&trans  &trans  &trans  &trans  &trans  &trans          &kp END   &kp N1  &kp N2  &kp N3  &kp MINUS  &to 0
+&trans  &trans  &trans  &trans  &trans  &mo 7           &kp END   &kp N1  &kp N2  &kp N3  &kp MINUS  &to 0
                         &trans  &trans  &trans          &trans  &kp N0  &trans
             >;
         };
@@ -297,6 +297,15 @@
 &trans  &trans  &trans  &trans  &trans  &trans          &bt BT_CLR    &bt BT_SEL 4  &trans      &trans      &bt BT_PRV  &trans
 &trans  &trans  &trans  &trans  &trans  &trans          &bt BT_CLR    &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_NXT  &trans
                         &trans  &trans  &trans                        &trans  &bt BT_SEL 0  &trans
+            >;
+        };
+
+        aero_move_layer {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans          &trans          &trans          &trans          &trans           &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans          &kp LA(LS(H))  &kp LA(LS(J))  &kp LA(LS(K))  &kp LA(LS(L))   &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans          &trans          &trans          &trans          &trans           &trans  &trans
+                        &trans  &trans  &trans          &trans  &trans  &trans
             >;
         };
     };
