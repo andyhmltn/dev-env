@@ -291,12 +291,12 @@
             >;
         };
 
-        aero_layer {
+        bt_layer {
             bindings = <
-&trans  &trans  &trans  &trans                 &trans                &trans          &trans         &trans         &trans         &trans         &trans  &trans
-&trans  &trans  &trans  &kp LA(LG(RS(SPACE)))  &kp LA(LG(LS(FSLH)))  &trans          &kp LA(LS(H))  &kp LA(LS(J))  &kp LA(LS(K))  &kp LA(LS(L))  &trans  &trans
-&trans  &trans  &trans  &trans                 &trans                &trans          &trans         &trans         &trans         &trans         &trans  &trans
-                        &trans  &trans  &trans                                       &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans          &bt BT_SEL 0  &trans        &trans      &trans      &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans          &bt BT_CLR    &bt BT_SEL 4  &trans      &trans      &bt BT_PRV  &trans
+&trans  &trans  &trans  &trans  &trans  &trans          &bt BT_CLR    &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_NXT  &trans
+                        &trans  &trans  &trans                        &trans  &bt BT_SEL 0  &trans
             >;
         };
     };
