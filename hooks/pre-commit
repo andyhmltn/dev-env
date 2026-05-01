@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+
+if git diff --cached --name-only | grep -q "config/corne.keymap\|keyboard/keymap-drawer.config.yaml"; then
+  echo "Keymap changed — regenerating keyboard SVG..."
+  "$REPO_ROOT/keyboard/draw.sh"
+  git add "$REPO_ROOT/keyboard/keymap.svg"
+fi
