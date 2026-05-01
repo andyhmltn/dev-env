@@ -15,9 +15,26 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 #include "peripheral_status.h"
 
-LV_IMG_DECLARE(noface);
+LV_IMG_DECLARE(noface_open);
+LV_IMG_DECLARE(noface_blink);
 
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
+static lv_obj_t *noface_art = NULL;
+static lv_timer_t *blink_timer = NULL;
+
+static void blink_end_cb(lv_timer_t *timer) {
+    if (noface_art) {
+        lv_img_set_src(noface_art, &noface_open);
+    }
+    lv_timer_del(timer);
+}
+
+static void blink_cb(lv_timer_t *timer) {
+    if (noface_art) {
+        lv_img_set_src(noface_art, &noface_blink);
+        lv_timer_create(blink_end_cb, 150, NULL);
+    }
+}
 
 struct peripheral_status_state {
     bool connected;
@@ -98,9 +115,11 @@ int zmk_widget_status_init(struct zmk_widget_status *widget, lv_obj_t *parent) {
     lv_obj_align(top, LV_ALIGN_TOP_RIGHT, 0, 0);
     lv_canvas_set_buffer(top, widget->cbuf, CANVAS_SIZE, CANVAS_SIZE, LV_IMG_CF_TRUE_COLOR);
 
-    lv_obj_t *art = lv_img_create(widget->obj);
-    lv_img_set_src(art, &noface);
-    lv_obj_align(art, LV_ALIGN_TOP_LEFT, 0, 0);
+    noface_art = lv_img_create(widget->obj);
+    lv_img_set_src(noface_art, &noface_open);
+    lv_obj_align(noface_art, LV_ALIGN_TOP_LEFT, 0, 0);
+
+    blink_timer = lv_timer_create(blink_cb, 4000, NULL);
 
     sys_slist_append(&widgets, &widget->node);
     widget_battery_status_init();
