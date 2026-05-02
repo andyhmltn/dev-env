@@ -39,6 +39,7 @@ pub enum ItemId {
     CorneFlash,
     KeyboardLayout,
     HomebrewSync,
+    Dashboard,
 }
 
 impl MenuItem {
@@ -113,6 +114,13 @@ impl MenuItem {
                 kind: ItemKind::Action,
                 status: SyncStatus::Synced,
                 id: ItemId::HomebrewSync,
+            },
+            MenuItem {
+                label: "System Dashboard",
+                description: "system metrics and services",
+                kind: ItemKind::Action,
+                status: SyncStatus::Synced,
+                id: ItemId::Dashboard,
             },
         ]
     }
@@ -233,7 +241,7 @@ fn symlink_pairs(id: ItemId, repo_root: &Path) -> Option<Vec<(PathBuf, PathBuf)>
             home.join(".aerospace.toml"),
             repo_root.join("aerospace/aerospace.toml"),
         )]),
-        ItemId::Homebrew | ItemId::CorneFlash | ItemId::KeyboardLayout | ItemId::HomebrewSync => {
+        ItemId::Homebrew | ItemId::CorneFlash | ItemId::KeyboardLayout | ItemId::HomebrewSync | ItemId::Dashboard => {
             None
         }
     }
@@ -296,12 +304,12 @@ mod tests {
     #[test]
     fn all_items_has_correct_structure() {
         let items = MenuItem::all();
-        assert_eq!(items.len(), 10);
+        assert_eq!(items.len(), 11);
 
         let sync_count = items.iter().filter(|i| i.kind == ItemKind::Sync).count();
         let action_count = items.iter().filter(|i| i.kind == ItemKind::Action).count();
         assert_eq!(sync_count, 7);
-        assert_eq!(action_count, 3);
+        assert_eq!(action_count, 4);
     }
 
     #[test]
@@ -418,6 +426,7 @@ mod tests {
         assert!(symlink_pairs(ItemId::CorneFlash, &root).is_none());
         assert!(symlink_pairs(ItemId::KeyboardLayout, &root).is_none());
         assert!(symlink_pairs(ItemId::HomebrewSync, &root).is_none());
+        assert!(symlink_pairs(ItemId::Dashboard, &root).is_none());
     }
 
     #[test]

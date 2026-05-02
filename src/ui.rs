@@ -41,6 +41,7 @@ fn render_header(f: &mut Frame, app: &App, area: Rect) {
         AppState::Running(idx) => format!(" Running: {} ", app.items[*idx].label),
         AppState::HomebrewSync(_) => " Homebrew Sync ".to_string(),
         AppState::KeyboardLayout(layer) => format!(" Keyboard: Layer {layer} "),
+        AppState::Dashboard => " System Dashboard ".to_string(),
         AppState::Error(_) => " Error ".to_string(),
     };
 
@@ -95,6 +96,9 @@ fn render_footer(f: &mut Frame, app: &App, area: Rect) {
         }
         AppState::KeyboardLayout(_) => {
             vec![("Tab", "next layer"), (":q", "back")]
+        }
+        AppState::Dashboard => {
+            vec![("Esc", "back"), (":q", "quit")]
         }
         AppState::Error(_) => {
             vec![("Esc", "back"), (":q", "quit")]
@@ -168,6 +172,7 @@ fn render_content(f: &mut Frame, app: &App, area: Rect) {
         AppState::Running(_) => render_running(f, app, area),
         AppState::HomebrewSync(sub) => render_brew_sync(f, app, area, sub),
         AppState::KeyboardLayout(layer) => render_keyboard_layout(f, app, area, *layer),
+        AppState::Dashboard => {}
         AppState::Error(msg) => render_error(f, area, msg),
     }
 }

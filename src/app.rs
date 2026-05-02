@@ -10,6 +10,7 @@ use crate::keymap;
 use crate::items::{self, ItemId, ItemKind, MenuItem, SyncStatus};
 use crate::keys::{Action, KeyHandler, KeyMode};
 use crate::runner::{self, RunnerMsg};
+use crate::system::{self, ClaudeStats, DashboardMetrics, MetricsMsg, SystemMetrics};
 
 #[derive(Debug)]
 pub enum BrewSyncState {
@@ -33,6 +34,7 @@ pub enum AppState {
     Running(usize),
     HomebrewSync(BrewSyncState),
     KeyboardLayout(usize),
+    Dashboard,
     Error(String),
 }
 
@@ -54,6 +56,12 @@ pub struct App {
     pub highlight_ticks: [u8; 42],
     pub git_banner: GitBanner,
     pub search_query: Option<String>,
+    pub system_metrics: Option<SystemMetrics>,
+    pub dashboard_metrics: Option<DashboardMetrics>,
+    pub claude_stats: Option<ClaudeStats>,
+    pub cpu_history: Vec<f64>,
+    metrics_rx: Option<mpsc::Receiver<MetricsMsg>>,
+    dashboard_rx: Option<mpsc::Receiver<MetricsMsg>>,
     git_check_rx: Option<mpsc::Receiver<GitCheckResult>>,
     git_pull_rx: Option<mpsc::Receiver<anyhow::Result<String>>>,
     status_receivers: Vec<(usize, mpsc::Receiver<SyncStatus>)>,
@@ -92,9 +100,16 @@ impl App {
             highlight_ticks: [0; 42],
             git_banner: GitBanner::Checking,
             search_query: None,
+            system_metrics: None,
+            dashboard_metrics: None,
+            claude_stats: None,
+            cpu_history: Vec::new(),
+            metrics_rx: None,
+            dashboard_rx: None,
         };
         app.start_git_check();
         app.start_status_checks();
+        app.metrics_rx = Some(system::start_system_collector());
         app
     }
 
@@ -342,6 +357,11 @@ impl App {
                         }
                     }
                 }
+                AppState::Dashboard => {
+                    self.dashboard_rx = None;
+                    self.dashboard_metrics = None;
+                    self.enter_main();
+                }
                 _ => {
                     self.enter_main();
                 }
@@ -402,6 +422,10 @@ impl App {
                         }
                         ItemId::HomebrewSync => {
                             self.start_brew_sync();
+                        }
+                        ItemId::Dashboard => {
+                            self.dashboard_rx = Some(system::start_dashboard_collector());
+                            self.state = AppState::Dashboard;
                         }
                         ItemId::CorneFlash => {}
                         _ => {
@@ -730,6 +754,37 @@ impl App {
             }
         }
 
+        if let Some(rx) = &self.metrics_rx {
+            loop {
+                match rx.try_recv() {
+                    Ok(MetricsMsg::System(m)) => {
+                        self.cpu_history.push(m.cpu_usage as f64);
+                        if self.cpu_history.len() > 40 {
+                            self.cpu_history.remove(0);
+                        }
+                        self.system_metrics = Some(m);
+                    }
+                    Ok(MetricsMsg::Claude(s)) => {
+                        self.claude_stats = Some(s);
+                    }
+                    Ok(MetricsMsg::Dashboard(_)) => {}
+                    Err(_) => break,
+                }
+            }
+        }
+
+        if let Some(rx) = &self.dashboard_rx {
+            loop {
+                match rx.try_recv() {
+                    Ok(MetricsMsg::Dashboard(m)) => {
+                        self.dashboard_metrics = Some(m);
+                    }
+                    Ok(_) => {}
+                    Err(_) => break,
+                }
+            }
+        }
+
         if let Some(rx) = self.brew_sync_rx.take() {
             match rx.try_recv() {
                 Ok(Ok(untracked)) => {
@@ -796,6 +851,12 @@ mod tests {
             highlight_ticks: [0; 42],
             git_banner: GitBanner::UpToDate,
             search_query: None,
+            system_metrics: None,
+            dashboard_metrics: None,
+            claude_stats: None,
+            cpu_history: Vec::new(),
+            metrics_rx: None,
+            dashboard_rx: None,
         };
         for item in &mut app.items {
             if item.kind == ItemKind::Sync {
@@ -814,7 +875,7 @@ mod tests {
     #[test]
     fn items_have_correct_count() {
         let app = test_app();
-        assert_eq!(app.items.len(), 10);
+        assert_eq!(app.items.len(), 11);
     }
 
     #[test]
