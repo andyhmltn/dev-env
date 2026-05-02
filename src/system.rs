@@ -25,8 +25,7 @@ pub struct DashboardMetrics {
     pub wifi_signal_dbm: Option<i32>,
     pub net_up_bytes_sec: u64,
     pub net_down_bytes_sec: u64,
-    pub disk_read_mb_sec: Option<f64>,
-    pub disk_write_mb_sec: Option<f64>,
+    pub disk_throughput_mb_sec: Option<f64>,
     pub listening_ports: Vec<PortInfo>,
     pub docker_running: usize,
     pub docker_stopped: usize,
@@ -177,19 +176,19 @@ pub fn parse_bluetooth_output(output: &str) -> Vec<BtDevice> {
     devices
 }
 
-pub fn parse_iostat_output(output: &str) -> (Option<f64>, Option<f64>) {
+pub fn parse_iostat_output(output: &str) -> Option<f64> {
     let lines: Vec<&str> = output.lines().collect();
     for line in lines.iter().rev() {
         let parts: Vec<&str> = line.split_whitespace().collect();
         if parts.len() >= 3 {
-            let read = parts[parts.len() - 2].parse::<f64>().ok();
-            let write = parts[parts.len() - 1].parse::<f64>().ok();
-            if read.is_some() && write.is_some() {
-                return (read, write);
+            if let Ok(mb_sec) = parts[parts.len() - 1].parse::<f64>() {
+                if parts[parts.len() - 2].parse::<f64>().is_ok() {
+                    return Some(mb_sec);
+                }
             }
         }
     }
-    (None, None)
+    None
 }
 
 pub fn format_uptime(secs: u64) -> String {
@@ -298,13 +297,12 @@ fn collect_bluetooth() -> Vec<BtDevice> {
         .unwrap_or_default()
 }
 
-fn collect_iostat() -> (Option<f64>, Option<f64>) {
+fn collect_iostat() -> Option<f64> {
     std::process::Command::new("iostat")
-        .args(["-d", "-c", "2", "-w", "1"])
+        .args(["-d", "-K", "-c", "2", "-w", "1"])
         .output()
         .ok()
-        .map(|out| parse_iostat_output(&String::from_utf8_lossy(&out.stdout)))
-        .unwrap_or((None, None))
+        .and_then(|out| parse_iostat_output(&String::from_utf8_lossy(&out.stdout)))
 }
 
 fn collect_brew_counts() -> (usize, usize) {
@@ -334,7 +332,9 @@ fn collect_brew_counts() -> (usize, usize) {
 }
 
 fn collect_claude_stats() -> ClaudeStats {
-    let home = std::env::var("HOME").unwrap_or_else(|_| "/Users/andy".to_string());
+    let Ok(home) = std::env::var("HOME") else {
+        return ClaudeStats { total_sessions: 0, today: 0, this_week: 0 };
+    };
     let projects_dir = PathBuf::from(home).join(".claude/projects");
 
     let mut total = 0usize;
@@ -411,11 +411,12 @@ pub fn start_system_collector() -> mpsc::Receiver<MetricsMsg> {
         sys.refresh_cpu_usage();
         thread::sleep(Duration::from_millis(500));
 
+        let mut disks = Disks::new_with_refreshed_list();
         loop {
             sys.refresh_cpu_usage();
             sys.refresh_memory();
+            disks.refresh(true);
 
-            let disks = Disks::new_with_refreshed_list();
             let (dt, da) = disks
                 .list()
                 .iter()
@@ -454,17 +455,36 @@ pub fn start_dashboard_collector() -> mpsc::Receiver<MetricsMsg> {
 
     thread::spawn(move || {
         let mut networks = Networks::new_with_refreshed_list();
+        let mut prev_down: u64 = 0;
+        let mut prev_up: u64 = 0;
+        let interval_secs: u64 = 5;
         thread::sleep(Duration::from_secs(1));
 
+        networks.refresh(true);
+        for (name, data) in networks.list() {
+            if name.starts_with("en") {
+                prev_down += data.total_received();
+                prev_up += data.total_transmitted();
+            }
+        }
+
         loop {
+            thread::sleep(Duration::from_secs(interval_secs));
             networks.refresh(true);
-            let (net_down, net_up) = networks
-                .list()
-                .iter()
-                .filter(|(name, _)| name.starts_with("en"))
-                .fold((0u64, 0u64), |(down, up), (_, data)| {
-                    (down + data.received(), up + data.transmitted())
-                });
+
+            let mut cur_down: u64 = 0;
+            let mut cur_up: u64 = 0;
+            for (name, data) in networks.list() {
+                if name.starts_with("en") {
+                    cur_down += data.total_received();
+                    cur_up += data.total_transmitted();
+                }
+            }
+
+            let net_down = (cur_down.saturating_sub(prev_down)) / interval_secs;
+            let net_up = (cur_up.saturating_sub(prev_up)) / interval_secs;
+            prev_down = cur_down;
+            prev_up = cur_up;
 
             let load = System::load_average();
 
@@ -479,7 +499,7 @@ pub fn start_dashboard_collector() -> mpsc::Receiver<MetricsMsg> {
                 .and_then(|c| c.temperature());
 
             let (wifi_ssid, wifi_signal) = collect_wifi();
-            let (disk_read, disk_write) = collect_iostat();
+            let disk_throughput = collect_iostat();
             let ports = collect_ports();
             let (docker_running, docker_stopped, docker_available) = collect_docker();
             let tmux_sessions = collect_tmux();
@@ -493,8 +513,7 @@ pub fn start_dashboard_collector() -> mpsc::Receiver<MetricsMsg> {
                 wifi_signal_dbm: wifi_signal,
                 net_up_bytes_sec: net_up,
                 net_down_bytes_sec: net_down,
-                disk_read_mb_sec: disk_read,
-                disk_write_mb_sec: disk_write,
+                disk_throughput_mb_sec: disk_throughput,
                 listening_ports: ports,
                 docker_running,
                 docker_stopped,
@@ -508,8 +527,6 @@ pub fn start_dashboard_collector() -> mpsc::Receiver<MetricsMsg> {
             if tx.send(MetricsMsg::Dashboard(metrics)).is_err() {
                 break;
             }
-
-            thread::sleep(Duration::from_secs(5));
         }
     });
 
@@ -684,5 +701,18 @@ ops: 1 windows (created Mon May  1 09:00:00 2026)";
     fn format_bytes_per_sec_scales() {
         assert_eq!(format_bytes_per_sec(500), "500 B/s");
         assert_eq!(format_bytes_per_sec(1_048_576), "1.0 MB/s");
+    }
+
+    #[test]
+    fn parse_iostat_basic() {
+        let output = "          disk0\n    KB/t  tps  MB/s\n   64.00   12  0.75\n";
+        let throughput = parse_iostat_output(output);
+        assert_eq!(throughput, Some(0.75));
+    }
+
+    #[test]
+    fn parse_iostat_empty() {
+        let throughput = parse_iostat_output("");
+        assert_eq!(throughput, None);
     }
 }
