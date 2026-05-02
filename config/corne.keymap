@@ -12,6 +12,15 @@
             flavor = "hold-preferred";
             bindings = <&mo>, <&kp>;
         };
+
+        lt_homerow: lt_homerow {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            require-prior-idle-ms = <150>;
+            flavor = "balanced";
+            bindings = <&mo>, <&kp>;
+        };
     };
 
     combos {
@@ -240,7 +249,7 @@
         default_layer {
             bindings = <
 &mt LALT TAB  &kp Q  &kp W  &kp E  &kp R  &kp T           &kp Y  &kp U  &kp I            &kp O           &kp P      &kp UNDER
-&lt_enter 3 ESC     &kp A  &kp S  &kp D  &lt_enter 3 F  &kp G           &kp H  &kp J  &kp K            &kp L           &kp DOT    &kp SQT
+&lt_enter 3 ESC     &kp A  &kp S  &kp D  &lt_homerow 3 F  &kp G           &kp H  &kp J  &kp K            &kp L           &kp DOT    &kp SQT
 &caps_word    &kp Z  &kp X  &kp C  &kp V  &kp B           &kp N  &kp M  &mt LCTRL COMMA  &mt LGUI EXCL   &kp MINUS  &kp COLON
                         &kp LSHFT  &kp BSPC  &mo 1         &lt_enter 2 RET  &kp SPACE  &kp LGUI
             >;
