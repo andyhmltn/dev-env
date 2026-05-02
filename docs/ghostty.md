@@ -10,8 +10,7 @@ Ghostty is a fast, GPU-accelerated terminal emulator.
 | Shell integration | Fish |
 | Font | Menlo Bold |
 | Font size | 18 |
-| Background opacity | 0.9 (90%) |
-| Theme | Catppuccin Mocha |
+| Theme | Tokyo Night Moon |
 
 ## Installation
 
@@ -25,15 +24,7 @@ Setup script symlinks it to `~/.config/ghostty/config`.
 
 ## Theme
 
-Uses [Catppuccin Mocha](https://github.com/catppuccin/ghostty), a warm dark theme that matches the Neovim color scheme.
-
-To install the theme manually:
-1. Visit [catppuccin/ghostty](https://github.com/catppuccin/ghostty)
-2. Follow installation instructions
-
-## Transparency
-
-Background opacity is set to 0.9, providing slight transparency. This works well with the transparent Catppuccin theme in Neovim.
+Uses [Tokyo Night Moon](https://github.com/folke/tokyonight.nvim), a clean dark theme.
 
 ## Font
 

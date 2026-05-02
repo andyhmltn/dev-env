@@ -19,17 +19,14 @@ cd ~/dev/dev-env
 ## What the Setup Script Does
 
 1. **Installs Homebrew packages** (`homebrew/install.sh`)
-   - Formulae: fish, fisher, neovim, tmux, fzf, ripgrep, zoxide, lazygit, go, nvm, pnpm
-   - Casks: claude-code
+   - Formulae: fish, fisher, fzf, go, lazygit, neovim, nvm, pnpm, ripgrep, tmux, zoxide, biome, duckdb, fd, fnm, gh, lua-language-server, tailwindcss-language-server, tree, uv, xh, postgresql@16, prettierd, wget, xcodegen, ffmpeg, git-filter-repo, lftp, libpq, poppler
+   - Casks: claude-code, aerospace
 
 2. **Symlinks configurations** (each tool's `setup.sh`)
    - `~/.config/nvim` -> `neovim/`
    - `~/.config/fish/config.fish` -> `fish/config.fish`
    - `~/.tmux.conf` -> `tmux/.tmux.conf`
-   - `~/.config/ghostty/config` -> `ghostty/config`
    - `~/.claude/CLAUDE.md` -> `claude/CLAUDE.md`
-
-3. **Creates backups** of existing configs in `backups/`
 
 ## Post-Install Steps
 
@@ -49,7 +46,7 @@ fisher update
 ### 3. Install Node.js
 
 ```bash
-nvm install 20
+fnm install 20
 ```
 
 ### 4. Install Tmux Plugin Manager
@@ -90,7 +87,7 @@ Install: gopls, lua_ls, prettierd
 ### Ghostty Terminal
 
 1. Download from [ghostty.org](https://ghostty.org)
-2. The config is already symlinked by setup.sh
+2. Run `./ghostty/setup.sh` to symlink the config
 
 ### Aerospace Window Manager
 

@@ -5,9 +5,7 @@
 ## Quick Start
 
 ```bash
-git clone <repo-url> ~/dev/dev-env
-cd ~/dev/dev-env
-./setup.sh
+./os
 ```
 
 ## What It Does
@@ -25,6 +23,9 @@ cd ~/dev/dev-env
 ```
 dev-env/
 ├── setup.sh                      # Main setup script
+├── os                            # TUI launcher (builds + runs Rust binary)
+├── src/                          # Rust source for the os TUI (ratatui)
+├── Cargo.toml
 ├── homebrew/
 │   ├── install.sh                # Installs missing formulae and casks
 │   └── sync.sh                   # Syncs installed packages back to install.sh
@@ -42,31 +43,35 @@ dev-env/
 │   ├── config.fish
 │   ├── fish_plugins
 │   ├── fish_variables
-│   ├── functions/
-│   └── themes/
+│   └── functions/
 ├── ghostty/
 │   ├── setup.sh                  # Symlinks ghostty config (run manually)
 │   └── config
+├── aerospace/
+│   └── aerospace.toml            # Aerospace window manager config
 ├── zsh/
 │   ├── setup.sh
 │   └── .zprofile
 ├── claude/
 │   ├── setup.sh                  # Symlinks Claude Code config
 │   ├── CLAUDE.md
-│   ├── .claude.json
 │   ├── commands/
 │   └── skills/
 ├── config/                       # ZMK Corne config (must live at repo root)
+│   ├── boards/                   # Custom board/shield definitions
 │   ├── corne.keymap
 │   ├── corne.conf
 │   └── west.yml
 ├── keyboard/
 │   ├── README.md                 # Corne firmware + keymap docs
 │   ├── build.yaml                # ZMK build matrix
+│   ├── corne-flash/              # Rust flash utility
 │   ├── draw.sh                   # Regenerates keymap.svg
 │   ├── keymap-drawer.config.yaml
 │   ├── keymap.svg
 │   └── old/                      # Archived Voyager/QMK source
+├── hooks/
+│   └── pre-commit                # Regenerates keymap SVG + TUI screenshot
 └── docs/                         # Per-tool documentation
 ```
 
@@ -74,16 +79,16 @@ See [docs/](./docs/index.md) for per-tool guides and [keyboard/README.md](./keyb
 
 ## Homebrew Packages
 
-**Formulae:** fish, fisher, fzf, go, lazygit, neovim, nvm, pnpm, ripgrep, tmux, zoxide, biome, duckdb, fd, fnm, gh, lua-language-server, tailwindcss-language-server, tree, uv, xh
+**Formulae:** fish, fisher, fzf, go, lazygit, neovim, nvm, pnpm, ripgrep, tmux, zoxide, biome, duckdb, fd, fnm, gh, lua-language-server, tailwindcss-language-server, tree, uv, xh, postgresql@16, prettierd, wget, xcodegen, ffmpeg, git-filter-repo, lftp, libpq, poppler
 
-**Casks:** claude-code
+**Casks:** claude-code, aerospace
 
 Source of truth: [homebrew/install.sh](./homebrew/install.sh).
 
 ## Post-Install
 
 - `fisher update` to install fish plugins
-- `nvm install <version>` to install Node.js
+- `fnm install <version>` to install Node.js
 - `chsh -s /opt/homebrew/bin/fish` to set fish as default shell
 
 ## Manual Setup

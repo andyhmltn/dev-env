@@ -1,4 +1,4 @@
-Output docs/os-screenshot.png
+Output docs/os-screenshot.gif
 Set Width 800
 Set Height 500
 Set FontSize 14

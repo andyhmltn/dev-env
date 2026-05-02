@@ -7,7 +7,7 @@ Fish is the primary shell for this environment. It auto-starts tmux on login and
 - Auto-starts tmux in a session named "main"
 - Zoxide integration for smart directory navigation
 - FZF-powered project selection
-- Node.js version management via nvm
+- Node.js version management via fnm
 - pnpm package manager support
 
 ## Aliases
@@ -23,7 +23,9 @@ Fish is the primary shell for this environment. It auto-starts tmux on login and
 | `cd` | `z` (zoxide) | Smart directory navigation |
 | `scripts` | `cat package.json \| jq .scripts` | Show npm scripts |
 | `aws-login` | `aws sso login --sso-session my-sso` | AWS SSO login |
-| `cf` | `npx claude-flow@alpha` | Run Claude Flow |
+| `cf` | `sudo $HOME/.cargo/bin/corne-flash` | Flash Corne keyboard |
+| `os` | `$HOME/dev/dev-env/os` | Launch dev-env TUI |
+| `build-raw` | `xcodebuild -scheme ...` | Xcode release build |
 
 ## Functions
 
@@ -57,10 +59,8 @@ These allow vim-style quitting of tmux panes.
 Managed via Fisher. Listed in `fish_plugins`:
 
 - `jorgebucaran/fisher` - Plugin manager
-- `PatrickF1/fzf.fish` - FZF integration
-- `jomik/fish-gruvbox` - Gruvbox theme
-- `lf-icons` - File icons for lf
-- `jorgebucaran/nvm.fish` - Node version manager
+- `patrickf1/fzf.fish` - FZF integration
+- `joshmedeski/fish-lf-icons` - File icons for lf
 
 Install plugins:
 ```bash
@@ -71,9 +71,7 @@ fisher update
 
 | Variable | Value |
 |----------|-------|
-| `NVM_DIR` | `$HOME/.nvm` |
 | `PNPM_HOME` | `/Users/andy/Library/pnpm` |
-| `nvm_default_version` | `20` |
 
 ## Tmux Auto-Start
 
