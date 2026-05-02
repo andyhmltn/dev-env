@@ -7,12 +7,10 @@ A macOS development environment configuration with Fish shell, Neovim, Tmux, and
 ```bash
 git clone <repo-url> ~/dev/dev-env
 cd ~/dev/dev-env
-./setup.sh
+./os
 ```
 
-The setup script will:
-1. Install missing Homebrew packages
-2. Symlink all configurations to your home directory
+The TUI will show sync status for each tool and let you install/symlink interactively.
 
 ## Documentation
 
@@ -28,7 +26,6 @@ The setup script will:
 
 ```
 dev-env/
-├── setup.sh              # Main orchestration script
 ├── os                    # TUI launcher (builds + runs Rust binary)
 ├── src/                  # Rust source for the os TUI (ratatui)
 ├── Cargo.toml
@@ -36,13 +33,11 @@ dev-env/
 │   ├── install.sh        # Homebrew package installer
 │   └── sync.sh           # Syncs installed packages back to install.sh
 ├── fish/
-│   ├── setup.sh          # Symlinks fish config
 │   ├── config.fish       # Shell configuration
 │   ├── fish_plugins      # Plugin list
 │   ├── fish_variables    # Shell variables
 │   └── functions/        # Custom fish functions
 ├── neovim/
-│   ├── setup.sh          # Symlinks nvim config
 │   ├── init.lua          # Entry point
 │   ├── lua/
 │   │   ├── settings.lua  # Editor settings
@@ -50,21 +45,17 @@ dev-env/
 │   │   └── macros/       # Keyboard shortcuts
 │   └── snippets/         # Code snippets
 ├── tmux/
-│   ├── setup.sh          # Symlinks tmux config
 │   ├── .tmux.conf        # Tmux configuration
 │   └── tmux-cd.sh        # Tmux directory helper
 ├── ghostty/
-│   ├── setup.sh          # Symlinks ghostty config (manual)
-│   └── config            # Terminal settings
+│   ��── config            # Terminal settings
 ├── aerospace/
 │   └── aerospace.toml    # Window manager config
 ├── claude/
-│   ├── setup.sh          # Symlinks Claude Code config
 │   ├── CLAUDE.md         # Claude Code settings
 │   ├── commands/         # Custom slash commands
 │   └── skills/           # Superpowers skills
 ├── zsh/
-│   ├── setup.sh
 │   └── .zprofile         # Zsh fallback config
 ├── config/               # ZMK Corne keyboard config
 ├── keyboard/             # Corne firmware, keymap, flash utility
@@ -98,7 +89,7 @@ Source of truth: [homebrew/install.sh](../homebrew/install.sh).
 
 ## Post-Install Steps
 
-After running `setup.sh`:
+After running `./os`:
 
 1. Install Fish plugins: `fisher update`
 2. Install Node.js: `fnm install 20`
@@ -107,7 +98,5 @@ After running `setup.sh`:
 
 ## Manual Setup
 
-These tools are not automated by `setup.sh`:
-- Ghostty: run `./ghostty/setup.sh` to symlink the config
 - [Aerospace](https://github.com/nikitabobko/AeroSpace) window manager
 - [Homerow](https://www.homerow.app) keyboard navigation (cmd+shift+/)

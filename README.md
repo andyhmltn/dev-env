@@ -10,19 +10,18 @@
 
 ## What It Does
 
-`setup.sh` runs, in order:
+The `./os` TUI manages the full dev environment setup:
 
-1. `homebrew/install.sh` (installs any missing formulae and casks)
-2. `neovim/setup.sh` (symlinks nvim config)
-3. `tmux/setup.sh` (symlinks tmux config)
-4. `fish/setup.sh` (symlinks fish config)
-5. `claude/setup.sh` (symlinks Claude Code config)
+- Installs Homebrew packages
+- Symlinks all configs (Neovim, Tmux, Fish, Claude, Ghostty, Aerospace)
+- Shows sync status for each tool
+- Flashes Corne keyboard firmware
+- Interactive keyboard layout viewer
 
 ## Structure
 
 ```
 dev-env/
-├── setup.sh                      # Main setup script
 ├── os                            # TUI launcher (builds + runs Rust binary)
 ├── src/                          # Rust source for the os TUI (ratatui)
 ├── Cargo.toml
@@ -30,30 +29,24 @@ dev-env/
 │   ├── install.sh                # Installs missing formulae and casks
 │   └── sync.sh                   # Syncs installed packages back to install.sh
 ├── neovim/
-│   ├── setup.sh                  # Symlinks nvim config
 │   ├── init.lua
 │   ├── lua/
 │   └── snippets/
 ├── tmux/
-│   ├── setup.sh                  # Symlinks tmux config
 │   ├── .tmux.conf
 │   └── tmux-cd.sh
 ├── fish/
-│   ├── setup.sh                  # Symlinks fish config
 │   ├── config.fish
 │   ├── fish_plugins
 │   ├── fish_variables
 │   └── functions/
 ├── ghostty/
-│   ├── setup.sh                  # Symlinks ghostty config (run manually)
 │   └── config
 ├── aerospace/
 │   └── aerospace.toml            # Aerospace window manager config
 ├── zsh/
-│   ├── setup.sh
 │   └── .zprofile
 ├── claude/
-│   ├── setup.sh                  # Symlinks Claude Code config
 │   ├── CLAUDE.md
 │   ├── commands/
 │   └── skills/
@@ -93,6 +86,5 @@ Source of truth: [homebrew/install.sh](./homebrew/install.sh).
 
 ## Manual Setup
 
-- Ghostty: run `./ghostty/setup.sh` to symlink the config
 - [Aerospace](https://github.com/nikitabobko/AeroSpace) window manager
 - [Homerow](https://www.homerow.app) (bind search to cmd+shift+/)

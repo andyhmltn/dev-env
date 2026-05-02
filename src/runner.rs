@@ -11,6 +11,18 @@ pub enum RunnerMsg {
     Done(Result<()>),
 }
 
+pub fn spawn_native<F>(f: F) -> mpsc::Receiver<RunnerMsg>
+where
+    F: FnOnce(&mpsc::Sender<RunnerMsg>) -> Result<()> + Send + 'static,
+{
+    let (tx, rx) = mpsc::channel();
+    thread::spawn(move || {
+        let result = f(&tx);
+        let _ = tx.send(RunnerMsg::Done(result));
+    });
+    rx
+}
+
 pub fn spawn_script(command: &str, repo_root: &Path) -> mpsc::Receiver<RunnerMsg> {
     let (tx, rx) = mpsc::channel();
     let command = command.to_string();

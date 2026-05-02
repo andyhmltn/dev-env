@@ -13,20 +13,24 @@ Complete setup instructions for a fresh macOS installation.
 ```bash
 git clone git@github.com:andyhmltn/dev-env.git ~/dev/dev-env
 cd ~/dev/dev-env
-./setup.sh
+./os
 ```
 
-## What the Setup Script Does
+## What It Does
+
+The `./os` TUI provides an interactive setup tool that:
 
 1. **Installs Homebrew packages** (`homebrew/install.sh`)
    - Formulae: fish, fisher, fzf, go, lazygit, neovim, nvm, pnpm, ripgrep, tmux, zoxide, biome, duckdb, fd, fnm, gh, lua-language-server, tailwindcss-language-server, tree, uv, xh, postgresql@16, prettierd, wget, xcodegen, ffmpeg, git-filter-repo, lftp, libpq, poppler
    - Casks: claude-code, aerospace
 
-2. **Symlinks configurations** (each tool's `setup.sh`)
+2. **Symlinks configurations** (select each tool in the TUI)
    - `~/.config/nvim` -> `neovim/`
    - `~/.config/fish/config.fish` -> `fish/config.fish`
    - `~/.tmux.conf` -> `tmux/.tmux.conf`
    - `~/.claude/CLAUDE.md` -> `claude/CLAUDE.md`
+   - `~/.config/ghostty/config` -> `ghostty/config`
+   - `~/.aerospace.toml` -> `aerospace/aerospace.toml`
 
 ## Post-Install Steps
 
@@ -62,7 +66,6 @@ Then in tmux, press `prefix + I` to install plugins.
 ```bash
 git clone https://github.com/arcticicestudio/nord-tmux.git ~/.tmux/themes/nord
 mkdir -p ~/.tmux-themepack
-# Download basic.tmuxtheme from jimeh/tmux-themepack
 ```
 
 ### 6. Install Neovim Plugins
@@ -83,11 +86,6 @@ Inside Neovim:
 Install: gopls, lua_ls, prettierd
 
 ## Manual Application Setup
-
-### Ghostty Terminal
-
-1. Download from [ghostty.org](https://ghostty.org)
-2. Run `./ghostty/setup.sh` to symlink the config
 
 ### Aerospace Window Manager
 
@@ -135,18 +133,19 @@ Run `:Lazy sync` inside Neovim.
     └── config      -> ~/dev/dev-env/ghostty/config
 
 ~/.tmux.conf        -> ~/dev/dev-env/tmux/.tmux.conf
+~/.aerospace.toml   -> ~/dev/dev-env/aerospace/aerospace.toml
 ~/.claude/
 └── CLAUDE.md       -> ~/dev/dev-env/claude/CLAUDE.md
 ```
 
 ## Updating
 
-Pull the latest changes and re-run setup:
+Pull the latest changes and re-run the TUI:
 
 ```bash
 cd ~/dev/dev-env
 git pull
-./setup.sh
+./os
 ```
 
-The setup script is idempotent. It will skip already-installed packages and update symlinks.
+The setup is idempotent. It will skip already-installed packages and update symlinks.

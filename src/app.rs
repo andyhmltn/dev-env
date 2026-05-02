@@ -174,12 +174,23 @@ impl App {
 
     fn start_running(&mut self, idx: usize) {
         let item = &self.items[idx];
-        if let Some(cmd) = items::setup_command(item.id, &self.repo_root) {
-            self.command_output.clear();
-            self.scroll_offset = 0;
+        self.command_output.clear();
+        self.scroll_offset = 0;
+
+        if item.id == ItemId::Homebrew {
+            let cmd = format!(
+                "bash {}",
+                self.repo_root.join("homebrew/install.sh").display()
+            );
             self.runner_rx = Some(runner::spawn_script(&cmd, &self.repo_root));
-            self.state = AppState::Running(idx);
+        } else {
+            let id = item.id;
+            let repo_root = self.repo_root.clone();
+            self.runner_rx = Some(runner::spawn_native(move |tx| {
+                items::setup_item(id, &repo_root, tx)
+            }));
         }
+        self.state = AppState::Running(idx);
     }
 
     fn start_brew_sync(&mut self) {

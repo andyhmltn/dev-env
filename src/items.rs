@@ -1,4 +1,8 @@
+use std::os::unix::fs::symlink;
 use std::path::{Path, PathBuf};
+use std::sync::mpsc;
+
+use crate::runner::RunnerMsg;
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum SyncStatus {
@@ -136,28 +140,22 @@ fn check_all_symlinks(pairs: &[(PathBuf, PathBuf)]) -> SyncStatus {
     }
 }
 
-pub fn check_item_status(id: ItemId, repo_root: &Path) -> SyncStatus {
+fn symlink_pairs(id: ItemId, repo_root: &Path) -> Option<Vec<(PathBuf, PathBuf)>> {
+    let home = dirs_home();
     match id {
         ItemId::Neovim => {
-            let home = dirs_home();
             let nvim_dir = home.join(".config/nvim");
-            let pairs = vec![
+            Some(vec![
                 (nvim_dir.join("init.lua"), repo_root.join("neovim/init.lua")),
                 (nvim_dir.join("lua"), repo_root.join("neovim/lua")),
                 (nvim_dir.join("snippets"), repo_root.join("neovim/snippets")),
-            ];
-            check_all_symlinks(&pairs)
+            ])
         }
-        ItemId::Tmux => {
-            let home = dirs_home();
-            let pairs = vec![(
-                home.join(".tmux.conf"),
-                repo_root.join("tmux/.tmux.conf"),
-            )];
-            check_all_symlinks(&pairs)
-        }
+        ItemId::Tmux => Some(vec![(
+            home.join(".tmux.conf"),
+            repo_root.join("tmux/.tmux.conf"),
+        )]),
         ItemId::Fish => {
-            let home = dirs_home();
             let fish_dir = home.join(".config/fish");
             let mut pairs = vec![
                 (
@@ -185,10 +183,9 @@ pub fn check_item_status(id: ItemId, repo_root: &Path) -> SyncStatus {
             if repo_root.join("fish/themes").exists() {
                 pairs.push((fish_dir.join("themes"), repo_root.join("fish/themes")));
             }
-            check_all_symlinks(&pairs)
+            Some(pairs)
         }
         ItemId::Claude => {
-            let home = dirs_home();
             let claude_dir = home.join(".claude");
             let mut pairs = vec![(
                 claude_dir.join("CLAUDE.md"),
@@ -226,42 +223,63 @@ pub fn check_item_status(id: ItemId, repo_root: &Path) -> SyncStatus {
                 }
             }
 
-            check_all_symlinks(&pairs)
+            Some(pairs)
         }
-        ItemId::Ghostty => {
-            let home = dirs_home();
-            let pairs = vec![(
-                home.join(".config/ghostty/config"),
-                repo_root.join("ghostty/config"),
-            )];
-            check_all_symlinks(&pairs)
-        }
-        ItemId::Aerospace => {
-            let home = dirs_home();
-            let pairs = vec![(
-                home.join(".aerospace.toml"),
-                repo_root.join("aerospace/aerospace.toml"),
-            )];
-            check_all_symlinks(&pairs)
-        }
+        ItemId::Ghostty => Some(vec![(
+            home.join(".config/ghostty/config"),
+            repo_root.join("ghostty/config"),
+        )]),
+        ItemId::Aerospace => Some(vec![(
+            home.join(".aerospace.toml"),
+            repo_root.join("aerospace/aerospace.toml"),
+        )]),
         ItemId::Homebrew | ItemId::CorneFlash | ItemId::KeyboardLayout | ItemId::HomebrewSync => {
-            SyncStatus::Synced
+            None
         }
     }
 }
 
-pub fn setup_command(id: ItemId, repo_root: &Path) -> Option<String> {
-    let script = match id {
-        ItemId::Homebrew => "homebrew/install.sh",
-        ItemId::Neovim => "neovim/setup.sh",
-        ItemId::Tmux => "tmux/setup.sh",
-        ItemId::Fish => "fish/setup.sh",
-        ItemId::Claude => "claude/setup.sh",
-        ItemId::Ghostty => "ghostty/setup.sh",
-        ItemId::Aerospace => return None,
-        ItemId::CorneFlash | ItemId::KeyboardLayout | ItemId::HomebrewSync => return None,
-    };
-    Some(format!("bash {}", repo_root.join(script).display()))
+pub fn check_item_status(id: ItemId, repo_root: &Path) -> SyncStatus {
+    match symlink_pairs(id, repo_root) {
+        Some(pairs) => check_all_symlinks(&pairs),
+        None => SyncStatus::Synced,
+    }
+}
+
+pub fn setup_item(
+    id: ItemId,
+    repo_root: &Path,
+    tx: &mpsc::Sender<RunnerMsg>,
+) -> anyhow::Result<()> {
+    let pairs = symlink_pairs(id, repo_root)
+        .ok_or_else(|| anyhow::anyhow!("no setup available for {:?}", id))?;
+
+    for (link, target) in &pairs {
+        if let Ok(meta) = link.symlink_metadata() {
+            if meta.is_dir() {
+                std::fs::remove_dir_all(link)?;
+            } else {
+                std::fs::remove_file(link)?;
+            }
+            let _ = tx.send(RunnerMsg::Line(format!("Removed {}", link.display())));
+        }
+
+        if let Some(parent) = link.parent() {
+            if !parent.exists() {
+                std::fs::create_dir_all(parent)?;
+                let _ = tx.send(RunnerMsg::Line(format!("Created {}", parent.display())));
+            }
+        }
+
+        symlink(target, link)?;
+        let _ = tx.send(RunnerMsg::Line(format!(
+            "Symlinked {} -> {}",
+            link.display(),
+            target.display()
+        )));
+    }
+
+    Ok(())
 }
 
 fn dirs_home() -> PathBuf {
@@ -383,35 +401,46 @@ mod tests {
     }
 
     #[test]
-    fn setup_command_returns_correct_scripts() {
+    fn symlink_pairs_returns_some_for_sync_items() {
         let root = PathBuf::from("/repo");
-        assert!(setup_command(ItemId::Neovim, &root)
-            .unwrap()
-            .contains("neovim/setup.sh"));
-        assert!(setup_command(ItemId::Tmux, &root)
-            .unwrap()
-            .contains("tmux/setup.sh"));
-        assert!(setup_command(ItemId::Fish, &root)
-            .unwrap()
-            .contains("fish/setup.sh"));
-        assert!(setup_command(ItemId::Claude, &root)
-            .unwrap()
-            .contains("claude/setup.sh"));
-        assert!(setup_command(ItemId::Ghostty, &root)
-            .unwrap()
-            .contains("ghostty/setup.sh"));
-        assert!(setup_command(ItemId::Homebrew, &root)
-            .unwrap()
-            .contains("homebrew/install.sh"));
+        assert!(symlink_pairs(ItemId::Neovim, &root).is_some());
+        assert!(symlink_pairs(ItemId::Tmux, &root).is_some());
+        assert!(symlink_pairs(ItemId::Fish, &root).is_some());
+        assert!(symlink_pairs(ItemId::Claude, &root).is_some());
+        assert!(symlink_pairs(ItemId::Ghostty, &root).is_some());
+        assert!(symlink_pairs(ItemId::Aerospace, &root).is_some());
     }
 
     #[test]
-    fn setup_command_returns_none_for_actions() {
+    fn symlink_pairs_returns_none_for_non_symlink_items() {
         let root = PathBuf::from("/repo");
-        assert!(setup_command(ItemId::CorneFlash, &root).is_none());
-        assert!(setup_command(ItemId::KeyboardLayout, &root).is_none());
-        assert!(setup_command(ItemId::HomebrewSync, &root).is_none());
-        assert!(setup_command(ItemId::Aerospace, &root).is_none());
+        assert!(symlink_pairs(ItemId::Homebrew, &root).is_none());
+        assert!(symlink_pairs(ItemId::CorneFlash, &root).is_none());
+        assert!(symlink_pairs(ItemId::KeyboardLayout, &root).is_none());
+        assert!(symlink_pairs(ItemId::HomebrewSync, &root).is_none());
+    }
+
+    #[test]
+    fn setup_item_creates_symlinks() {
+        let dir = std::env::temp_dir().join("os_test_setup_item");
+        let _ = std::fs::remove_dir_all(&dir);
+
+        let repo = dir.join("repo");
+        let home = dir.join("home");
+        std::fs::create_dir_all(repo.join("ghostty")).unwrap();
+        std::fs::write(repo.join("ghostty/config"), "test").unwrap();
+        std::fs::create_dir_all(home.join(".config/ghostty")).unwrap();
+
+        let (tx, rx) = std::sync::mpsc::channel();
+        unsafe { std::env::set_var("HOME", home.to_str().unwrap()) };
+        let result = setup_item(ItemId::Ghostty, &repo, &tx);
+        unsafe { std::env::remove_var("HOME") };
+
+        assert!(result.is_ok());
+        let messages: Vec<_> = rx.try_iter().collect();
+        assert!(!messages.is_empty());
+
+        let _ = std::fs::remove_dir_all(&dir);
     }
 
     #[test]
