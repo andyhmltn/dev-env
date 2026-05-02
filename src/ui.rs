@@ -6,6 +6,7 @@ use crate::banner;
 use crate::homebrew::PkgKind;
 use crate::items::{ItemKind, SyncStatus};
 use crate::keys::KeyMode;
+use crate::system;
 
 const SPINNER: &[char] = &[
     '\u{280B}', '\u{2819}', '\u{2839}', '\u{2838}', '\u{283C}', '\u{2834}', '\u{2826}',
@@ -172,7 +173,7 @@ fn render_content(f: &mut Frame, app: &App, area: Rect) {
         AppState::Running(_) => render_running(f, app, area),
         AppState::HomebrewSync(sub) => render_brew_sync(f, app, area, sub),
         AppState::KeyboardLayout(layer) => render_keyboard_layout(f, app, area, *layer),
-        AppState::Dashboard => {}
+        AppState::Dashboard => render_dashboard(f, app, area),
         AppState::Error(msg) => render_error(f, area, msg),
     }
 }
@@ -188,6 +189,23 @@ fn vertical_center(area: Rect, content_height: u16) -> Rect {
 }
 
 fn render_main(f: &mut Frame, app: &App, area: Rect) {
+    let show_panel = area.width >= 70;
+
+    if show_panel {
+        let chunks = Layout::horizontal([
+            Constraint::Min(35),
+            Constraint::Length(30),
+        ])
+        .split(area);
+
+        render_menu_list(f, app, chunks[0]);
+        render_compact_panel(f, app, chunks[1]);
+    } else {
+        render_menu_list(f, app, area);
+    }
+}
+
+fn render_menu_list(f: &mut Frame, app: &App, area: Rect) {
     let mut lines: Vec<Line> = Vec::new();
 
     for line in banner::BANNER.lines() {
@@ -276,6 +294,108 @@ fn render_main(f: &mut Frame, app: &App, area: Rect) {
 
     let paragraph = Paragraph::new(lines);
     f.render_widget(paragraph, area);
+}
+
+fn render_compact_panel(f: &mut Frame, app: &App, area: Rect) {
+    let block = Block::default()
+        .borders(Borders::LEFT)
+        .border_style(Style::default().fg(Color::DarkGray));
+    let inner = block.inner(area);
+    f.render_widget(block, area);
+
+    let mut lines: Vec<Line> = Vec::new();
+
+    lines.push(Line::from(""));
+    lines.push(section_header("System"));
+    lines.push(section_separator(22));
+
+    if let Some(m) = &app.system_metrics {
+        lines.push(gauge_line("CPU", m.cpu_usage, None));
+
+        let mem_pct = if m.mem_total_bytes > 0 {
+            (m.mem_used_bytes as f32 / m.mem_total_bytes as f32) * 100.0
+        } else {
+            0.0
+        };
+        lines.push(gauge_line("MEM", mem_pct, None));
+
+        let disk_pct = if m.disk_total_bytes > 0 {
+            (m.disk_used_bytes as f32 / m.disk_total_bytes as f32) * 100.0
+        } else {
+            0.0
+        };
+        lines.push(gauge_line("DSK", disk_pct, None));
+
+        let swap_pct = if m.swap_total_bytes > 0 {
+            (m.swap_used_bytes as f32 / m.swap_total_bytes as f32) * 100.0
+        } else {
+            0.0
+        };
+        lines.push(gauge_line("SWP", swap_pct, None));
+
+        lines.push(Line::from(""));
+
+        if !app.cpu_history.is_empty() {
+            lines.push(cpu_spark_line(&app.cpu_history));
+            lines.push(Line::from(""));
+        }
+
+        lines.push(Line::from(vec![
+            Span::styled("  Uptime  ", Style::default().fg(Color::DarkGray)),
+            Span::styled(
+                system::format_uptime(m.uptime_secs),
+                Style::default().fg(Color::White),
+            ),
+        ]));
+
+        if let Some(pct) = m.battery_percent {
+            let status = if m.battery_charging { " charging" } else { "" };
+            let color = if pct > 50.0 {
+                Color::Green
+            } else if pct > 20.0 {
+                Color::Yellow
+            } else {
+                Color::Red
+            };
+            lines.push(Line::from(vec![
+                Span::styled("  Battery ", Style::default().fg(Color::DarkGray)),
+                Span::styled(format!("{:.0}%", pct), Style::default().fg(color)),
+                Span::styled(status.to_string(), Style::default().fg(Color::DarkGray)),
+            ]));
+        }
+    } else {
+        lines.push(Line::from(Span::styled(
+            format!("  {} loading...", spinner(app.spinner_tick)),
+            Style::default().fg(Color::DarkGray),
+        )));
+    }
+
+    lines.push(Line::from(""));
+    lines.push(section_header("Claude Code"));
+    lines.push(section_separator(22));
+
+    if let Some(s) = &app.claude_stats {
+        lines.push(Line::from(vec![
+            Span::styled("  Sessions  ", Style::default().fg(Color::DarkGray)),
+            Span::styled(s.total_sessions.to_string(), Style::default().fg(Color::White)),
+        ]));
+        lines.push(Line::from(vec![
+            Span::styled("  Today     ", Style::default().fg(Color::DarkGray)),
+            Span::styled(s.today.to_string(), Style::default().fg(Color::White)),
+        ]));
+        lines.push(Line::from(vec![
+            Span::styled("  This week ", Style::default().fg(Color::DarkGray)),
+            Span::styled(s.this_week.to_string(), Style::default().fg(Color::White)),
+        ]));
+    } else {
+        lines.push(Line::from(Span::styled(
+            format!("  {} loading...", spinner(app.spinner_tick)),
+            Style::default().fg(Color::DarkGray),
+        )));
+    }
+
+    let paragraph = Paragraph::new(lines);
+    f.render_widget(paragraph, inner);
 }
 
 fn styled_label_with_highlight(
@@ -702,6 +822,349 @@ fn cell_span(spans: &mut Vec<Span<'static>>, label: &str, highlighted: bool, w: 
     };
 
     spans.push(Span::styled(text, style));
+}
+
+fn render_dashboard(f: &mut Frame, app: &App, area: Rect) {
+    let columns = Layout::horizontal([
+        Constraint::Percentage(50),
+        Constraint::Percentage(50),
+    ])
+    .split(area);
+
+    render_dashboard_left(f, app, columns[0]);
+    render_dashboard_right(f, app, columns[1]);
+}
+
+fn render_dashboard_left(f: &mut Frame, app: &App, area: Rect) {
+    let mut lines: Vec<Line> = Vec::new();
+    let sep_width = (area.width as usize).saturating_sub(4);
+
+    lines.push(Line::from(""));
+    lines.push(section_header("Resources"));
+    lines.push(section_separator(sep_width));
+
+    if let Some(m) = &app.system_metrics {
+        let temp_str = app
+            .dashboard_metrics
+            .as_ref()
+            .and_then(|d| d.cpu_temp)
+            .map(|t| format!("{:.0}\u{00B0}C", t));
+        lines.push(gauge_line("CPU", m.cpu_usage, temp_str.as_deref()));
+
+        let mem_pct = if m.mem_total_bytes > 0 {
+            (m.mem_used_bytes as f32 / m.mem_total_bytes as f32) * 100.0
+        } else {
+            0.0
+        };
+        let mem_detail = format!(
+            "{} / {}",
+            system::format_bytes(m.mem_used_bytes),
+            system::format_bytes(m.mem_total_bytes)
+        );
+        lines.push(gauge_line("MEM", mem_pct, Some(&mem_detail)));
+
+        let disk_pct = if m.disk_total_bytes > 0 {
+            (m.disk_used_bytes as f32 / m.disk_total_bytes as f32) * 100.0
+        } else {
+            0.0
+        };
+        let disk_detail = format!(
+            "{} / {}",
+            system::format_bytes(m.disk_used_bytes),
+            system::format_bytes(m.disk_total_bytes)
+        );
+        lines.push(gauge_line("DSK", disk_pct, Some(&disk_detail)));
+
+        let swap_pct = if m.swap_total_bytes > 0 {
+            (m.swap_used_bytes as f32 / m.swap_total_bytes as f32) * 100.0
+        } else {
+            0.0
+        };
+        let swap_detail = format!(
+            "{} / {}",
+            system::format_bytes(m.swap_used_bytes),
+            system::format_bytes(m.swap_total_bytes)
+        );
+        lines.push(gauge_line("SWP", swap_pct, Some(&swap_detail)));
+
+        if let Some(d) = &app.dashboard_metrics {
+            lines.push(Line::from(vec![
+                Span::styled("  LOAD  ", Style::default().fg(Color::DarkGray)),
+                Span::styled(
+                    format!("{:.2}  {:.2}  {:.2}", d.load_avg[0], d.load_avg[1], d.load_avg[2]),
+                    Style::default().fg(Color::White),
+                ),
+            ]));
+        }
+
+        lines.push(Line::from(""));
+
+        if !app.cpu_history.is_empty() {
+            lines.push(cpu_spark_line(&app.cpu_history));
+            lines.push(Line::from(""));
+        }
+
+        lines.push(section_header("System"));
+        lines.push(section_separator(sep_width));
+
+        lines.push(Line::from(vec![
+            Span::styled("  Uptime   ", Style::default().fg(Color::DarkGray)),
+            Span::styled(system::format_uptime(m.uptime_secs), Style::default().fg(Color::White)),
+        ]));
+
+        if let Some(pct) = m.battery_percent {
+            let status = if m.battery_charging { " charging" } else { "" };
+            let color = if pct > 50.0 {
+                Color::Green
+            } else if pct > 20.0 {
+                Color::Yellow
+            } else {
+                Color::Red
+            };
+            lines.push(Line::from(vec![
+                Span::styled("  Battery  ", Style::default().fg(Color::DarkGray)),
+                Span::styled(format!("{:.0}%", pct), Style::default().fg(color)),
+                Span::styled(status.to_string(), Style::default().fg(Color::DarkGray)),
+            ]));
+        }
+
+        lines.push(Line::from(""));
+        lines.push(section_header("Claude Code"));
+        lines.push(section_separator(sep_width));
+
+        if let Some(s) = &app.claude_stats {
+            lines.push(Line::from(vec![
+                Span::styled("  Sessions   ", Style::default().fg(Color::DarkGray)),
+                Span::styled(s.total_sessions.to_string(), Style::default().fg(Color::White)),
+                Span::styled("    Today  ", Style::default().fg(Color::DarkGray)),
+                Span::styled(s.today.to_string(), Style::default().fg(Color::White)),
+                Span::styled("    This week  ", Style::default().fg(Color::DarkGray)),
+                Span::styled(s.this_week.to_string(), Style::default().fg(Color::White)),
+            ]));
+        }
+    } else {
+        lines.push(Line::from(Span::styled(
+            format!("  {} loading...", spinner(app.spinner_tick)),
+            Style::default().fg(Color::DarkGray),
+        )));
+    }
+
+    let paragraph = Paragraph::new(lines);
+    f.render_widget(paragraph, area);
+}
+
+fn render_dashboard_right(f: &mut Frame, app: &App, area: Rect) {
+    let block = Block::default()
+        .borders(Borders::LEFT)
+        .border_style(Style::default().fg(Color::DarkGray));
+    let inner = block.inner(area);
+    f.render_widget(block, area);
+
+    let mut lines: Vec<Line> = Vec::new();
+    let sep_width = (inner.width as usize).saturating_sub(4);
+
+    lines.push(Line::from(""));
+    lines.push(section_header("Network & I/O"));
+    lines.push(section_separator(sep_width));
+
+    if let Some(d) = &app.dashboard_metrics {
+        if let Some(ref ssid) = d.wifi_ssid {
+            let signal_label = d
+                .wifi_signal_dbm
+                .map(system::wifi_signal_label)
+                .unwrap_or("--");
+            let signal_color = match signal_label {
+                "Excellent" | "Good" => Color::Green,
+                "Fair" => Color::Yellow,
+                _ => Color::Red,
+            };
+            lines.push(Line::from(vec![
+                Span::styled("  Wi-Fi   ", Style::default().fg(Color::DarkGray)),
+                Span::styled(ssid.clone(), Style::default().fg(Color::White)),
+                Span::styled(" (", Style::default().fg(Color::DarkGray)),
+                Span::styled(signal_label.to_string(), Style::default().fg(signal_color)),
+                Span::styled(")", Style::default().fg(Color::DarkGray)),
+            ]));
+        } else {
+            lines.push(Line::from(vec![
+                Span::styled("  Wi-Fi   ", Style::default().fg(Color::DarkGray)),
+                Span::styled("disconnected", Style::default().fg(Color::Red)),
+            ]));
+        }
+
+        lines.push(Line::from(vec![
+            Span::styled("  Net     ", Style::default().fg(Color::DarkGray)),
+            Span::styled("\u{2191} ", Style::default().fg(Color::Green)),
+            Span::styled(
+                system::format_bytes_per_sec(d.net_up_bytes_sec),
+                Style::default().fg(Color::White),
+            ),
+            Span::styled("  ", Style::default()),
+            Span::styled("\u{2193} ", Style::default().fg(Color::Cyan)),
+            Span::styled(
+                system::format_bytes_per_sec(d.net_down_bytes_sec),
+                Style::default().fg(Color::White),
+            ),
+        ]));
+
+        if let Some(throughput) = d.disk_throughput_mb_sec {
+            lines.push(Line::from(vec![
+                Span::styled("  DSK I/O ", Style::default().fg(Color::DarkGray)),
+                Span::styled(format!("{:.1} MB/s", throughput), Style::default().fg(Color::White)),
+            ]));
+        }
+
+        lines.push(Line::from(""));
+        lines.push(section_header("Bluetooth"));
+        lines.push(section_separator(sep_width));
+
+        if d.bluetooth_devices.is_empty() {
+            lines.push(Line::from(Span::styled(
+                "  no devices",
+                Style::default().fg(Color::DarkGray),
+            )));
+        } else {
+            for dev in &d.bluetooth_devices {
+                let (status, color) = if dev.connected {
+                    ("connected", Color::Green)
+                } else {
+                    ("disconnected", Color::DarkGray)
+                };
+                lines.push(Line::from(vec![
+                    Span::styled(format!("  {:<20}", dev.name), Style::default().fg(Color::White)),
+                    Span::styled(status.to_string(), Style::default().fg(color)),
+                ]));
+            }
+        }
+
+        lines.push(Line::from(""));
+        lines.push(section_header("Services"));
+        lines.push(section_separator(sep_width));
+
+        if !d.tmux_sessions.is_empty() {
+            lines.push(Line::from(vec![
+                Span::styled("  tmux    ", Style::default().fg(Color::DarkGray)),
+                Span::styled(
+                    format!(
+                        "{} session{} ({})",
+                        d.tmux_sessions.len(),
+                        if d.tmux_sessions.len() == 1 { "" } else { "s" },
+                        d.tmux_sessions.join(", ")
+                    ),
+                    Style::default().fg(Color::White),
+                ),
+            ]));
+        }
+
+        if !d.listening_ports.is_empty() {
+            let port_strs: Vec<String> = d
+                .listening_ports
+                .iter()
+                .take(6)
+                .map(|p| format!(":{} {}", p.port, p.process))
+                .collect();
+            lines.push(Line::from(vec![
+                Span::styled("  Ports   ", Style::default().fg(Color::DarkGray)),
+                Span::styled(port_strs.join("  "), Style::default().fg(Color::White)),
+            ]));
+        }
+
+        if d.docker_available {
+            lines.push(Line::from(vec![
+                Span::styled("  Docker  ", Style::default().fg(Color::DarkGray)),
+                Span::styled(
+                    format!("{} running", d.docker_running),
+                    Style::default().fg(Color::Green),
+                ),
+                Span::styled("  ", Style::default()),
+                Span::styled(
+                    format!("{} stopped", d.docker_stopped),
+                    Style::default().fg(if d.docker_stopped > 0 {
+                        Color::Yellow
+                    } else {
+                        Color::DarkGray
+                    }),
+                ),
+            ]));
+        }
+
+        lines.push(Line::from(vec![
+            Span::styled("  Brew    ", Style::default().fg(Color::DarkGray)),
+            Span::styled(
+                format!("{} formulae  {} casks", d.brew_formulae, d.brew_casks),
+                Style::default().fg(Color::White),
+            ),
+        ]));
+    } else {
+        lines.push(Line::from(Span::styled(
+            format!("  {} loading...", spinner(app.spinner_tick)),
+            Style::default().fg(Color::DarkGray),
+        )));
+    }
+
+    let paragraph = Paragraph::new(lines);
+    f.render_widget(paragraph, inner);
+}
+
+fn gauge_color(pct: f32) -> Color {
+    if pct < 50.0 {
+        Color::Green
+    } else if pct < 80.0 {
+        Color::Yellow
+    } else {
+        Color::Red
+    }
+}
+
+fn gauge_line(label: &str, pct: f32, detail: Option<&str>) -> Line<'static> {
+    let bar_width = 12usize;
+    let filled = ((pct / 100.0) * bar_width as f32).round() as usize;
+    let filled = filled.min(bar_width);
+    let empty = bar_width - filled;
+    let color = gauge_color(pct);
+
+    let mut spans = vec![
+        Span::styled(format!("  {:<5}", label), Style::default().fg(Color::DarkGray)),
+        Span::styled("\u{2588}".repeat(filled), Style::default().fg(color)),
+        Span::styled("\u{2591}".repeat(empty), Style::default().fg(Color::DarkGray)),
+        Span::styled(format!(" {:>3.0}%", pct), Style::default().fg(Color::White)),
+    ];
+
+    if let Some(d) = detail {
+        spans.push(Span::styled(format!("  {d}"), Style::default().fg(Color::DarkGray)));
+    }
+
+    Line::from(spans)
+}
+
+const SPARK_CHARS: &[char] = &[' ', '\u{2581}', '\u{2582}', '\u{2583}', '\u{2584}', '\u{2585}', '\u{2586}', '\u{2587}', '\u{2588}'];
+
+fn cpu_spark_line(history: &[f64]) -> Line<'static> {
+    let mut spans = vec![Span::styled("  ", Style::default())];
+    for &val in history {
+        let idx = ((val / 100.0) * 8.0).round() as usize;
+        let ch = SPARK_CHARS[idx.min(8)];
+        let color = gauge_color(val as f32);
+        spans.push(Span::styled(ch.to_string(), Style::default().fg(color)));
+    }
+    spans.push(Span::styled("  cpu", Style::default().fg(Color::DarkGray)));
+    Line::from(spans)
+}
+
+fn section_separator(width: usize) -> Line<'static> {
+    Line::from(Span::styled(
+        format!("  {}", "\u{2500}".repeat(width)),
+        Style::default().fg(Color::DarkGray),
+    ))
+}
+
+fn section_header(title: &str) -> Line<'static> {
+    Line::from(Span::styled(
+        format!("  {title}"),
+        Style::default()
+            .fg(Color::Cyan)
+            .add_modifier(Modifier::BOLD),
+    ))
 }
 
 fn render_error(f: &mut Frame, area: Rect, msg: &str) {
