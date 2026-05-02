@@ -35,6 +35,8 @@ abbr :q 'tmux kill-pane'
 abbr ':q!' 'tmux kill-pane'
 alias scripts 'cat package.json | jq .scripts'
 alias build-raw 'xcodebuild -scheme "CoachFit-RawCoaching" -configuration Release -destination "generic/platform=iOS"'
+alias cf 'sudo $HOME/.cargo/bin/corne-flash'
+alias os '$HOME/dev/dev-env/os'
 
 
 zoxide init fish --cmd cd | source
@@ -55,3 +57,4 @@ fish_add_path /Users/andy/.bun/bin
 
 # opencode
 fish_add_path /Users/andy/.opencode/bin
+
