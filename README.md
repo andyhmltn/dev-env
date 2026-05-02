@@ -1,5 +1,7 @@
 # Mac OS Dev Setup
 
+![os TUI](docs/os-screenshot.png)
+
 ## Quick Start
 
 ```bash
