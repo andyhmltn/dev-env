@@ -27,11 +27,16 @@ FORMULAE=(
     tree
     uv
     xh
+    postgresql@16
+    prettierd
+    wget
+    xcodegen
 )
 
 # Casks
 CASKS=(
     claude-code # Claude Code CLI
+    aerospace
 )
 
 # Check for missing packages

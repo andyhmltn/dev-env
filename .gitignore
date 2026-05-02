@@ -1,1 +1,3 @@
 **/.claude.json
+target/
+Cargo.lock
