@@ -10,3 +10,5 @@ keybind = super+h=text:\x08
 keybind = super+j=text:\x0a
 keybind = super+k=text:\x0b
 keybind = super+l=text:\x0c
+keybind = super+d=text:\x04
+keybind = super+u=text:\x15

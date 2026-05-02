@@ -57,11 +57,22 @@ fn render_header(f: &mut Frame, app: &App, area: Rect) {
 fn render_footer(f: &mut Frame, app: &App, area: Rect) {
     let hints: Vec<(&str, &str)> = match &app.state {
         AppState::Main => {
-            vec![
-                ("j/k", "navigate"),
-                ("Enter", "select"),
-                (":q", "quit"),
-            ]
+            if app.search_query.is_some() {
+                vec![
+                    ("j/k", "navigate"),
+                    ("n/N", "next/prev match"),
+                    ("Enter", "select"),
+                    ("/", "search"),
+                    (":q", "quit"),
+                ]
+            } else {
+                vec![
+                    ("j/k", "navigate"),
+                    ("Enter", "select"),
+                    ("/", "search"),
+                    (":q", "quit"),
+                ]
+            }
         }
         AppState::Running(_) => {
             if app.is_runner_done() {
@@ -111,6 +122,17 @@ fn render_footer(f: &mut Frame, app: &App, area: Rect) {
                 Style::default().fg(Color::DarkGray),
             ),
             Span::styled(text.to_string(), Style::default().fg(Color::White)),
+            Span::styled("\u{2588}", Style::default().fg(Color::White)),
+        ])
+    } else if let Some(query) = app.search_buffer() {
+        Line::from(vec![
+            Span::styled(
+                "/",
+                Style::default()
+                    .fg(Color::Cyan)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            Span::styled(query.to_string(), Style::default().fg(Color::White)),
             Span::styled("\u{2588}", Style::default().fg(Color::White)),
         ])
     } else {
@@ -171,6 +193,12 @@ fn render_main(f: &mut Frame, app: &App, area: Rect) {
     }
     lines.push(Line::from(""));
 
+    let search_query = app.active_search_query();
+    let highlight_style = Style::default()
+        .fg(Color::Black)
+        .bg(Color::Yellow)
+        .add_modifier(Modifier::BOLD);
+
     let mut prev_kind: Option<ItemKind> = None;
     for (i, item) in app.items.iter().enumerate() {
         if let Some(ref pk) = prev_kind {
@@ -197,7 +225,7 @@ fn render_main(f: &mut Frame, app: &App, area: Rect) {
             }
             SyncStatus::Checking => {
                 let s = spinner(app.spinner_tick);
-                render_main_item_checking(&mut lines, cursor, item.label, s, is_selected);
+                render_main_item_checking(&mut lines, cursor, item.label, s, is_selected, search_query, highlight_style);
                 continue;
             }
         };
@@ -218,29 +246,59 @@ fn render_main(f: &mut Frame, app: &App, area: Rect) {
             Style::default().fg(Color::White)
         };
 
-        let label_padded = format!("{:<18}", item.label);
+        let label_spans = styled_label_with_highlight(item.label, search_query, label_style, highlight_style);
 
         if status_icon.is_empty() {
-            lines.push(Line::from(vec![
+            let mut spans = vec![
                 Span::styled(format!("  {cursor} "), cursor_style),
-                Span::styled(label_padded, label_style),
-                Span::styled(status_text, Style::default().fg(status_color)),
-            ]));
+            ];
+            spans.extend(label_spans);
+            spans.push(Span::styled(status_text, Style::default().fg(status_color)));
+            lines.push(Line::from(spans));
         } else {
-            lines.push(Line::from(vec![
+            let mut spans = vec![
                 Span::styled(format!("  {cursor} "), cursor_style),
                 Span::styled(
                     format!("{status_icon} "),
                     Style::default().fg(status_color),
                 ),
-                Span::styled(label_padded, label_style),
-                Span::styled(status_text, Style::default().fg(status_color)),
-            ]));
+            ];
+            spans.extend(label_spans);
+            spans.push(Span::styled(status_text, Style::default().fg(status_color)));
+            lines.push(Line::from(spans));
         }
     }
 
     let paragraph = Paragraph::new(lines);
     f.render_widget(paragraph, area);
+}
+
+fn styled_label_with_highlight(
+    label: &str,
+    query: Option<&str>,
+    base_style: Style,
+    highlight_style: Style,
+) -> Vec<Span<'static>> {
+    let padded = format!("{:<18}", label);
+
+    let query = match query {
+        Some(q) if !q.is_empty() => q,
+        _ => return vec![Span::styled(padded, base_style)],
+    };
+
+    let lower = label.to_lowercase();
+    let lower_query = query.to_lowercase();
+
+    if let Some(pos) = lower.find(&lower_query) {
+        let end = pos + lower_query.len();
+        vec![
+            Span::styled(padded[..pos].to_string(), base_style),
+            Span::styled(padded[pos..end].to_string(), highlight_style),
+            Span::styled(padded[end..].to_string(), base_style),
+        ]
+    } else {
+        vec![Span::styled(padded, base_style)]
+    }
 }
 
 fn render_main_item_checking(
@@ -249,6 +307,8 @@ fn render_main_item_checking(
     label: &str,
     spinner_char: char,
     is_selected: bool,
+    search_query: Option<&str>,
+    highlight_style: Style,
 ) {
     let cursor_style = if is_selected {
         Style::default()
@@ -266,17 +326,18 @@ fn render_main_item_checking(
         Style::default().fg(Color::White)
     };
 
-    let label_padded = format!("{:<18}", label);
+    let label_spans = styled_label_with_highlight(label, search_query, label_style, highlight_style);
 
-    lines.push(Line::from(vec![
+    let mut spans = vec![
         Span::styled(format!("  {cursor} "), cursor_style),
         Span::styled(
             format!("{spinner_char} "),
             Style::default().fg(Color::Yellow),
         ),
-        Span::styled(label_padded, label_style),
-        Span::styled("checking...", Style::default().fg(Color::DarkGray)),
-    ]));
+    ];
+    spans.extend(label_spans);
+    spans.push(Span::styled("checking...", Style::default().fg(Color::DarkGray)));
+    lines.push(Line::from(spans));
 }
 
 fn render_running(f: &mut Frame, app: &App, area: Rect) {

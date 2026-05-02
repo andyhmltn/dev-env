@@ -53,6 +53,7 @@ pub struct App {
     pub cached_keymap: Option<keymap::Keymap>,
     pub highlight_ticks: [u8; 42],
     pub git_banner: GitBanner,
+    pub search_query: Option<String>,
     git_check_rx: Option<mpsc::Receiver<GitCheckResult>>,
     git_pull_rx: Option<mpsc::Receiver<anyhow::Result<String>>>,
     status_receivers: Vec<(usize, mpsc::Receiver<SyncStatus>)>,
@@ -90,6 +91,7 @@ impl App {
             cached_keymap: None,
             highlight_ticks: [0; 42],
             git_banner: GitBanner::Checking,
+            search_query: None,
         };
         app.start_git_check();
         app.start_status_checks();
@@ -207,13 +209,101 @@ impl App {
         }
     }
 
+    pub fn search_buffer(&self) -> Option<&str> {
+        self.key_handler.search_value()
+    }
+
+    pub fn active_search_query(&self) -> Option<&str> {
+        if let Some(q) = self.key_handler.search_value() {
+            if !q.is_empty() {
+                return Some(q);
+            }
+            return None;
+        }
+        self.search_query.as_deref()
+    }
+
+    fn matching_indices(&self) -> Vec<usize> {
+        let query = match self.active_search_query() {
+            Some(q) => q.to_lowercase(),
+            None => return vec![],
+        };
+        self.items
+            .iter()
+            .enumerate()
+            .filter(|(_, item)| item.label.to_lowercase().contains(&query))
+            .map(|(i, _)| i)
+            .collect()
+    }
+
+    fn jump_to_first_match(&mut self) {
+        let matches = self.matching_indices();
+        if let Some(&first) = matches.first() {
+            self.selected = first;
+        }
+    }
+
+    fn jump_to_next_match(&mut self) {
+        let matches = self.matching_indices();
+        if matches.is_empty() {
+            return;
+        }
+        if let Some(&idx) = matches.iter().find(|&&i| i > self.selected) {
+            self.selected = idx;
+        } else {
+            self.selected = matches[0];
+        }
+    }
+
+    fn jump_to_prev_match(&mut self) {
+        let matches = self.matching_indices();
+        if matches.is_empty() {
+            return;
+        }
+        if let Some(&idx) = matches.iter().rev().find(|&&i| i < self.selected) {
+            self.selected = idx;
+        } else {
+            self.selected = *matches.last().unwrap();
+        }
+    }
+
     pub fn handle_key(&mut self, key: KeyEvent) {
         if matches!(self.state, AppState::KeyboardLayout(_)) {
             self.handle_keyboard_layout_key(key);
             return;
         }
 
+        let was_searching = matches!(self.key_handler.mode, KeyMode::Search(_));
+        let search_text = if was_searching {
+            self.key_handler.search_value().map(|s| s.to_string())
+        } else {
+            None
+        };
+
         let action = self.key_handler.process(key);
+
+        if was_searching {
+            let still_searching = matches!(self.key_handler.mode, KeyMode::Search(_));
+            if still_searching {
+                if matches!(self.state, AppState::Main) {
+                    self.jump_to_first_match();
+                }
+                return;
+            }
+            match action {
+                Action::Confirm => {
+                    self.search_query = search_text.filter(|s| !s.is_empty());
+                }
+                Action::Quit => {
+                    self.search_query = None;
+                    self.should_quit = true;
+                }
+                _ => {
+                    self.search_query = None;
+                }
+            }
+            return;
+        }
 
         match action {
             Action::Quit => {
@@ -221,7 +311,11 @@ impl App {
             }
             Action::Back => match &self.state {
                 AppState::Main => {
-                    self.should_quit = true;
+                    if self.search_query.is_some() {
+                        self.search_query = None;
+                    } else {
+                        self.should_quit = true;
+                    }
                 }
                 AppState::HomebrewSync(BrewSyncState::CommentInput(_)) => {
                     if let AppState::HomebrewSync(BrewSyncState::CommentInput(idx)) = self.state {
@@ -344,6 +438,9 @@ impl App {
                 AppState::Main if matches!(self.git_banner, GitBanner::Behind(_)) => {
                     self.git_banner = GitBanner::UpToDate;
                 }
+                AppState::Main if self.search_query.is_some() => {
+                    self.jump_to_next_match();
+                }
                 AppState::HomebrewSync(BrewSyncState::Prompting(idx)) => {
                     let idx = *idx;
                     self.brew_skipped += 1;
@@ -385,6 +482,17 @@ impl App {
                     } else {
                         self.state = AppState::HomebrewSync(BrewSyncState::Prompting(next));
                     }
+                }
+            }
+            Action::CharInput('/') => {
+                if matches!(self.state, AppState::Main) {
+                    self.key_handler.enter_search();
+                    self.search_query = None;
+                }
+            }
+            Action::SearchPrev => {
+                if matches!(self.state, AppState::Main) && self.search_query.is_some() {
+                    self.jump_to_prev_match();
                 }
             }
             Action::Tab | Action::NumberKey(_) | Action::CharInput(_) | Action::None => {}
@@ -676,6 +784,7 @@ mod tests {
             cached_keymap: None,
             highlight_ticks: [0; 42],
             git_banner: GitBanner::UpToDate,
+            search_query: None,
         };
         for item in &mut app.items {
             if item.kind == ItemKind::Sync {
@@ -869,5 +978,183 @@ mod tests {
         let mut app = test_app();
         app.selected = 0;
         assert!(!app.launch_corne_flash());
+    }
+
+    #[test]
+    fn slash_enters_search_mode() {
+        let mut app = test_app();
+        let key = crossterm::event::KeyEvent::new(
+            crossterm::event::KeyCode::Char('/'),
+            crossterm::event::KeyModifiers::NONE,
+        );
+        app.handle_key(key);
+        assert!(matches!(app.key_handler.mode, KeyMode::Search(_)));
+    }
+
+    #[test]
+    fn search_jumps_to_match() {
+        let mut app = test_app();
+        app.selected = 0;
+
+        let slash = crossterm::event::KeyEvent::new(
+            crossterm::event::KeyCode::Char('/'),
+            crossterm::event::KeyModifiers::NONE,
+        );
+        app.handle_key(slash);
+
+        for c in "tmux".chars() {
+            let key = crossterm::event::KeyEvent::new(
+                crossterm::event::KeyCode::Char(c),
+                crossterm::event::KeyModifiers::NONE,
+            );
+            app.handle_key(key);
+        }
+
+        let tmux_idx = app
+            .items
+            .iter()
+            .position(|i| i.label == "Tmux")
+            .unwrap();
+        assert_eq!(app.selected, tmux_idx);
+    }
+
+    #[test]
+    fn search_enter_persists_query() {
+        let mut app = test_app();
+        let slash = crossterm::event::KeyEvent::new(
+            crossterm::event::KeyCode::Char('/'),
+            crossterm::event::KeyModifiers::NONE,
+        );
+        app.handle_key(slash);
+
+        let t = crossterm::event::KeyEvent::new(
+            crossterm::event::KeyCode::Char('t'),
+            crossterm::event::KeyModifiers::NONE,
+        );
+        app.handle_key(t);
+
+        let enter = crossterm::event::KeyEvent::new(
+            crossterm::event::KeyCode::Enter,
+            crossterm::event::KeyModifiers::NONE,
+        );
+        app.handle_key(enter);
+
+        assert_eq!(app.search_query, Some("t".to_string()));
+        assert!(matches!(app.key_handler.mode, KeyMode::Normal));
+    }
+
+    #[test]
+    fn search_esc_clears_query() {
+        let mut app = test_app();
+        let slash = crossterm::event::KeyEvent::new(
+            crossterm::event::KeyCode::Char('/'),
+            crossterm::event::KeyModifiers::NONE,
+        );
+        app.handle_key(slash);
+
+        let t = crossterm::event::KeyEvent::new(
+            crossterm::event::KeyCode::Char('t'),
+            crossterm::event::KeyModifiers::NONE,
+        );
+        app.handle_key(t);
+
+        let esc = crossterm::event::KeyEvent::new(
+            crossterm::event::KeyCode::Esc,
+            crossterm::event::KeyModifiers::NONE,
+        );
+        app.handle_key(esc);
+
+        assert_eq!(app.search_query, None);
+        assert!(!app.should_quit);
+    }
+
+    #[test]
+    fn esc_clears_search_before_quit() {
+        let mut app = test_app();
+        app.search_query = Some("test".to_string());
+
+        let esc = crossterm::event::KeyEvent::new(
+            crossterm::event::KeyCode::Esc,
+            crossterm::event::KeyModifiers::NONE,
+        );
+        app.handle_key(esc);
+        assert_eq!(app.search_query, None);
+        assert!(!app.should_quit);
+
+        app.handle_key(esc);
+        assert!(app.should_quit);
+    }
+
+    #[test]
+    fn n_jumps_to_next_match() {
+        let mut app = test_app();
+        app.search_query = Some("brew".to_string());
+        app.selected = 0;
+
+        let n = crossterm::event::KeyEvent::new(
+            crossterm::event::KeyCode::Char('n'),
+            crossterm::event::KeyModifiers::NONE,
+        );
+        app.handle_key(n);
+
+        let brew_sync_idx = app
+            .items
+            .iter()
+            .position(|i| i.label == "Homebrew Sync")
+            .unwrap();
+        assert_eq!(app.selected, brew_sync_idx);
+    }
+
+    #[test]
+    fn n_wraps_around() {
+        let mut app = test_app();
+        app.search_query = Some("brew".to_string());
+        let brew_sync_idx = app
+            .items
+            .iter()
+            .position(|i| i.label == "Homebrew Sync")
+            .unwrap();
+        app.selected = brew_sync_idx;
+
+        let n = crossterm::event::KeyEvent::new(
+            crossterm::event::KeyCode::Char('n'),
+            crossterm::event::KeyModifiers::NONE,
+        );
+        app.handle_key(n);
+
+        assert_eq!(app.selected, 0);
+    }
+
+    #[test]
+    fn shift_n_jumps_to_prev_match() {
+        let mut app = test_app();
+        app.search_query = Some("brew".to_string());
+        let brew_sync_idx = app
+            .items
+            .iter()
+            .position(|i| i.label == "Homebrew Sync")
+            .unwrap();
+        app.selected = brew_sync_idx;
+
+        let n = crossterm::event::KeyEvent::new(
+            crossterm::event::KeyCode::Char('N'),
+            crossterm::event::KeyModifiers::NONE,
+        );
+        app.handle_key(n);
+
+        assert_eq!(app.selected, 0);
+    }
+
+    #[test]
+    fn search_case_insensitive() {
+        let mut app = test_app();
+        app.search_query = Some("FISH".to_string());
+        let matches = app.matching_indices();
+        let fish_idx = app
+            .items
+            .iter()
+            .position(|i| i.label == "Fish")
+            .unwrap();
+        assert!(matches.contains(&fish_idx));
     }
 }

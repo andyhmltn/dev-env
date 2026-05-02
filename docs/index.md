@@ -18,6 +18,7 @@ The setup script will:
 ## Documentation
 
 - [Installation Guide](./installation.md) - Full setup instructions
+- [os TUI](./os-tui.md) - Interactive setup tool (`./os`)
 - [Fish Shell](./fish.md) - Shell configuration and aliases
 - [Neovim](./neovim.md) - Editor setup, plugins, and keybindings
 - [Tmux](./tmux.md) - Terminal multiplexer configuration

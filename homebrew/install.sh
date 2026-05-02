@@ -31,6 +31,11 @@ FORMULAE=(
     prettierd
     wget
     xcodegen
+    ffmpeg
+    git-filter-repo
+    lftp
+    libpq
+    poppler
 )
 
 # Casks

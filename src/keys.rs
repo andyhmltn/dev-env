@@ -14,6 +14,7 @@ pub enum Action {
     Tab,
     NumberKey(u8),
     CharInput(char),
+    SearchPrev,
     None,
 }
 
@@ -22,6 +23,7 @@ pub enum KeyMode {
     Normal,
     Command(String),
     TextInput(String),
+    Search(String),
 }
 
 pub struct KeyHandler {
@@ -44,6 +46,7 @@ impl KeyHandler {
             KeyMode::Normal => self.process_normal(key),
             KeyMode::Command(_) => self.process_command(key),
             KeyMode::TextInput(_) => self.process_text_input(key),
+            KeyMode::Search(_) => self.process_search(key),
         }
     }
 
@@ -54,6 +57,17 @@ impl KeyHandler {
     pub fn text_input_value(&self) -> Option<&str> {
         match &self.mode {
             KeyMode::TextInput(s) => Some(s),
+            _ => None,
+        }
+    }
+
+    pub fn enter_search(&mut self) {
+        self.mode = KeyMode::Search(String::new());
+    }
+
+    pub fn search_value(&self) -> Option<&str> {
+        match &self.mode {
+            KeyMode::Search(s) => Some(s),
             _ => None,
         }
     }
@@ -78,6 +92,8 @@ impl KeyHandler {
             KeyCode::Char('c') => Action::CharInput('c'),
             KeyCode::Enter => Action::Confirm,
             KeyCode::Tab => Action::Tab,
+            KeyCode::Char('/') => Action::CharInput('/'),
+            KeyCode::Char('N') => Action::SearchPrev,
             KeyCode::Char(c @ '0'..='9') => Action::NumberKey(c as u8 - b'0'),
             _ => Action::None,
         }
@@ -139,6 +155,41 @@ impl KeyHandler {
             KeyCode::Backspace => {
                 if let KeyMode::TextInput(ref mut s) = self.mode {
                     s.pop();
+                }
+                Action::None
+            }
+            _ => Action::None,
+        }
+    }
+
+    fn process_search(&mut self, key: KeyEvent) -> Action {
+        if key.modifiers.contains(KeyModifiers::CONTROL) && key.code == KeyCode::Char('c') {
+            self.mode = KeyMode::Normal;
+            return Action::Quit;
+        }
+
+        match key.code {
+            KeyCode::Enter => {
+                self.mode = KeyMode::Normal;
+                Action::Confirm
+            }
+            KeyCode::Esc => {
+                self.mode = KeyMode::Normal;
+                Action::Back
+            }
+            KeyCode::Char(c) => {
+                if let KeyMode::Search(ref mut s) = self.mode {
+                    s.push(c);
+                }
+                Action::None
+            }
+            KeyCode::Backspace => {
+                if let KeyMode::Search(ref mut s) = self.mode {
+                    if s.is_empty() {
+                        self.mode = KeyMode::Normal;
+                    } else {
+                        s.pop();
+                    }
                 }
                 Action::None
             }
@@ -317,5 +368,66 @@ mod tests {
             let c = (b'0' + i) as char;
             assert_eq!(handler.process(key_char(c)), Action::NumberKey(i));
         }
+    }
+
+    #[test]
+    fn slash_emits_char_input() {
+        let mut handler = KeyHandler::new();
+        assert_eq!(handler.process(key_char('/')), Action::CharInput('/'));
+    }
+
+    #[test]
+    fn search_mode_typing() {
+        let mut handler = KeyHandler::new();
+        handler.enter_search();
+        assert!(matches!(handler.mode, KeyMode::Search(_)));
+        handler.process(key_char('n'));
+        handler.process(key_char('e'));
+        assert_eq!(handler.search_value(), Some("ne"));
+    }
+
+    #[test]
+    fn search_mode_enter_confirms() {
+        let mut handler = KeyHandler::new();
+        handler.enter_search();
+        handler.process(key_char('t'));
+        let action = handler.process(key(KeyCode::Enter));
+        assert_eq!(action, Action::Confirm);
+        assert_eq!(handler.mode, KeyMode::Normal);
+    }
+
+    #[test]
+    fn search_mode_esc_cancels() {
+        let mut handler = KeyHandler::new();
+        handler.enter_search();
+        handler.process(key_char('t'));
+        let action = handler.process(key(KeyCode::Esc));
+        assert_eq!(action, Action::Back);
+        assert_eq!(handler.mode, KeyMode::Normal);
+    }
+
+    #[test]
+    fn search_mode_backspace_on_content() {
+        let mut handler = KeyHandler::new();
+        handler.enter_search();
+        handler.process(key_char('a'));
+        handler.process(key_char('b'));
+        assert_eq!(handler.search_value(), Some("ab"));
+        handler.process(key(KeyCode::Backspace));
+        assert_eq!(handler.search_value(), Some("a"));
+    }
+
+    #[test]
+    fn search_mode_backspace_empty_exits() {
+        let mut handler = KeyHandler::new();
+        handler.enter_search();
+        handler.process(key(KeyCode::Backspace));
+        assert_eq!(handler.mode, KeyMode::Normal);
+    }
+
+    #[test]
+    fn shift_n_emits_search_prev() {
+        let mut handler = KeyHandler::new();
+        assert_eq!(handler.process(key_char('N')), Action::SearchPrev);
     }
 }
