@@ -875,7 +875,7 @@ mod tests {
     #[test]
     fn items_have_correct_count() {
         let app = test_app();
-        assert_eq!(app.items.len(), 11);
+        assert_eq!(app.items.len(), 12);
     }
 
     #[test]

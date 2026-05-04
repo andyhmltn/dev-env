@@ -1,0 +1,47 @@
+[hotkeys]
+switch-space = "alt-{n}"
+move-to-space = "alt-shift-{n}"
+move-to-new-space = "alt-t"
+focus-left = "alt-h"
+focus-down = "alt-j"
+focus-up = "alt-k"
+focus-right = "alt-l"
+move-left = "alt-shift-h"
+move-down = "alt-shift-j"
+move-up = "alt-shift-k"
+move-right = "alt-shift-l"
+split-vertical = "alt-v"
+
+[gaps]
+outer = 50.0
+inner = 50.0
+
+[profile.laptop]
+screen-width-max = 3439
+
+[profile.laptop.spaces.1]
+apps = ["Zen", "Ghostty"]
+
+[profile.laptop.spaces.2]
+apps = ["Slack"]
+
+[profile.laptop.spaces.3]
+apps = ["Spotify"]
+
+[profile.ultrawide]
+screen-width-min = 3440
+
+[profile.ultrawide.spaces.1]
+apps = ["Zen", "Ghostty"]
+
+[profile.ultrawide.spaces.2]
+apps = ["Slack"]
+
+[profile.ultrawide.spaces.3]
+apps = ["Spotify"]
+
+[profile.ultrawide.spaces.4]
+apps = ["Linear"]
+
+[profile.ultrawide.spaces.5]
+apps = ["Figma"]

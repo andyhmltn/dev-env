@@ -36,6 +36,7 @@ pub enum ItemId {
     Claude,
     Ghostty,
     Aerospace,
+    Norflow,
     CorneFlash,
     KeyboardLayout,
     HomebrewSync,
@@ -93,6 +94,13 @@ impl MenuItem {
                 kind: ItemKind::Sync,
                 status: SyncStatus::Checking,
                 id: ItemId::Aerospace,
+            },
+            MenuItem {
+                label: "Norflow",
+                description: "symlink config",
+                kind: ItemKind::Sync,
+                status: SyncStatus::Checking,
+                id: ItemId::Norflow,
             },
             MenuItem {
                 label: "Corne Flash",
@@ -237,6 +245,10 @@ fn symlink_pairs(id: ItemId, repo_root: &Path) -> Option<Vec<(PathBuf, PathBuf)>
             home.join(".config/ghostty/config"),
             repo_root.join("ghostty/config"),
         )]),
+        ItemId::Norflow => Some(vec![(
+            home.join(".config/norflow/config.toml"),
+            repo_root.join("norflow/config.toml"),
+        )]),
         ItemId::Aerospace => Some(vec![(
             home.join(".aerospace.toml"),
             repo_root.join("aerospace/aerospace.toml"),
@@ -304,11 +316,11 @@ mod tests {
     #[test]
     fn all_items_has_correct_structure() {
         let items = MenuItem::all();
-        assert_eq!(items.len(), 11);
+        assert_eq!(items.len(), 12);
 
         let sync_count = items.iter().filter(|i| i.kind == ItemKind::Sync).count();
         let action_count = items.iter().filter(|i| i.kind == ItemKind::Action).count();
-        assert_eq!(sync_count, 7);
+        assert_eq!(sync_count, 8);
         assert_eq!(action_count, 4);
     }
 
@@ -417,6 +429,7 @@ mod tests {
         assert!(symlink_pairs(ItemId::Claude, &root).is_some());
         assert!(symlink_pairs(ItemId::Ghostty, &root).is_some());
         assert!(symlink_pairs(ItemId::Aerospace, &root).is_some());
+        assert!(symlink_pairs(ItemId::Norflow, &root).is_some());
     }
 
     #[test]
