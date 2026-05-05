@@ -1,3 +1,3 @@
-function wiki --description 'Open vimwiki index in a new tmux window'
+function wiki --description 'Open vimwiki index in nvim'
     nvim ~/vimwiki/index.md
 end
