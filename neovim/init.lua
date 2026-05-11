@@ -42,7 +42,7 @@ vim.api.nvim_create_autocmd("SwapExists", {
 vim.g.vimwiki_list = { {
   path = '~/vimwiki/',
   syntax = 'markdown',
-  ext = 'md',
+  ext = 'wiki',
 } }
 
 vim.api.nvim_create_autocmd("VimEnter", {

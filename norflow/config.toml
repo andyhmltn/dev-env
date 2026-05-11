@@ -11,19 +11,25 @@ move-down = "alt-shift-j"
 move-up = "alt-shift-k"
 move-right = "alt-shift-l"
 split-vertical = "alt-v"
+launcher-split-down = "cmd-alt-shift-r"
+launcher-split-right = "cmd-alt-shift-t"
+toggle-zoom = "alt-z"
 
 [gaps]
 outer = 50.0
 inner = 50.0
 
+[ignore]
+apps = ["Raycast", "Spotlight", "Alfred", "1Password"]
+
 [profile.laptop]
 screen-width-max = 3439
 
 [profile.laptop.spaces.1]
-apps = ["Zen", "Ghostty"]
+apps = ["Ghostty", "Zen"]
 
-[profile.laptop.spaces.2]
-apps = ["Slack"]
+# [profile.laptop.spaces.2]
+# apps = ["Slack"]
 
 [profile.laptop.spaces.3]
 apps = ["Spotify"]
@@ -32,10 +38,11 @@ apps = ["Spotify"]
 screen-width-min = 3440
 
 [profile.ultrawide.spaces.1]
-apps = ["Zen", "Ghostty"]
+apps = ["Ghostty", "Zen"]
+# weights = { Ghostty = 2.0 }
 
-[profile.ultrawide.spaces.2]
-apps = ["Slack"]
+# [profile.ultrawide.spaces.2]
+# apps = ["Slack"]
 
 [profile.ultrawide.spaces.3]
 apps = ["Spotify"]

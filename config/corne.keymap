@@ -289,7 +289,7 @@
         scrn_layer {
             display-name = "SCRN";
             bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans          &kp LG(SPACE)       &kp LA(LG(LS(N8)))  &trans              &trans              &trans  &trans
+&trans  &trans  &trans  &trans  &kp LG(LA(LS(R)))  &kp LG(LA(LS(T)))          &kp LG(SPACE)       &kp LA(LG(LS(N8)))  &trans              &trans              &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans          &kp LG(N4)          &kp LA(LG(LC(N2)))  &kp LA(LG(LC(N3)))  &kp LA(LG(LC(N4)))  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans          &kp LA(LG(LS(N5)))  &kp LA(LG(LS(N6)))  &kp LA(LG(LS(N7)))  &trans              &trans  &trans
                         &trans  &trans  &trans          &trans  &trans  &trans

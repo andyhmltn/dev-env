@@ -18,6 +18,10 @@ The `./os` TUI manages the full dev environment setup:
 - Flashes Corne keyboard firmware
 - Interactive keyboard layout viewer
 
+## Keyboard Layout
+
+![Corne keymap](keyboard/keymap.svg)
+
 ## Structure
 
 ```

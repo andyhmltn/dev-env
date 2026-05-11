@@ -121,7 +121,7 @@ return {
 	{ "tpope/vim-abolish",               event = "VeryLazy" },
 	{ "michaeljsmith/vim-indent-object", event = "VeryLazy" },
 	{ "ton/vim-bufsurf",                 event = { "BufReadPre", "BufNewFile" } },
-	{ "vimwiki/vimwiki",                 ft = "markdown", cmd = { "VimwikiIndex", "VimwikiUISelect" } },
+	{ "vimwiki/vimwiki",                 lazy = false },
 	{ "nicwest/vim-camelsnek",           cmd = { "Snek", "Camel", "CamelB", "Kebab", "Screm" } },
 
 	{
