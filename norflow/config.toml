@@ -34,6 +34,10 @@ apps = ["Zen"]
 [profile.laptop.spaces.3]
 apps = ["Slack"]
 
+[profile.laptop.gaps]
+outer = 0
+inner = 0
+
 [profile.ultrawide]
 screen-width-min = 3440
 
