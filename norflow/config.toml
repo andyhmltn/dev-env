@@ -26,13 +26,13 @@ apps = ["Raycast", "Spotlight", "Alfred", "1Password"]
 screen-width-max = 3439
 
 [profile.laptop.spaces.1]
-apps = ["Ghostty", "Zen"]
+apps = ["Ghostty"]
 
-# [profile.laptop.spaces.2]
-# apps = ["Slack"]
+[profile.laptop.spaces.2]
+apps = ["Zen"]
 
 [profile.laptop.spaces.3]
-apps = ["Spotify"]
+apps = ["Slack"]
 
 [profile.ultrawide]
 screen-width-min = 3440
