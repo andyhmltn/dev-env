@@ -16,6 +16,8 @@ The TUI will show sync status for each tool and let you install/symlink interact
 
 - [Installation Guide](./installation.md) - Full setup instructions
 - [os TUI](./os-tui.md) - Interactive setup tool (`./os`)
+- [Claude Cockpit](./claude-cockpit.md) - Claude commands and skills for Linear / GitHub / Slack / Datadog
+- [Daily Briefing Routine](./daily-briefing-routine.md) - Morning routine prompt for claude.ai
 - [Fish Shell](./fish.md) - Shell configuration and aliases
 - [Neovim](./neovim.md) - Editor setup, plugins, and keybindings
 - [Tmux](./tmux.md) - Terminal multiplexer configuration
