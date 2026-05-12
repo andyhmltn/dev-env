@@ -1,3 +1,3 @@
 function wiki --description 'Open vimwiki index in nvim'
-    nvim ~/vimwiki/index.md
+    nvim ~/vimwiki/index.wiki
 end
