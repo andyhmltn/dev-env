@@ -42,7 +42,7 @@ inner = 0
 screen-width-min = 3440
 
 [profile.ultrawide.spaces.1]
-apps = ["Ghostty", "Zen"]
+apps = ["Ghostty", "Zen", "RuneLite", "Numbers"]
 # weights = { Ghostty = 2.0 }
 
 # [profile.ultrawide.spaces.2]
