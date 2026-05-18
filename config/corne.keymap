@@ -4,6 +4,13 @@
 
 / {
     behaviors {
+        td_colon: td_colon {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp COLON>, <&kp N1>;
+        };
+
         lt_enter: lt_enter {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -251,7 +258,7 @@
             bindings = <
 &mt LALT TAB  &kp Q  &kp W  &kp E  &kp R  &kp T           &kp Y  &kp U  &kp I            &kp O           &kp P      &kp UNDER
 &kp ESC     &kp A  &kp S  &kp D  &lt_homerow 3 F  &kp G           &kp H  &kp J  &kp K            &kp L           &kp DOT    &kp SQT
-&caps_word    &kp Z  &kp X  &kp C  &kp V  &kp B           &kp N  &kp M  &mt LCTRL COMMA  &mt LGUI EXCL   &kp MINUS  &kp COLON
+&caps_word    &kp Z  &kp X  &kp C  &kp V  &kp B           &kp N  &kp M  &mt LCTRL COMMA  &mt LGUI EXCL   &kp MINUS  &td_colon
                         &kp LSHFT  &kp BSPC  &mo 1         &lt_enter 2 RET  &kp SPACE  &kp LGUI
             >;
         };
@@ -281,7 +288,7 @@
             bindings = <
 &trans  &trans  &trans  &trans  &trans  &kp LC(LA(LS(T)))          &kp N0    &kp N7  &kp N8  &kp N9  &kp EQUAL  &trans
 &trans  &trans  &trans  &trans  &trans  &mo 5           &kp HOME  &kp N4  &kp N5  &kp N6  &kp PLUS   &to 0
-&trans  &trans  &trans  &trans  &trans  &mo 7           &kp END   &kp N1  &kp N2  &kp N3  &kp MINUS  &to 0
+&trans  &trans  &trans  &trans  &trans  &none           &kp END   &kp N1  &kp N2  &kp N3  &kp MINUS  &to 0
                         &trans  &trans  &trans          &trans  &kp N0  &trans
             >;
         };
