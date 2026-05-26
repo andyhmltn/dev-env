@@ -297,7 +297,7 @@
             display-name = "SCRN";
             bindings = <
 &trans  &trans  &trans  &trans  &kp LG(LA(LS(R)))  &kp LG(LA(LS(T)))          &kp LG(SPACE)       &kp LA(LG(LS(N8)))  &trans              &trans              &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans          &kp LG(N4)          &kp LA(LG(LC(N2)))  &kp LA(LG(LC(N3)))  &kp LA(LG(LC(N4)))  &trans  &trans
+&trans  &trans  &trans  &trans  &to 7   &trans          &kp LG(N4)          &kp LA(LG(LC(N2)))  &kp LA(LG(LC(N3)))  &kp LA(LG(LC(N4)))  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans          &kp LA(LG(LS(N5)))  &kp LA(LG(LS(N6)))  &kp LA(LG(LS(N7)))  &trans              &trans  &trans
                         &trans  &trans  &trans          &trans  &trans  &trans
             >;
@@ -320,6 +320,16 @@
 &trans  &kp LA(LS(N6))  &kp LA(LS(N5))  &kp LA(LS(N4))  &trans  &trans          &kp LA(LS(H))  &kp LA(LS(J))  &kp LA(LS(K))  &kp LA(LS(L))  &trans  &trans
 &trans  &kp LA(LS(N3))  &kp LA(LS(N2))  &kp LA(LS(N1))  &trans  &trans          &trans         &trans         &trans         &trans         &trans  &trans
                         &trans  &trans  &trans                                   &trans  &trans  &trans
+            >;
+        };
+
+        runescape_layer {
+            display-name = "RS";
+            bindings = <
+&trans  &to 0   &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &kp F5
+&to 0   &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &kp F1
+&trans  &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &kp N1
+                        &trans  &trans  &trans          &kp RET  &kp SPACE  &trans
             >;
         };
     };
