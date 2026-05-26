@@ -9,6 +9,9 @@ on:
       - 'keyboard/build.yaml'
       - '.github/workflows/build-corne.yml'
 
+permissions:
+  contents: read
+
 jobs:
   build:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3.0
