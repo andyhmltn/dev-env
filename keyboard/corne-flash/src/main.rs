@@ -19,6 +19,16 @@ use ratatui::Terminal;
 
 use app::App;
 
+fn parse_local_arg(args: &[String]) -> Option<String> {
+    let mut iter = args.iter().skip(1);
+    while let Some(arg) = iter.next() {
+        if arg == "--local" {
+            return iter.next().cloned();
+        }
+    }
+    None
+}
+
 fn setup_terminal() -> Result<Terminal<CrosstermBackend<io::Stdout>>> {
     enable_raw_mode()?;
     let mut stdout = io::stdout();
@@ -40,6 +50,9 @@ fn main() -> Result<()> {
         anyhow::bail!("corne-flash requires root for raw device access.\nRun: sudo corne-flash");
     }
 
+    let args: Vec<String> = std::env::args().collect();
+    let local_dir = parse_local_arg(&args);
+
     let original_hook = panic::take_hook();
     panic::set_hook(Box::new(move |info| {
         let _ = disable_raw_mode();
@@ -49,7 +62,12 @@ fn main() -> Result<()> {
 
     let mut terminal = setup_terminal()?;
     let mut app = App::new();
-    app.start_fetch();
+
+    if let Some(dir) = local_dir {
+        app.start_local(std::path::Path::new(&dir))?;
+    } else {
+        app.start_fetch();
+    }
 
     loop {
         terminal.draw(|f| ui::draw(f, &app))?;

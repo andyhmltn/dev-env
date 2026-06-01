@@ -27,6 +27,10 @@ Exception: Side effects are unavoidable for DB/API interactions. Isolate them an
 
 Always use Zread MCP when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.
 
+# Brain (Personal Knowledge Base)
+
+Use `brain search "<query>"` to search my indexed knowledge base when I ask questions about my projects, dev setup, tools, configs, or anything that might be documented in my repos. Use `--full` for complete chunk content, `--project <name>` to scope to a specific project, and `--limit N` to control result count. The brain DB must be running (Docker Postgres on port 5433) for searches to work.
+
 # Serena (Semantic Code Navigation)
 
 MUST Use Serena MCP tools BEFORE trying grep, find, Glob, or Grep for code navigation, exploration and documentation tasks. Serena provides symbol-level, LSP-powered code intelligence:
