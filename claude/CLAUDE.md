@@ -316,6 +316,10 @@ Group entries by their **primary tag** (first tag in the bracket list). In work 
 - `health.md` history >15 entries -> `health-history.md`
 - `cog-meta/improvements.md` >10 implemented -> `glacier/cog-meta/improvements-done-{YYYY}.md`
 
+## Creating PRs
+
+When creating PRs. Make sure the description is not too verbose but explains the problem + solution well
+
 ## Pipeline
 
 Cog includes pipeline skills that maintain memory health. Run them manually or set up cron:
@@ -328,3 +332,6 @@ Cog includes pipeline skills that maintain memory health. Run them manually or s
 | `/foresight` | Cross-domain strategic nudge | Daily (morning) |
 
 These are optional -- Cog works without them. But running them regularly keeps memory clean and surfaces insights you'd miss.
+# graphify
+- **graphify** (`~/.claude/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
+When the user types `/graphify`, invoke the Skill tool with `skill: "graphify"` before doing anything else.
