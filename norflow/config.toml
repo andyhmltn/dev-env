@@ -14,6 +14,7 @@ split-vertical = "alt-v"
 launcher-split-down = "cmd-alt-shift-r"
 launcher-split-right = "cmd-alt-shift-t"
 toggle-zoom = "alt-z"
+apply-preset = "alt-ctrl-{n}"
 
 [gaps]
 outer = 50.0
@@ -43,10 +44,20 @@ screen-width-min = 3440
 
 [profile.ultrawide.spaces.1]
 apps = ["Ghostty", "Zen"]
-# weights = { Ghostty = 2.0 }
+# weights = { "Microsoft Teams" = 2.0 }
 
-# [profile.ultrawide.spaces.2]
-# apps = ["Slack"]
+[profile.ultrawide.preset.coding]
+number = 1
+
+[profile.ultrawide.preset.coding.spaces.1]
+apps = ["Ghostty", "Zen"]
+weights = { Ghostty = 2.0 }
+
+[profile.ultrawide.preset.chat]
+number = 2
+
+[profile.ultrawide.preset.chat.spaces.1]
+apps = ["Ghostty", "Slack"]
 
 [profile.ultrawide.spaces.3]
 apps = ["Spotify"]
