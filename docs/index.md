@@ -14,15 +14,29 @@ The TUI will show sync status for each tool and let you install/symlink interact
 
 ## Documentation
 
+### Setup
 - [Installation Guide](./installation.md) - Full setup instructions
 - [os TUI](./os-tui.md) - Interactive setup tool (`./os`)
-- [Claude Cockpit](./claude-cockpit.md) - Claude commands and skills for Linear / GitHub / Slack / Datadog
-- [Daily Briefing Routine](./daily-briefing-routine.md) - Morning routine prompt for claude.ai
+- [Rust TUI Architecture](./rust-architecture.md) - Source code architecture for the os TUI
+- [Homebrew](./homebrew.md) - Package management, install.sh, and sync workflow
+- [Git Hooks](./hooks.md) - Pre-commit hook (keymap SVG, TUI screenshot)
+- [GitHub Actions](./github-actions.md) - CI/CD for Corne firmware builds
+
+### Tools
 - [Fish Shell](./fish.md) - Shell configuration and aliases
 - [Neovim](./neovim.md) - Editor setup, plugins, and keybindings
 - [Tmux](./tmux.md) - Terminal multiplexer configuration
 - [Ghostty](./ghostty.md) - Terminal emulator settings
-- [nice!view Custom Art](./nice-view-art.md) - Corne display customization
+- [Aerospace](./aerospace.md) - Tiling window manager (keybindings, service mode)
+- [Norflow](./norflow.md) - Alternative WM with profile-based auto-layout
+
+### Keyboard
+- [Keyboard](./keyboard.md) - ZMK Corne firmware, keymap layers, macros, corne-flash utility
+- [nice!view Custom Art](./nice-view-art.md) - Corne display customization plan
+
+### AI Integration
+- [Claude Cockpit](./claude-cockpit.md) - Claude commands and skills for Linear / GitHub / Slack / Datadog
+- [Daily Briefing Routine](./daily-briefing-routine.md) - Morning routine prompt for claude.ai
 
 ## Structure
 

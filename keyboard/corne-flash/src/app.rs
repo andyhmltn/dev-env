@@ -1,4 +1,4 @@
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::sync::mpsc::{self, Receiver};
 use std::thread;
 use std::time::{Duration, Instant};
@@ -85,6 +85,15 @@ impl App {
             fetch_rx: None,
             download_rx: None,
         }
+    }
+
+    pub fn start_local(&mut self, dir: &Path) -> Result<()> {
+        let (left, right) = github::find_firmware_files(dir)?;
+        self.log.push(format!("Using local firmware from {}", dir.display()));
+        self.left_uf2 = Some(left);
+        self.right_uf2 = Some(right);
+        self.state = AppState::WaitLeftHalf;
+        Ok(())
     }
 
     pub fn start_fetch(&mut self) {

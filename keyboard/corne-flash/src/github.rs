@@ -84,9 +84,9 @@ pub fn find_firmware_files(dir: &Path) -> Result<(PathBuf, PathBuf)> {
     for entry in collect_files(dir)? {
         let path_str = entry.to_string_lossy().to_string();
         if path_str.ends_with(".uf2") {
-            if path_str.contains("corne_left") {
+            if path_str.contains("corne_left") || path_str.contains("/left/") {
                 left = Some(entry);
-            } else if path_str.contains("corne_right") {
+            } else if path_str.contains("corne_right") || path_str.contains("/right/") {
                 right = Some(entry);
             }
         }
