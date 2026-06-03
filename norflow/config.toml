@@ -44,20 +44,21 @@ screen-width-min = 3440
 
 [profile.ultrawide.spaces.1]
 apps = ["Ghostty", "Zen"]
-# weights = { "Microsoft Teams" = 2.0 }
 
 [profile.ultrawide.preset.coding]
 number = 1
 
 [profile.ultrawide.preset.coding.spaces.1]
-apps = ["Ghostty", "Zen"]
+apps = ["Slack", "Zen"]
 weights = { Ghostty = 2.0 }
 
 [profile.ultrawide.preset.chat]
 number = 2
 
 [profile.ultrawide.preset.chat.spaces.1]
-apps = ["Ghostty", "Slack"]
+apps = ["Zen", "Microsoft Teams", "Slack"]
+weights = { "Microsoft Teams" = 2.0 }
+hide-windows = ["Calendar"]
 
 [profile.ultrawide.spaces.3]
 apps = ["Spotify"]
