@@ -339,3 +339,4 @@ These are optional -- Cog works without them. But running them regularly keeps m
 # graphify
 - **graphify** (`~/.claude/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
 When the user types `/graphify`, invoke the Skill tool with `skill: "graphify"` before doing anything else.
+Auto-routing: when a `graphify-out/graph.json` exists in (or above) the current working directory and the user asks a natural-language question about the codebase, docs, or project content, invoke the graphify skill and treat the question as a `/graphify query` - do not wait for the user to type `/graphify`. Skip auto-routing for explicit rebuild commands and for non-content questions (config, tooling, git, harness behaviour).
