@@ -49,14 +49,14 @@ apps = ["Ghostty", "Zen"]
 number = 1
 
 [profile.ultrawide.preset.coding.spaces.1]
-apps = ["Slack", "Zen"]
-weights = { Ghostty = 2.0 }
+apps = ["Ghostty", "DataGrip"]
 
 [profile.ultrawide.preset.chat]
 number = 2
 
 [profile.ultrawide.preset.chat.spaces.1]
-apps = ["Zen", "Microsoft Teams", "Slack"]
+apps = ["Ghostty", "Microsoft Teams", "Slack"]
+# apps = ["Zen", "Microsoft Teams", "Slack"]
 weights = { "Microsoft Teams" = 2.0 }
 hide-windows = ["Calendar"]
 

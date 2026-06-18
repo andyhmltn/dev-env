@@ -5,6 +5,7 @@ Before answering, compare my current branch to main to get an idea of my changes
 
 Please refrain from using nested ternary operatos
 
+DO NOT use the term load-bearing
 DO NOT take shortcuts, use any type, fake implementation to get things working
 YOU MUST ensure all changes are typesafe
 YOU MUST ensure all prettier / tsc checks pass before a change is finished. When in genny you can do:
