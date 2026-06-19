@@ -30,7 +30,7 @@ screen-width-max = 3439
 apps = ["Ghostty"]
 
 [profile.laptop.spaces.2]
-apps = ["Zen"]
+apps = ["Google Chrome"]
 
 [profile.laptop.spaces.3]
 apps = ["Slack"]
@@ -43,7 +43,7 @@ inner = 0
 screen-width-min = 3440
 
 [profile.ultrawide.spaces.1]
-apps = ["Ghostty", "Zen"]
+apps = ["Ghostty", "Google Chrome"]
 
 [profile.ultrawide.preset.coding]
 number = 1
@@ -55,8 +55,8 @@ apps = ["Ghostty", "DataGrip"]
 number = 2
 
 [profile.ultrawide.preset.chat.spaces.1]
-apps = ["Ghostty", "Microsoft Teams", "Slack"]
-# apps = ["Zen", "Microsoft Teams", "Slack"]
+apps = ["Ghostty", "Microsoft Teams", "Google Chrome"]
+# apps = ["Google Chrome", "Microsoft Teams", "Slack"]
 weights = { "Microsoft Teams" = 2.0 }
 hide-windows = ["Calendar"]
 

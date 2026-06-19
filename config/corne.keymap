@@ -268,7 +268,7 @@
             display-name = "FN";
             bindings = <
 &kp LA(LG(J))  &m_sp_otd   &m_esc_w_cr  &m_sp_gg    &kp LG(C)          &kp LG(V)           &m_tmux_x  &m_tmux_copy  &m_tmux_l        &kp LC(R)        &kp LC(B)              &trans
-&m_q_bang_cr   &m_sp_ca    &kp LC(S)    &m_sp_dash  &kp LG(K)          &mo 6               &kp LEFT   &kp DOWN      &kp UP           &kp RIGHT        &kp LA(LG(RS(SPACE)))  &kp LA(LG(LS(FSLH)))
+&m_q_bang_cr   &m_sp_ca    &kp LC(S)    &m_sp_dash  &kp LG(LS(K))      &mo 6               &kp LEFT   &kp DOWN      &kp UP           &kp RIGHT        &kp LA(LG(RS(SPACE)))  &kp LA(LG(LS(FSLH)))
 &kp LA(LG(H))  &m_tmux_z   &kp LG(R)    &m_tmux_c   &m_jump_prev_diag  &m_jump_next_diag   &kp LC(B)  &kp LC(C)     &m_tmux_split_h  &m_tmux_split_v  &m_sp_gtl              &m_sp_btl
                         &trans  &trans  &trans                                             &mo 4  &kp LC(SPACE)  &trans
             >;
