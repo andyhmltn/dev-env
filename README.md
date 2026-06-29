@@ -51,9 +51,7 @@ dev-env/
 ├── zsh/
 │   └── .zprofile
 ├── claude/
-│   ├── CLAUDE.md
-│   ├── commands/
-│   └── skills/
+│   └── CLAUDE.md
 ├── config/                       # ZMK Corne config (must live at repo root)
 │   ├── boards/                   # Custom board/shield definitions
 │   ├── corne.keymap

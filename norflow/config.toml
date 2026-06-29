@@ -14,7 +14,11 @@ split-vertical = "alt-v"
 launcher-split-down = "cmd-alt-shift-r"
 launcher-split-right = "cmd-alt-shift-t"
 toggle-zoom = "alt-z"
-apply-preset = "alt-ctrl-{n}"
+apply-scene = "alt-ctrl-{n}"
+hint-mode = "alt-cmd-shift-/"
+hint-mode-right-click = "alt-cmd-shift-space"
+hint-mode-copy-link = "cmd-shift-l"
+text-select = "cmd-shift-y"
 
 [gaps]
 outer = 50.0
@@ -35,6 +39,10 @@ apps = ["Google Chrome"]
 [profile.laptop.spaces.3]
 apps = ["Slack"]
 
+[profile.laptop.spaces.4]
+apps = ["Microsoft Teams"]
+hide-windows = ["Calendar"]
+
 [profile.laptop.gaps]
 outer = 0
 inner = 0
@@ -45,18 +53,17 @@ screen-width-min = 3440
 [profile.ultrawide.spaces.1]
 apps = ["Ghostty", "Google Chrome"]
 
-[profile.ultrawide.preset.coding]
+[profile.ultrawide.scene.coding]
 number = 1
 
-[profile.ultrawide.preset.coding.spaces.1]
-apps = ["Ghostty", "DataGrip"]
+[profile.ultrawide.scene.coding.spaces.1]
+apps = ["Ghostty", "Slack"]
 
-[profile.ultrawide.preset.chat]
+[profile.ultrawide.scene.chat]
 number = 2
 
-[profile.ultrawide.preset.chat.spaces.1]
-apps = ["Ghostty", "Microsoft Teams", "Google Chrome"]
-# apps = ["Google Chrome", "Microsoft Teams", "Slack"]
+[profile.ultrawide.scene.chat.spaces.1]
+apps = ["Google Chrome", "Microsoft Teams", "Ghostty"]
 weights = { "Microsoft Teams" = 2.0 }
 hide-windows = ["Calendar"]
 

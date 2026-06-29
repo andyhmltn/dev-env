@@ -36,12 +36,18 @@ FORMULAE=(
     lftp
     libpq
     poppler
+    deno
+    grip
+    rust
+    semgrep
+    yarn
 )
 
 # Casks
 CASKS=(
     claude-code # Claude Code CLI
     aerospace
+    ngrok
 )
 
 # Check for missing packages

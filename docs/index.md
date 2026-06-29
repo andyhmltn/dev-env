@@ -34,10 +34,6 @@ The TUI will show sync status for each tool and let you install/symlink interact
 - [Keyboard](./keyboard.md) - ZMK Corne firmware, keymap layers, macros, corne-flash utility
 - [nice!view Custom Art](./nice-view-art.md) - Corne display customization plan
 
-### AI Integration
-- [Claude Cockpit](./claude-cockpit.md) - Claude commands and skills for Linear / GitHub / Slack / Datadog
-- [Daily Briefing Routine](./daily-briefing-routine.md) - Morning routine prompt for claude.ai
-
 ## Structure
 
 ```
@@ -68,9 +64,7 @@ dev-env/
 ├── aerospace/
 │   └── aerospace.toml    # Window manager config
 ├── claude/
-│   ├── CLAUDE.md         # Claude Code settings
-│   ├── commands/         # Custom slash commands
-│   └── skills/           # Superpowers skills
+│   └── CLAUDE.md         # Claude Code settings
 ├── zsh/
 │   └── .zprofile         # Zsh fallback config
 ├── config/               # ZMK Corne keyboard config
