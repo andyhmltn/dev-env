@@ -267,7 +267,7 @@
         fn_layer {
             display-name = "FN";
             bindings = <
-&kp LA(LG(J))  &m_sp_otd   &m_esc_w_cr  &m_sp_gg    &kp LG(C)          &kp LG(V)           &m_tmux_x  &m_tmux_copy  &m_tmux_l        &kp LC(R)        &kp LC(B)              &trans
+&kp LA(LG(J))  &m_sp_otd   &m_esc_w_cr  &m_sp_gg    &kp LG(C)          &kp LG(V)           &m_tmux_x  &m_tmux_copy  &m_tmux_l        &kp LC(R)        &kp LG(LS(L))          &kp LG(LS(Y))
 &m_q_bang_cr   &m_sp_ca    &kp LC(S)    &m_sp_dash  &kp LG(LS(K))      &mo 6               &kp LEFT   &kp DOWN      &kp UP           &kp RIGHT        &kp LA(LG(RS(SPACE)))  &kp LA(LG(LS(FSLH)))
 &kp LA(LG(H))  &m_tmux_z   &kp LG(R)    &m_tmux_c   &m_jump_prev_diag  &m_jump_next_diag   &kp LC(B)  &kp LC(C)     &m_tmux_split_h  &m_tmux_split_v  &m_sp_gtl              &m_sp_btl
                         &trans  &trans  &trans                                             &mo 4  &kp LC(SPACE)  &trans
@@ -297,7 +297,7 @@
         scrn_layer {
             display-name = "SCRN";
             bindings = <
-&trans  &trans  &trans  &trans  &kp LG(LA(LS(R)))  &kp LG(LA(LS(T)))          &kp LG(SPACE)       &kp LA(LG(LS(N8)))  &trans              &trans              &trans  &trans
+&trans  &trans  &trans  &trans  &kp LG(LA(LEFT))   &kp LG(LA(RIGHT))         &kp LG(SPACE)       &kp LA(LG(LS(N8)))  &trans              &trans              &trans  &trans
 &trans  &kp LA(LC(N0))  &kp LA(LC(N1))  &kp LA(LC(N2))  &to 7   &trans          &kp LG(N4)          &kp LA(LG(LC(N2)))  &kp LA(LG(LC(N3)))  &kp LA(LG(LC(N4)))  &trans  &trans
 &trans  &trans  &trans  &trans  &trans  &trans          &kp LA(LG(LS(N5)))  &kp LA(LG(LS(N6)))  &kp LA(LG(LS(N7)))  &trans              &trans  &trans
                         &trans  &trans  &trans          &trans  &trans  &trans
