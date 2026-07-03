@@ -53,11 +53,3 @@ apps = ["Google Chrome", "Microsoft Teams", "Ghostty"]
 weights = { "Microsoft Teams" = 2.0 }
 hide-windows = ["Calendar"]
 
-[profile.ultrawide.spaces.3]
-apps = ["Spotify"]
-
-[profile.ultrawide.spaces.4]
-apps = ["Linear"]
-
-[profile.ultrawide.spaces.5]
-apps = ["Figma"]
