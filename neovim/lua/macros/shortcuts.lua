@@ -9,18 +9,19 @@ vim.keymap.set('n', '<Leader>-btl', ':BufSurfForward<CR>', { noremap = false })
 vim.keymap.set('n', '<c-a>', ':BufSurfBack<CR>', { noremap = false })
 vim.keymap.set('n', '<c-f>', ':BufSurfForward<CR>', { noremap = false })
 
+vim.keymap.set('n', '<Leader>td', '0f[lrx', { noremap = false, desc = "Mark a todo item as done" })
+
 -- Symbols
 vim.keymap.set("n", "<leader>t",":Namu symbols<cr>" , {
 	desc = "Jump to LSP symbol",
 	silent = true,
 })
  
--- Add missing imports
 vim.keymap.set("n", "<leader>i",":TSToolsAddMissingImports<cr>" , {
 	desc = "Auto import missing imports",
 	silent = true,
 })
  
 -- Space around current cursor
-vim.keymap.set('n', '<Leader>-k', 'o<Esc>kO<Esc>j', { noremap = false })
+vim.keymap.set('n', '<Leader>-k', 'o<Esc>kO<Esc>j', { noremap = false, desc = "Space around current cursor" })
 
