@@ -1,6 +1,6 @@
 parse_config:
   raw_binding_map:
-    "&m_sp_otd":        "⎵-otd"
+    "&m_tmux_w":        "tmux W"
     "&m_esc_w_cr":      ":w↵"
     "&m_sp_gg":         "⎵gg"
     "&m_q_bang_cr":     ":q!↵"

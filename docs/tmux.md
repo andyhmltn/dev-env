@@ -27,6 +27,16 @@ These work identically whether you're in tmux or Neovim, provided by vim-tmux-na
 | `x` | Kill current pane (no confirmation) |
 | Mouse | Click to select pane, drag to resize |
 
+## Wiki Popup
+
+A persistent floating popup for vimwiki, always attached to the same session:
+
+| Keybinding | Action |
+|------------|--------|
+| `prefix + W` | Toggle the wiki popup |
+
+The popup attaches to a background session named `wiki` (`new-session -A`), so opening it repeatedly always returns to the same nvim instance. Pressing `prefix + W` inside the popup detaches, hiding the popup while nvim keeps running. Quitting nvim (`:q`) ends the session; the next toggle starts fresh. The `wiki` fish function opens the same popup when run inside tmux.
+
 ## Copy Mode
 
 Vi-style copy mode:

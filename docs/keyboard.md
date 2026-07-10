@@ -54,7 +54,7 @@ The keymap has 8 layers:
 |-------|--------|---------|
 | `m_esc_w_cr` | `Esc :w Enter` | Vim save |
 | `m_q_bang_cr` | `:q! Enter` | Vim force quit |
-| `m_sp_otd` | `Space -otd` | Custom command |
+| `m_tmux_w` | `Ctrl-b W` | Tmux wiki popup |
 | `m_sp_gg` | `Space gg` | Lazygit (Neovim leader) |
 | `m_sp_ca` | `Space ca` | Code action (Neovim leader) |
 | `m_sp_dash` | `Space -` | Leader dash prefix |

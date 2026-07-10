@@ -45,6 +45,8 @@ vim.g.NERDTreeMinimalMenu = 1
 -- Registers (setting contents of named registers)
 vim.fn.setreg("t", "0witype ")
 vim.fn.setreg("p", "elc$, ")
+-- Mark a todo item as done
+vim.fn.setreg("d", "0f[lrx")
 
 -- Key mappings
 local keymap = vim.keymap.set

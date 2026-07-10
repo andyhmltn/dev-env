@@ -424,7 +424,7 @@ fn key_label(key: &str) -> String {
 
 fn macro_label(name: &str) -> Option<&'static str> {
     match name {
-        "&m_sp_otd" => Some("-otd"),
+        "&m_tmux_w" => Some("^BW"),
         "&m_esc_w_cr" => Some(":w"),
         "&m_sp_gg" => Some(" gg"),
         "&m_q_bang_cr" => Some(":q!"),
@@ -732,7 +732,7 @@ mod tests {
     #[test]
     fn test_all_macro_labels_defined() {
         let macros = vec![
-            "&m_sp_otd",
+            "&m_tmux_w",
             "&m_esc_w_cr",
             "&m_sp_gg",
             "&m_q_bang_cr",
