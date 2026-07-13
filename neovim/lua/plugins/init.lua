@@ -3,13 +3,14 @@ return {
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
 
 	{
-		"folke/tokyonight.nvim",
+		"rose-pine/neovim",
+		name = "rose-pine",
 		lazy = false,
 		priority = 1000,
-		opts = { transparent = true },
+		opts = { styles = { transparency = true } },
 		config = function(_, opts)
-			require("tokyonight").setup(opts)
-			vim.cmd.colorscheme("tokyonight-moon")
+			require("rose-pine").setup(opts)
+			vim.cmd.colorscheme("rose-pine")
 		end,
 	},
 

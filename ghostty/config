@@ -1,8 +1,8 @@
-,command = /opt/homebrew/bin/fish
+command = /opt/homebrew/bin/fish
 shell-integration = fish
-font-family = "Menlo Bold"
+font-family = "BlexMono Nerd Font Mono"
 font-size = 18
-theme = TokyoNight Moon
+theme = Rose Pine
 
 macos-option-as-alt = true
 
