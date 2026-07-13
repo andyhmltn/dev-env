@@ -28,7 +28,7 @@ The TUI will show sync status for each tool and let you install/symlink interact
 - [Tmux](./tmux.md) - Terminal multiplexer configuration
 - [Ghostty](./ghostty.md) - Terminal emulator settings
 - [Aerospace](./aerospace.md) - Tiling window manager (keybindings, service mode)
-- [Norflow](./norflow.md) - Alternative WM with profile-based auto-layout
+- [NFlow](./nFlow.md) - Alternative WM with profile-based auto-layout
 
 ### Keyboard
 - [Keyboard](./keyboard.md) - ZMK Corne firmware, keymap layers, macros, corne-flash utility

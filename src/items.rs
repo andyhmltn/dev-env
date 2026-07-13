@@ -36,7 +36,7 @@ pub enum ItemId {
     Claude,
     Ghostty,
     Aerospace,
-    Norflow,
+    NFlow,
     CorneFlash,
     KeyboardLayout,
     HomebrewSync,
@@ -96,11 +96,11 @@ impl MenuItem {
                 id: ItemId::Aerospace,
             },
             MenuItem {
-                label: "Norflow",
+                label: "NFlow",
                 description: "symlink config",
                 kind: ItemKind::Sync,
                 status: SyncStatus::Checking,
-                id: ItemId::Norflow,
+                id: ItemId::NFlow,
             },
             MenuItem {
                 label: "Corne Flash",
@@ -245,9 +245,9 @@ fn symlink_pairs(id: ItemId, repo_root: &Path) -> Option<Vec<(PathBuf, PathBuf)>
             home.join(".config/ghostty/config"),
             repo_root.join("ghostty/config"),
         )]),
-        ItemId::Norflow => Some(vec![(
-            home.join(".config/norflow/config.toml"),
-            repo_root.join("norflow/config.toml"),
+        ItemId::NFlow => Some(vec![(
+            home.join(".config/nFlow/config.toml"),
+            repo_root.join("nFlow/config.toml"),
         )]),
         ItemId::Aerospace => Some(vec![(
             home.join(".aerospace.toml"),
@@ -429,7 +429,7 @@ mod tests {
         assert!(symlink_pairs(ItemId::Claude, &root).is_some());
         assert!(symlink_pairs(ItemId::Ghostty, &root).is_some());
         assert!(symlink_pairs(ItemId::Aerospace, &root).is_some());
-        assert!(symlink_pairs(ItemId::Norflow, &root).is_some());
+        assert!(symlink_pairs(ItemId::NFlow, &root).is_some());
     }
 
     #[test]

@@ -1,6 +1,6 @@
-# Norflow
+# NFlow
 
-Alternative tiling window manager with profile-based auto-layout. Config lives at `norflow/config.toml`, symlinked by the os TUI.
+Alternative tiling window manager with profile-based auto-layout. Config lives at `nFlow/config.toml`, symlinked by the os TUI.
 
 ## Keybindings
 
@@ -29,7 +29,7 @@ Raycast, Spotlight, Alfred, 1Password -- these float above tiling.
 
 ## Profiles
 
-Norflow auto-selects a profile based on screen width.
+NFlow auto-selects a profile based on screen width.
 
 ### Laptop (width <= 3439px)
 
@@ -54,8 +54,8 @@ Default gaps (50px).
 
 ## Launcher
 
-`norflow/launcher.toml` configures the app launcher. Currently minimal -- just sets the GitHub user (`andyhmltn`).
+`nFlow/launcher.toml` configures the app launcher. Currently minimal -- just sets the GitHub user (`andyhmltn`).
 
 ## Relationship to Aerospace
 
-Both Norflow and Aerospace manage window tiling with identical `alt-hjkl` navigation. The profile-based auto-layout (assigning apps to spaces based on screen size) is Norflow-specific. Aerospace uses persistent named workspaces (1-9, A-Z) without auto-assignment. Only one should be active at a time.
+Both NFlow and Aerospace manage window tiling with identical `alt-hjkl` navigation. The profile-based auto-layout (assigning apps to spaces based on screen size) is NFlow-specific. Aerospace uses persistent named workspaces (1-9, A-Z) without auto-assignment. Only one should be active at a time.

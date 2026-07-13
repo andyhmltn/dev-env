@@ -49,6 +49,6 @@ Enter with `alt-shift-;`, exit with `esc`.
 - **Persistent workspaces**: 1-9 and A-Z (31 total, always visible in status bar)
 - **Keyboard**: QWERTY preset
 
-## Relationship to Norflow
+## Relationship to NFlow
 
-Norflow (`norflow/config.toml`) is an alternative WM with profile-based auto-layout (laptop vs ultrawide). Both share the same `alt-hjkl` navigation pattern. Only one should be active at a time. Aerospace is installed via Homebrew cask; Norflow is configured separately.
+NFlow (`nFlow/config.toml`) is an alternative WM with profile-based auto-layout (laptop vs ultrawide). Both share the same `alt-hjkl` navigation pattern. Only one should be active at a time. Aerospace is installed via Homebrew cask; NFlow is configured separately.

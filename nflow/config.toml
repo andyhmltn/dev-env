@@ -53,3 +53,9 @@ apps = ["Google Chrome", "Microsoft Teams", "Ghostty"]
 weights = { "Microsoft Teams" = 2.0 }
 hide-windows = ["Calendar"]
 
+[profile.ultrawide.scene.notion]
+number = 3
+
+[profile.ultrawide.scene.chat.notion.1]
+apps = ["Ghostty", "Google Chrome", "Notion"]
+hide-windows = ["Calendar"]

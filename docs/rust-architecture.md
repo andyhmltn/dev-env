@@ -75,7 +75,7 @@ The `App::tick()` method drains all channels each frame (non-blocking `try_recv`
 ## Menu Items
 
 Defined in `items.rs`. Each `MenuItem` has:
-- `id` (ItemId enum): Homebrew, Neovim, Tmux, Fish, Claude, Ghostty, Aerospace, Norflow, CorneFlash, KeyboardLayout, HomebrewSync, Dashboard
+- `id` (ItemId enum): Homebrew, Neovim, Tmux, Fish, Claude, Ghostty, Aerospace, NFlow, CorneFlash, KeyboardLayout, HomebrewSync, Dashboard
 - `kind`: SyncItem (checks symlink), ActionItem (runs something)
 - `symlink_target`: where the config should be symlinked to
 - `sync_status`: Checking, Synced, NotSynced, NotInstalled
