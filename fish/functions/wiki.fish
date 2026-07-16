@@ -5,3 +5,4 @@ function wiki --description 'Open vimwiki in a persistent tmux popup'
         nvim ~/vimwiki/index.wiki
     end
 end
+
