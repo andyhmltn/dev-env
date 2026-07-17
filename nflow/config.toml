@@ -5,6 +5,8 @@ hint-mode = "alt-cmd-shift-/"
 hint-mode-right-click = "alt-cmd-shift-space"
 hint-mode-copy-link = "cmd-shift-l"
 text-select = "cmd-shift-y"
+menu-search = "alt-cmd-shift-p"
+pluck = "alt-cmd-shift-o"
 
 [gaps]
 outer = 50.0
