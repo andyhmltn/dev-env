@@ -4,11 +4,12 @@ apply-scene = "alt-ctrl-{n}"
 hint-mode = "alt-cmd-shift-/"
 hint-mode-right-click = "alt-cmd-shift-space"
 hint-mode-copy-link = "cmd-shift-l"
+menu-search = "alt-cmd-shift-p"
 text-select = "cmd-shift-y"
 
 [gaps]
-outer = 50.0
-inner = 50.0
+outer = 40.0
+inner = 40.0
 
 [ignore]
 apps = ["Raycast", "Spotlight", "Alfred", "1Password"]
@@ -49,7 +50,7 @@ apps = ["Ghostty", "Slack"]
 number = 2
 
 [profile.ultrawide.scene.chat.spaces.1]
-apps = ["Google Chrome", "Microsoft Teams", "Ghostty"]
+apps = ["Google Chrome",   "Microsoft Teams", "Ghostty",]
 weights = { "Microsoft Teams" = 2.0 }
 hide-windows = ["Calendar"]
 
@@ -57,5 +58,6 @@ hide-windows = ["Calendar"]
 number = 3
 
 [profile.ultrawide.scene.chat.notion.1]
-apps = ["Ghostty", "Google Chrome", "Notion"]
+apps = ["Ghostty", "Microsoft Teams"]
+weights = { "Microsoft Teams" = 2.0 }
 hide-windows = ["Calendar"]

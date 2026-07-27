@@ -1,0 +1,5 @@
+[project]
+title = "Claude Code"
+files = [
+	{ source = "CLAUDE.md", target = "~/.claude/CLAUDE.md" }
+]

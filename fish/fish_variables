@@ -47,4 +47,4 @@ SETUVAR fish_pager_color_selected_background:\x2d\x2dbackground\x3dE6B450
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
-SETUVAR fish_user_paths:/opt/homebrew/opt/nvm
+SETUVAR fish_user_paths:/Users/andy/\x2ebun/bin\x1e/opt/homebrew/opt/nvm

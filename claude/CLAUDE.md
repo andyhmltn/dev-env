@@ -21,8 +21,6 @@ Never use eslint-disable-line or eslint-disable-next-line. Fix the underlying is
 
 Exception: Side effects are unavoidable for DB/API interactions. Isolate them and name clearly—createNewUser obviously has side effects, but calculateTotal should be pure.
 
-Always use Zread MCP when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask.
-
 # Prefer Direct Code
 
 Write the simplest code that solves today's problem. Avoid abstractions, cleverness, or "might be helpful later" patterns until real needs emerge. Direct code is easier to build, understand, and debug. Generalize later when actual patterns reveal themselves.
