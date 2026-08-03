@@ -327,10 +327,10 @@
         runescape_layer {
             display-name = "RS";
             bindings = <
-&trans  &to 0   &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &kp F5
+&kp F7  &to 0   &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &kp F8
 &to 0   &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &kp F1
-&trans  &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &kp N1
-                        &trans  &trans  &trans          &kp RET  &kp SPACE  &trans
+&kp F9  &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &kp F5
+                        &trans  &kp F2  &kp F10          &kp F4  &kp F3  &kp F6
             >;
         };
     };
