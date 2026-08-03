@@ -330,7 +330,7 @@
 &kp F7  &to 0   &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &kp F8
 &to 0   &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &kp F1
 &kp F9  &trans  &trans  &trans  &trans  &trans          &trans  &trans  &trans  &trans  &trans  &kp F5
-                        &trans  &kp F2  &kp F10          &kp F4  &kp F3  &kp F6
+                        &trans  &kp F2  &kp F10          &kp F1  &kp F3  &kp F5
             >;
         };
     };
