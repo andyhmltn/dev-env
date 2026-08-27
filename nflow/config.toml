@@ -1,0 +1,75 @@
+[hotkeys]
+scroll-mode = "cmd-shift-i"
+apply-scene = "alt-ctrl-{n}"
+hint-mode = "alt-cmd-shift-/"
+hint-mode-right-click = "alt-cmd-shift-space"
+hint-mode-copy-link = "cmd-shift-l"
+text-select = "cmd-shift-y"
+menu-search = "alt-cmd-shift-p"
+pluck = "alt-cmd-shift-o"
+warp = "alt-cmd-shift-h"
+
+[gaps]
+outer = 40.0
+inner = 40.0
+
+[ignore]
+apps = ["Raycast", "Spotlight", "Alfred", "1Password"]
+
+[app-shortcuts]
+"cmd-4" = "Ghostty"
+"alt-cmd-ctrl-2" = "Google Chrome"
+"alt-cmd-ctrl-3" = "Slack"
+"alt-cmd-ctrl-4" = "Microsoft Outlook"
+"alt-cmd-shift-5" = "Linear"
+"alt-cmd-shift-6" = "Notion"
+"alt-cmd-shift-7" = "DataGrip"
+"alt-cmd-shift-8" = "Microsoft Teams"
+
+[profile.laptop]
+screen-width-max = 3439
+
+[profile.laptop.spaces.1]
+apps = ["Ghostty"]
+
+[profile.laptop.spaces.2]
+apps = ["Google Chrome"]
+
+[profile.laptop.spaces.3]
+apps = ["Slack"]
+
+[profile.laptop.spaces.4]
+apps = ["Microsoft Teams"]
+hide-windows = ["Calendar"]
+
+[profile.laptop.gaps]
+outer = 0
+inner = 0
+
+[profile.ultrawide]
+screen-width-min = 3440
+
+[profile.ultrawide.spaces.1]
+apps = ["Ghostty", "Google Chrome"]
+
+[profile.ultrawide.scene.coding]
+number = 1
+
+[profile.ultrawide.scene.coding.spaces.1]
+apps = ["Ghostty", "Slack"]
+
+[profile.ultrawide.scene.chat]
+number = 2
+
+[profile.ultrawide.scene.chat.spaces.1]
+apps = ["Google Chrome",   "Microsoft Teams", "Ghostty",]
+weights = { "Microsoft Teams" = 2.0 }
+hide-windows = ["Calendar"]
+
+[profile.ultrawide.scene.notion]
+number = 3
+
+[profile.ultrawide.scene.chat.notion.1]
+apps = ["Ghostty", "Microsoft Teams"]
+weights = { "Microsoft Teams" = 2.0 }
+hide-windows = ["Calendar"]

@@ -1,0 +1,26 @@
+{
+  "React Functional Component": {
+    "prefix": "rfc",
+    "body": [
+      "import React, { FC } from \"react\";",
+      "",
+      "interface ${1:ComponentName}Props {",
+      "  ${2};",
+      "}",
+      "",
+      "export const ${1}: FC<${1}Props> = ({",
+      "  ${3},",
+      "}) => {",
+      "  return ${4};",
+      "};"
+    ],
+    "description": "React Functional Component with TypeScript"
+  },
+  "Test Snippet": {
+    "prefix": "test",
+    "body": [
+      "This is a test snippet"
+    ],
+    "description": "Simple test"
+  }
+}

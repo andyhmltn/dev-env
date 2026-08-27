@@ -1,0 +1,3 @@
+[project]
+title = "Fish Shell"
+target = "~/.config/fish"

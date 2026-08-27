@@ -1,0 +1,5 @@
+**/.claude.json
+target/
+Cargo.lock
+.superpowers/
+nflow/nflow.pid

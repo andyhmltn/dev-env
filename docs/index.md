@@ -1,0 +1,112 @@
+# Dev Environment Documentation
+
+A macOS development environment configuration with Fish shell, Neovim, Tmux, and Ghostty terminal.
+
+## Quick Start
+
+```bash
+git clone <repo-url> ~/dev/dev-env
+cd ~/dev/dev-env
+./os
+```
+
+The TUI will show sync status for each tool and let you install/symlink interactively.
+
+## Documentation
+
+### Setup
+- [Installation Guide](./installation.md) - Full setup instructions
+- [os TUI](./os-tui.md) - Interactive setup tool (`./os`)
+- [Rust TUI Architecture](./rust-architecture.md) - Source code architecture for the os TUI
+- [Homebrew](./homebrew.md) - Package management, install.sh, and sync workflow
+- [Git Hooks](./hooks.md) - Pre-commit hook (keymap SVG, TUI screenshot)
+- [GitHub Actions](./github-actions.md) - CI/CD for Corne firmware builds
+
+### Tools
+- [Fish Shell](./fish.md) - Shell configuration and aliases
+- [Neovim](./neovim.md) - Editor setup, plugins, and keybindings
+- [Tmux](./tmux.md) - Terminal multiplexer configuration
+- [Ghostty](./ghostty.md) - Terminal emulator settings
+- [Aerospace](./aerospace.md) - Tiling window manager (keybindings, service mode)
+- [NFlow](./nFlow.md) - Alternative WM with profile-based auto-layout
+
+### Keyboard
+- [Keyboard](./keyboard.md) - ZMK Corne firmware, keymap layers, macros, corne-flash utility
+- [nice!view Custom Art](./nice-view-art.md) - Corne display customization plan
+
+## Structure
+
+```
+dev-env/
+├── os                    # TUI launcher (builds + runs Rust binary)
+├── src/                  # Rust source for the os TUI (ratatui)
+├── Cargo.toml
+├── homebrew/
+│   ├── install.sh        # Homebrew package installer
+│   └── sync.sh           # Syncs installed packages back to install.sh
+├── fish/
+│   ├── config.fish       # Shell configuration
+│   ├── fish_plugins      # Plugin list
+│   ├── fish_variables    # Shell variables
+│   └── functions/        # Custom fish functions
+├── neovim/
+│   ├── init.lua          # Entry point
+│   ├── lua/
+│   │   ├── settings.lua  # Editor settings
+│   │   ├── plugins/      # Plugin configurations
+│   │   └── macros/       # Keyboard shortcuts
+│   └── snippets/         # Code snippets
+├── tmux/
+│   ├── .tmux.conf        # Tmux configuration
+│   └── tmux-cd.sh        # Tmux directory helper
+├── ghostty/
+│   ��── config            # Terminal settings
+├── aerospace/
+│   └── aerospace.toml    # Window manager config
+├── claude/
+│   └── CLAUDE.md         # Claude Code settings
+├── zsh/
+│   └── .zprofile         # Zsh fallback config
+├── config/               # ZMK Corne keyboard config
+├── keyboard/             # Corne firmware, keymap, flash utility
+└── hooks/
+    └── pre-commit        # Regenerates keymap SVG + TUI screenshot
+```
+
+## Installed Tools
+
+| Tool | Purpose |
+|------|---------|
+| fish | Primary shell |
+| fisher | Fish plugin manager |
+| neovim | Text editor |
+| tmux | Terminal multiplexer |
+| fzf | Fuzzy finder |
+| ripgrep | Fast text search |
+| zoxide | Smart cd replacement |
+| lazygit | Terminal git UI |
+| go | Go programming language |
+| fnm | Node.js version manager |
+| pnpm | Fast npm alternative |
+| biome | Linter/formatter |
+| duckdb | Analytical SQL engine |
+| fd | Fast file finder |
+| gh | GitHub CLI |
+| uv | Python package manager |
+| xh | HTTP client |
+
+Source of truth: [homebrew/install.sh](../homebrew/install.sh).
+
+## Post-Install Steps
+
+After running `./os`:
+
+1. Install Fish plugins: `fisher update`
+2. Install Node.js: `fnm install 20`
+3. Set Fish as default shell: `chsh -s /opt/homebrew/bin/fish`
+4. Install Tmux plugins: Press `prefix + I` in tmux
+
+## Manual Setup
+
+- [Aerospace](https://github.com/nikitabobko/AeroSpace) window manager
+- [Homerow](https://www.homerow.app) keyboard navigation (cmd+shift+/)
