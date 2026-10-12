@@ -3,3 +3,7 @@ target/
 Cargo.lock
 .superpowers/
 nflow/nflow.pid
+nflow/nflow.log
+nflow/nflow-signing.crt
+nflow/nflow-signing.key
+nflow/nflow-signing.p12

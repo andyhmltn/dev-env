@@ -1,4 +1,10 @@
+# The following lines were added by Docker Desktop to add commands to your PATH.
+export PATH="$PATH:/Users/andy/.docker/bin"
+# End of Docker Desktop section.
+
 eval (/opt/homebrew/bin/brew shellenv)
+
+set -g fish_greeting
 
 # Auto-start tmux if not already inside tmux
 if status is-interactive
@@ -41,6 +47,7 @@ alias os '$HOME/dev/dev-env/os'
 alias dc 'docker-compose'
 alias do 'docker'
 alias r 'gh-review'
+alias gr 'reviewer peer-review --repo autogenai/genny '
 
 zoxide init fish --cmd cd | source
 alias gg lazygit
@@ -69,3 +76,4 @@ fish_add_path "/Users/andy/.local/share/fnm/node-versions/v22.23.1/installation/
 
 # lazydiff
 fish_add_path /Users/andy/.lazydiff/bin
+
