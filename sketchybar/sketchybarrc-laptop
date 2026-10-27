@@ -6,7 +6,7 @@ PLUGIN_DIR="$HOME/.config/sketchybar/plugins-laptop"
 PLUGIN_SHARED_DIR="$HOME/.config/sketchybar/plugins"
 
 # Palette: bolder, darker
-BAR_BG=0xdd0b0b12
+BAR_BG=0x00000000
 ITEM_BG=0xff1e1e2e
 TEXT=0xffe4e4ef
 ACCENT_CPU=0xfff38ba8
@@ -60,7 +60,7 @@ sketchybar --add item front_app left \
 
 sketchybar --add item next_meeting right \
     --set next_meeting \
-    icon= \
+    icon= \
     icon.color=$ACCENT_MEET \
     label.color=$TEXT \
     drawing=off \
@@ -112,21 +112,21 @@ sketchybar --add item network right \
 
 sketchybar --add item memory right \
     --set memory \
-    icon= \
+    icon= \
     icon.color=$ACCENT_MEM \
     update_freq=5 \
     script="$PLUGIN_SHARED_DIR/memory.sh"
 
 sketchybar --add item cpu right \
     --set cpu \
-    icon= \
+    icon= \
     icon.color=$ACCENT_CPU \
     update_freq=2 \
     script="$PLUGIN_SHARED_DIR/cpu.sh"
 
 sketchybar --add item pomodoro right \
     --set pomodoro \
-    icon= \
+    icon= \
     icon.color=$ACCENT_POMO \
     update_freq=1 \
     script="$PLUGIN_SHARED_DIR/pomodoro.sh" \
