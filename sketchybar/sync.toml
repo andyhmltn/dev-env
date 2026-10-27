@@ -1,0 +1,3 @@
+[project]
+title = "SketchyBar"
+target = "~/.config/sketchybar"

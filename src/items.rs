@@ -37,6 +37,7 @@ pub enum ItemId {
     Ghostty,
     Aerospace,
     NFlow,
+    Sketchybar,
     CorneFlash,
     KeyboardLayout,
     HomebrewSync,
@@ -101,6 +102,13 @@ impl MenuItem {
                 kind: ItemKind::Sync,
                 status: SyncStatus::Checking,
                 id: ItemId::NFlow,
+            },
+            MenuItem {
+                label: "SketchyBar",
+                description: "symlink config",
+                kind: ItemKind::Sync,
+                status: SyncStatus::Checking,
+                id: ItemId::Sketchybar,
             },
             MenuItem {
                 label: "Corne Flash",
@@ -253,6 +261,17 @@ fn symlink_pairs(id: ItemId, repo_root: &Path) -> Option<Vec<(PathBuf, PathBuf)>
             home.join(".aerospace.toml"),
             repo_root.join("aerospace/aerospace.toml"),
         )]),
+        ItemId::Sketchybar => {
+            let sb_dir = home.join(".config/sketchybar");
+            Some(vec![
+                (sb_dir.join("sketchybarrc"), repo_root.join("sketchybar/sketchybarrc")),
+                (sb_dir.join("sketchybarrc-laptop"), repo_root.join("sketchybar/sketchybarrc-laptop")),
+                (sb_dir.join("sketchybarrc-desktop"), repo_root.join("sketchybar/sketchybarrc-desktop")),
+                (sb_dir.join("plugins"), repo_root.join("sketchybar/plugins")),
+                (sb_dir.join("plugins-laptop"), repo_root.join("sketchybar/plugins-laptop")),
+                (sb_dir.join("plugins-desktop"), repo_root.join("sketchybar/plugins-desktop")),
+            ])
+        }
         ItemId::Homebrew | ItemId::CorneFlash | ItemId::KeyboardLayout | ItemId::HomebrewSync | ItemId::Dashboard => {
             None
         }
@@ -316,11 +335,11 @@ mod tests {
     #[test]
     fn all_items_has_correct_structure() {
         let items = MenuItem::all();
-        assert_eq!(items.len(), 12);
+        assert_eq!(items.len(), 13);
 
         let sync_count = items.iter().filter(|i| i.kind == ItemKind::Sync).count();
         let action_count = items.iter().filter(|i| i.kind == ItemKind::Action).count();
-        assert_eq!(sync_count, 8);
+        assert_eq!(sync_count, 9);
         assert_eq!(action_count, 4);
     }
 
@@ -430,6 +449,7 @@ mod tests {
         assert!(symlink_pairs(ItemId::Ghostty, &root).is_some());
         assert!(symlink_pairs(ItemId::Aerospace, &root).is_some());
         assert!(symlink_pairs(ItemId::NFlow, &root).is_some());
+        assert!(symlink_pairs(ItemId::Sketchybar, &root).is_some());
     }
 
     #[test]

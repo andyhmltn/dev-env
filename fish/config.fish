@@ -6,6 +6,13 @@ eval (/opt/homebrew/bin/brew shellenv)
 
 set -g fish_greeting
 
+if status is-interactive
+    set -l current (defaults read NSGlobalDomain _HIHideMenuBar 2>/dev/null)
+    if test "$current" != 1
+        defaults write NSGlobalDomain _HIHideMenuBar -bool true
+    end
+end
+
 # Auto-start tmux if not already inside tmux
 if status is-interactive
     and not set -q TMUX
