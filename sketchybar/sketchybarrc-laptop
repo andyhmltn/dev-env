@@ -19,6 +19,8 @@ ACCENT_MOON=0xffb4befe
 ACCENT_CLOCK=0xffcba6f7
 ACCENT_BAT=0xffa6e3a1
 ACCENT_VOL=0xff89dceb
+ACCENT_WORK=0xff94e2d5
+ACCENT_FREE=0xffa6e3a1
 
 sketchybar --bar \
     height=40 \
@@ -26,8 +28,8 @@ sketchybar --bar \
     margin=0 \
     sticky=on \
     topmost=on \
-    padding_left=10 \
-    padding_right=10 \
+    padding_left=20 \
+    padding_right=20 \
     display=main
 
 sketchybar --default \
@@ -56,9 +58,7 @@ sketchybar --add item front_app left \
     script="$PLUGIN_SHARED_DIR/front_app.sh" \
     --subscribe front_app front_app_switched
 
-##### RIGHT (reverse order of visual placement) #####
-
-sketchybar --add item next_meeting right \
+sketchybar --add item next_meeting left \
     --set next_meeting \
     icon= \
     icon.color=$ACCENT_MEET \
@@ -66,6 +66,27 @@ sketchybar --add item next_meeting right \
     drawing=off \
     update_freq=60 \
     script="$PLUGIN_SHARED_DIR/next_meeting.sh"
+
+sketchybar --add item free_block left \
+    --set free_block \
+    icon=󰃭 \
+    icon.color=$ACCENT_FREE \
+    label.color=$TEXT \
+    drawing=off \
+    update_freq=120 \
+    script="$PLUGIN_SHARED_DIR/free_block.sh"
+
+sketchybar --add item workday left \
+    --set workday \
+    icon=󰅐 \
+    icon.color=$ACCENT_WORK \
+    label.color=$TEXT \
+    drawing=off \
+    update_freq=60 \
+    script="$PLUGIN_SHARED_DIR/workday.sh"
+
+
+##### RIGHT (reverse order of visual placement) #####
 
 
 sketchybar --add item clock right \
@@ -78,15 +99,11 @@ sketchybar --add item clock right \
 sketchybar --add item battery right \
     --set battery \
     icon.color=$ACCENT_BAT \
+    label.width=40 \
+    label.align=left \
     update_freq=20 \
     script="$PLUGIN_DIR/battery.sh"
 
-sketchybar --add item volume right \
-    --set volume \
-    icon.color=$ACCENT_VOL \
-    label.drawing=true \
-    script="$PLUGIN_SHARED_DIR/volume.sh" \
-    --subscribe volume volume_change
 
 sketchybar --add item weather right \
     --set weather \
@@ -96,41 +113,8 @@ sketchybar --add item weather right \
     script="$PLUGIN_SHARED_DIR/weather.sh" \
     --subscribe weather system_woke
 
-sketchybar --add item weather.moon right \
-    --set weather.moon \
-    icon.color=$ACCENT_MOON \
-    icon.font="$FONT_FACE:Bold:18.0" \
-    label.drawing=off \
-    --subscribe weather.moon mouse.clicked
 
-sketchybar --add item network right \
-    --set network \
-    icon=󰖩 \
-    icon.color=$ACCENT_NET \
-    update_freq=2 \
-    script="$PLUGIN_SHARED_DIR/network.sh"
 
-sketchybar --add item memory right \
-    --set memory \
-    icon= \
-    icon.color=$ACCENT_MEM \
-    update_freq=5 \
-    script="$PLUGIN_SHARED_DIR/memory.sh"
-
-sketchybar --add item cpu right \
-    --set cpu \
-    icon= \
-    icon.color=$ACCENT_CPU \
-    update_freq=2 \
-    script="$PLUGIN_SHARED_DIR/cpu.sh"
-
-sketchybar --add item pomodoro right \
-    --set pomodoro \
-    icon= \
-    icon.color=$ACCENT_POMO \
-    update_freq=1 \
-    script="$PLUGIN_SHARED_DIR/pomodoro.sh" \
-    --subscribe pomodoro mouse.clicked
 
 ##### Finalizing Setup #####
 sketchybar --update
