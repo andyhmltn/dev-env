@@ -41,6 +41,7 @@ FORMULAE=(
     rust
     semgrep
     yarn
+    jq          # SketchyBar weather JSON parsing
 )
 
 # Casks
@@ -48,6 +49,8 @@ CASKS=(
     claude-code # Claude Code CLI
     aerospace
     ngrok
+    font-blex-mono-nerd-font      # SketchyBar laptop icons and text
+    font-jetbrains-mono-nerd-font # SketchyBar desktop icons and text
 )
 
 # Check for missing packages

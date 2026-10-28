@@ -96035,3 +96035,179 @@
 [2026-08-14T00:26:33Z INFO  nflow::space] DIAG retile space 1 wid=1534 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1728.0, height: 1092.0 }
 [2026-08-14T00:26:33Z INFO  nflow::ax] apply_frame_hiding: enum wid=1534 subrole="AXStandardWindow" title="tmux ~" hide_match=false
 [2026-08-14T00:26:33Z INFO  nflow::ax] DIAG wid=1534 GIVE UP (attempts exhausted) current=Some(Rect { x: 0.0, y: 33.0, width: 1728.0, height: 1084.0 }) target=Rect { x: 0.0, y: 25.0, width: 1728.0, height: 1092.0 }
+[2026-10-21T20:34:53Z INFO  nflow] nflow starting
+nflow requires accessibility permission.
+Grant access in System Settings > Privacy & Security > Accessibility
+[2026-10-21T20:44:06Z INFO  nflow] nflow starting
+nflow requires accessibility permission.
+Grant access in System Settings > Privacy & Security > Accessibility
+[2026-10-21T20:44:26Z INFO  nflow] nflow starting
+nflow requires accessibility permission.
+Grant access in System Settings > Privacy & Security > Accessibility
+[2026-10-23T16:00:40Z INFO  nflow] nflow starting
+nflow requires accessibility permission.
+Grant access in System Settings > Privacy & Security > Accessibility
+[2026-10-27T23:13:14Z INFO  nflow] nflow starting
+nflow requires accessibility permission.
+Grant access in System Settings > Privacy & Security > Accessibility
+[2026-10-27T23:13:24Z INFO  nflow] nflow starting
+nflow requires accessibility permission.
+Grant access in System Settings > Privacy & Security > Accessibility
+[2026-10-27T23:16:42Z INFO  nflow] nflow starting
+nflow requires accessibility permission.
+Grant access in System Settings > Privacy & Security > Accessibility
+[2026-10-27T23:17:23Z INFO  nflow] nflow starting
+nflow requires accessibility permission.
+Grant access in System Settings > Privacy & Security > Accessibility
+[2026-10-27T23:17:43Z INFO  nflow] nflow starting
+nflow requires accessibility permission.
+Grant access in System Settings > Privacy & Security > Accessibility
+[2026-10-27T23:19:31Z INFO  nflow] nflow starting
+[2026-10-27T23:19:31Z INFO  nflow] built 18 hotkey bindings
+[2026-10-27T23:19:31Z INFO  nflow] built 8 app shortcut bindings
+[2026-10-27T23:19:31Z INFO  nflow::hotkey] registering 26 hotkey bindings via CGEventTap
+[2026-10-27T23:19:31Z INFO  nflow::hotkey] CGEventTap installed successfully
+[2026-10-27T23:19:31Z INFO  nflow] hotkeys registered successfully
+[2026-10-27T23:19:31Z INFO  nflow::hotkey] installed Carbon hotkey event handler
+[2026-10-27T23:19:31Z INFO  nflow::hotkey] registered 26 Carbon hotkeys
+[2026-10-27T23:19:31Z INFO  nflow::space] window_created: app="ChatGPT" wid=114 -> space 5 (active=1)
+[2026-10-27T23:19:33Z INFO  nflow::space] window_created: app="Terminal" wid=25 -> space 6 (active=1)
+[2026-10-27T23:19:33Z INFO  nflow::space] window_created: app="Ghostty" wid=2261 -> space 1 (active=1)
+[2026-10-27T23:19:33Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:33Z INFO  nflow::ax] apply_frame_hiding: enum wid=2261 subrole="AXStandardWindow" title="👻" hide_match=false
+[2026-10-27T23:19:33Z INFO  nflow::ax] apply_frame_hiding: enum wid=2260 subrole="AXStandardWindow" title="Software Update" hide_match=false
+[2026-10-27T23:19:33Z INFO  nflow::ax] apply_frame_hiding: skipping frame updates for wid=2261 (untracked_extra=true, non_standard_focus=false, hide_titled_focused=false)
+[2026-10-27T23:19:33Z INFO  nflow::space] window_created: app="Zen" wid=102 -> space 7 (active=1)
+[2026-10-27T23:19:33Z INFO  nflow::space] window_created: app="Steam Helper" wid=1566 -> space 8 (active=1)
+[2026-10-27T23:19:33Z INFO  nflow::space] window_created: app="Activity Monitor" wid=2126 -> space 9 (active=1)
+[2026-10-27T23:19:33Z INFO  nflow::space] window_created: app="System Settings" wid=2315 -> space 10 (active=1)
+[2026-10-27T23:19:33Z INFO  nflow::space] window_created: app="Install Command Line Developer " wid=2356 -> space 11 (active=1)
+[2026-10-27T23:19:33Z INFO  nflow::space] window_created: app="Discord" wid=1332 -> space 12 (active=1)
+[2026-10-27T23:19:33Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:33Z INFO  nflow::ax] apply_frame_hiding: enum wid=2261 subrole="AXStandardWindow" title="👻" hide_match=false
+[2026-10-27T23:19:33Z INFO  nflow::ax] apply_frame_hiding: enum wid=2260 subrole="AXStandardWindow" title="Software Update" hide_match=false
+[2026-10-27T23:19:33Z INFO  nflow::ax] apply_frame_hiding: skipping frame updates for wid=2261 (untracked_extra=true, non_standard_focus=false, hide_titled_focused=false)
+[2026-10-27T23:19:33Z INFO  nflow] nflow running
+[2026-10-27T23:19:33Z INFO  nflow] frontmost changed: None -> Ghostty (pid 635), ax_focused=Some(2261), follow=2261
+[2026-10-27T23:19:34Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:34Z INFO  nflow::ax] apply_frame_hiding: enum wid=2261 subrole="AXStandardWindow" title="👻" hide_match=false
+[2026-10-27T23:19:34Z INFO  nflow::ax] apply_frame_hiding: enum wid=2260 subrole="AXStandardWindow" title="Software Update" hide_match=false
+[2026-10-27T23:19:34Z INFO  nflow::ax] apply_frame_hiding: skipping frame updates for wid=2261 (untracked_extra=true, non_standard_focus=false, hide_titled_focused=false)
+[2026-10-27T23:19:34Z WARN  nflow::hotkey] event tap disabled (type 0xfffffffe), re-enabling
+[2026-10-27T23:19:34Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:34Z INFO  nflow::ax] apply_frame_hiding: enum wid=2261 subrole="AXStandardWindow" title="👻" hide_match=false
+[2026-10-27T23:19:34Z INFO  nflow::ax] apply_frame_hiding: enum wid=2260 subrole="AXStandardWindow" title="Software Update" hide_match=false
+[2026-10-27T23:19:34Z INFO  nflow::ax] apply_frame_hiding: skipping frame updates for wid=2261 (untracked_extra=true, non_standard_focus=false, hide_titled_focused=false)
+[2026-10-27T23:19:34Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:34Z INFO  nflow::ax] apply_frame_hiding: enum wid=2261 subrole="AXStandardWindow" title="👻" hide_match=false
+[2026-10-27T23:19:34Z INFO  nflow::ax] apply_frame_hiding: enum wid=2260 subrole="AXStandardWindow" title="Software Update" hide_match=false
+[2026-10-27T23:19:34Z INFO  nflow::ax] apply_frame_hiding: skipping frame updates for wid=2261 (untracked_extra=true, non_standard_focus=false, hide_titled_focused=false)
+[2026-10-27T23:19:35Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:35Z INFO  nflow::ax] apply_frame_hiding: enum wid=2261 subrole="AXStandardWindow" title="👻" hide_match=false
+[2026-10-27T23:19:35Z INFO  nflow::ax] apply_frame_hiding: enum wid=2260 subrole="AXStandardWindow" title="Software Update" hide_match=false
+[2026-10-27T23:19:35Z INFO  nflow::ax] apply_frame_hiding: skipping frame updates for wid=2261 (untracked_extra=true, non_standard_focus=false, hide_titled_focused=false)
+[2026-10-27T23:19:35Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:35Z INFO  nflow::ax] apply_frame_hiding: enum wid=2261 subrole="AXStandardWindow" title="👻" hide_match=false
+[2026-10-27T23:19:35Z INFO  nflow::ax] apply_frame_hiding: enum wid=2260 subrole="AXStandardWindow" title="Software Update" hide_match=false
+[2026-10-27T23:19:35Z INFO  nflow::ax] apply_frame_hiding: skipping frame updates for wid=2261 (untracked_extra=true, non_standard_focus=false, hide_titled_focused=false)
+[2026-10-27T23:19:36Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:36Z INFO  nflow::ax] apply_frame_hiding: enum wid=2261 subrole="AXStandardWindow" title="👻" hide_match=false
+[2026-10-27T23:19:36Z INFO  nflow::ax] apply_frame_hiding: enum wid=2260 subrole="AXStandardWindow" title="Software Update" hide_match=false
+[2026-10-27T23:19:36Z INFO  nflow::ax] apply_frame_hiding: skipping frame updates for wid=2261 (untracked_extra=true, non_standard_focus=false, hide_titled_focused=false)
+[2026-10-27T23:19:36Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:36Z INFO  nflow::ax] apply_frame_hiding: enum wid=2261 subrole="AXStandardWindow" title="👻" hide_match=false
+[2026-10-27T23:19:36Z INFO  nflow::ax] apply_frame_hiding: enum wid=2260 subrole="AXStandardWindow" title="Software Update" hide_match=false
+[2026-10-27T23:19:36Z INFO  nflow::ax] apply_frame_hiding: skipping frame updates for wid=2261 (untracked_extra=true, non_standard_focus=false, hide_titled_focused=false)
+[2026-10-27T23:19:37Z INFO  nflow] frontmost changed: Some(635) -> System Settings (pid 24908), ax_focused=Some(2315), follow=2315
+[2026-10-27T23:19:37Z INFO  nflow::space] focus changed to window 2315 on space 10, switching from space 1
+[2026-10-27T23:19:37Z INFO  nflow::space] DIAG retile space 10 wid=2315 app=Some("System Settings") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:37Z INFO  nflow::ax] apply_frame_hiding: enum wid=2315 subrole="AXStandardWindow" title="Accessibility" hide_match=false
+[2026-10-27T23:19:37Z INFO  nflow::ax] DIAG wid=2315 attempt 4 enh_before=Some(true) before=Some(Rect { x: 0.0, y: 39.0, width: 723.0, height: 1130.0 }) target=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 } after=Some(Rect { x: 0.0, y: 39.0, width: 723.0, height: 1130.0 }) err[enh_off=-25208 pos1=0 size=0 pos2=0 enh_on=-25208]
+[2026-10-27T23:19:37Z INFO  nflow::space] DIAG retile space 10 wid=2315 app=Some("System Settings") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:37Z INFO  nflow::ax] apply_frame_hiding: enum wid=2315 subrole="AXStandardWindow" title="Accessibility" hide_match=false
+[2026-10-27T23:19:37Z INFO  nflow::ax] DIAG wid=2315 attempt 3 enh_before=Some(true) before=Some(Rect { x: 0.0, y: 39.0, width: 723.0, height: 1130.0 }) target=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 } after=Some(Rect { x: 0.0, y: 39.0, width: 723.0, height: 1130.0 }) err[enh_off=-25208 pos1=0 size=0 pos2=0 enh_on=-25208]
+[2026-10-27T23:19:37Z INFO  nflow::space] DIAG retile space 10 wid=2315 app=Some("System Settings") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:37Z INFO  nflow::ax] apply_frame_hiding: enum wid=2315 subrole="AXStandardWindow" title="Accessibility" hide_match=false
+[2026-10-27T23:19:37Z INFO  nflow::ax] DIAG wid=2315 attempt 2 enh_before=Some(true) before=Some(Rect { x: 0.0, y: 39.0, width: 723.0, height: 1130.0 }) target=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 } after=Some(Rect { x: 0.0, y: 39.0, width: 723.0, height: 1130.0 }) err[enh_off=-25208 pos1=0 size=0 pos2=0 enh_on=-25208]
+[2026-10-27T23:19:38Z INFO  nflow::space] DIAG retile space 10 wid=2315 app=Some("System Settings") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:38Z INFO  nflow::ax] apply_frame_hiding: enum wid=2315 subrole="AXStandardWindow" title="Accessibility" hide_match=false
+[2026-10-27T23:19:38Z INFO  nflow::ax] DIAG wid=2315 attempt 1 enh_before=Some(true) before=Some(Rect { x: 0.0, y: 39.0, width: 723.0, height: 1130.0 }) target=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 } after=Some(Rect { x: 0.0, y: 39.0, width: 723.0, height: 1130.0 }) err[enh_off=-25208 pos1=0 size=0 pos2=0 enh_on=-25208]
+[2026-10-27T23:19:38Z INFO  nflow::space] DIAG retile space 10 wid=2315 app=Some("System Settings") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:39Z INFO  nflow::space] DIAG retile space 10 wid=2315 app=Some("System Settings") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:39Z INFO  nflow::space] DIAG retile space 10 wid=2315 app=Some("System Settings") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:40Z INFO  nflow::space] DIAG retile space 10 wid=2315 app=Some("System Settings") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:40Z INFO  nflow::space] DIAG retile space 10 wid=2315 app=Some("System Settings") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:41Z INFO  nflow::space] DIAG retile space 10 wid=2315 app=Some("System Settings") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:41Z INFO  nflow::space] DIAG retile space 10 wid=2315 app=Some("System Settings") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:42Z INFO  nflow::space] DIAG retile space 10 wid=2315 app=Some("System Settings") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:42Z INFO  nflow::space] DIAG retile space 10 wid=2315 app=Some("System Settings") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:43Z INFO  nflow::space] DIAG retile space 10 wid=2315 app=Some("System Settings") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:43Z INFO  nflow::space] DIAG retile space 10 wid=2315 app=Some("System Settings") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:44Z INFO  nflow::space] DIAG retile space 10 wid=2315 app=Some("System Settings") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:44Z INFO  nflow::space] DIAG retile space 10 wid=2315 app=Some("System Settings") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:45Z INFO  nflow::hotkey] hotkey fired: ActivateApp("Ghostty")
+[2026-10-27T23:19:45Z INFO  nflow::ax] activation requested by name: Ghostty, accepted=true
+[2026-10-27T23:19:45Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:45Z WARN  nflow::ax] failed to set AXHidden=false for pid 635: AX error -25211
+[2026-10-27T23:19:45Z INFO  nflow::ax] bridge.focus(2261)
+[2026-10-27T23:19:45Z WARN  nflow::ax] failed to set AXHidden=true for pid 24908: AX error -25211
+[2026-10-27T23:19:45Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:45Z INFO  nflow] frontmost changed: Some(24908) -> Ghostty (pid 635), ax_focused=None, follow=2261
+[2026-10-27T23:19:45Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:46Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:46Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:47Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:47Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:48Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:48Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:49Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:49Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:50Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:50Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:51Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:51Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:52Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:52Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:53Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:53Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:54Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:54Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:55Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:55Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:56Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:56Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:57Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:57Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:58Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:58Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:59Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:19:59Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:00Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:00Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:01Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:01Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:02Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:02Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:03Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:03Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:04Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:04Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:05Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:07Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:07Z INFO  nflow] screen changed, reloading
+[2026-10-27T23:20:07Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:07Z INFO  nflow::hotkey] registering 26 hotkey bindings via CGEventTap
+[2026-10-27T23:20:07Z ERROR nflow] failed to re-register hotkeys: hotkey registration failed: CGEventTapCreate failed -- ensure Accessibility permission is granted
+[2026-10-27T23:20:07Z INFO  nflow::hotkey] registered 26 Carbon hotkeys
+[2026-10-27T23:20:07Z WARN  nflow::hotkey] event tap disabled (type 0xfffffffe), re-enabling
+[2026-10-27T23:20:09Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:11Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:11Z WARN  nflow::hotkey] event tap disabled (type 0xfffffffe), re-enabling
+[2026-10-27T23:20:13Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:15Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:19Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:21Z INFO  nflow::space] DIAG retile space 1 wid=2261 app=Some("Ghostty") -> frame=Rect { x: 0.0, y: 25.0, width: 1800.0, height: 1144.0 }
+[2026-10-27T23:20:21Z WARN  nflow::hotkey] event tap disabled (type 0xfffffffe), re-enabling
+[2026-10-27T23:20:27Z INFO  nflow] nflow starting
+nflow requires accessibility permission.
+Grant access in System Settings > Privacy & Security > Accessibility

@@ -1,6 +1,14 @@
 #!/usr/bin/env zsh
 
+# Install with: brew install --cask font-blex-mono-nerd-font
 FONT_FACE="BlexMono Nerd Font"
+
+# Register the installed face with SketchyBar before creating any text. This
+# also makes a font installed after the service started available on reload.
+FONT_FILE="$HOME/Library/Fonts/BlexMonoNerdFont-Bold.ttf"
+if [[ -f "$FONT_FILE" ]]; then
+    sketchybar --load-font "$FONT_FILE"
+fi
 
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins-laptop"
 PLUGIN_SHARED_DIR="$HOME/.config/sketchybar/plugins"
@@ -28,6 +36,7 @@ sketchybar --bar \
     topmost=on \
     padding_left=10 \
     padding_right=10 \
+    notch_width=200 \
     display=main
 
 sketchybar --default \
@@ -50,11 +59,46 @@ sketchybar --add item front_app left \
     --set front_app \
     icon.drawing=off \
     label.font="$FONT_FACE:Bold:14.0" \
+    label.max_chars=18 \
     label.color=$TEXT \
     label.padding_left=10 \
     label.padding_right=10 \
     script="$PLUGIN_SHARED_DIR/front_app.sh" \
     --subscribe front_app front_app_switched
+
+# Keep the timer in the normal left-hand flow so it cannot collide with the
+# other left-hand items as an independently notch-anchored item would.
+sketchybar --add item pomodoro left \
+    --set pomodoro \
+    icon= \
+    icon.color=$ACCENT_POMO \
+    label.width=42 \
+    label.align=center \
+    update_freq=1 \
+    script="$PLUGIN_SHARED_DIR/pomodoro.sh" \
+    --subscribe pomodoro mouse.clicked
+
+sketchybar --add item cpu left \
+    --set cpu \
+    icon= \
+    icon.color=$ACCENT_CPU \
+    update_freq=2 \
+    script="$PLUGIN_SHARED_DIR/cpu.sh"
+
+sketchybar --add item memory left \
+    --set memory \
+    icon= \
+    icon.color=$ACCENT_MEM \
+    update_freq=5 \
+    script="$PLUGIN_SHARED_DIR/memory.sh"
+
+sketchybar --add item network left \
+    --set network \
+    icon=󰖩 \
+    icon.color=$ACCENT_NET \
+    label.max_chars=14 \
+    update_freq=2 \
+    script="$PLUGIN_SHARED_DIR/network.sh"
 
 ##### RIGHT (reverse order of visual placement) #####
 
@@ -63,6 +107,8 @@ sketchybar --add item next_meeting right \
     icon= \
     icon.color=$ACCENT_MEET \
     label.color=$TEXT \
+    label.max_chars=12 \
+    scroll_texts=on \
     drawing=off \
     update_freq=60 \
     script="$PLUGIN_SHARED_DIR/next_meeting.sh"
@@ -92,6 +138,8 @@ sketchybar --add item weather right \
     --set weather \
     icon=󰖙 \
     icon.color=$ACCENT_WEATHER \
+    label.max_chars=12 \
+    scroll_texts=on \
     update_freq=1800 \
     script="$PLUGIN_SHARED_DIR/weather.sh" \
     --subscribe weather system_woke
@@ -102,35 +150,6 @@ sketchybar --add item weather.moon right \
     icon.font="$FONT_FACE:Bold:18.0" \
     label.drawing=off \
     --subscribe weather.moon mouse.clicked
-
-sketchybar --add item network right \
-    --set network \
-    icon=󰖩 \
-    icon.color=$ACCENT_NET \
-    update_freq=2 \
-    script="$PLUGIN_SHARED_DIR/network.sh"
-
-sketchybar --add item memory right \
-    --set memory \
-    icon= \
-    icon.color=$ACCENT_MEM \
-    update_freq=5 \
-    script="$PLUGIN_SHARED_DIR/memory.sh"
-
-sketchybar --add item cpu right \
-    --set cpu \
-    icon= \
-    icon.color=$ACCENT_CPU \
-    update_freq=2 \
-    script="$PLUGIN_SHARED_DIR/cpu.sh"
-
-sketchybar --add item pomodoro right \
-    --set pomodoro \
-    icon= \
-    icon.color=$ACCENT_POMO \
-    update_freq=1 \
-    script="$PLUGIN_SHARED_DIR/pomodoro.sh" \
-    --subscribe pomodoro mouse.clicked
 
 ##### Finalizing Setup #####
 sketchybar --update
