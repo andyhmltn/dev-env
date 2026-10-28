@@ -110,8 +110,7 @@ sketchybar --add item clock right \
 sketchybar --add item battery right \
     --set battery \
     icon.color=$ACCENT_BAT \
-    label.width=40 \
-    label.align=left \
+    label.align=center \
     update_freq=20 \
     script="$PLUGIN_DIR/battery.sh"
 
@@ -120,8 +119,6 @@ sketchybar --add item weather right \
     --set weather \
     icon=󰖙 \
     icon.color=$ACCENT_WEATHER \
-    label.max_chars=12 \
-    scroll_texts=on \
     update_freq=1800 \
     script="$PLUGIN_SHARED_DIR/weather.sh" \
     --subscribe weather system_woke
