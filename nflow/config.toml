@@ -10,8 +10,11 @@ pluck = "alt-cmd-shift-o"
 warp = "alt-cmd-shift-h"
 
 [gaps]
-outer = 40.0
-inner = 40.0
+outer = 20.0
+inner = 20.0
+
+[border]
+width = 1.0
 
 [ignore]
 apps = ["Raycast", "Spotlight", "Alfred", "1Password", "Finder"]
