@@ -92,6 +92,38 @@ Install: gopls, lua_ls, prettierd
 1. Install: `brew install --cask aerospace`
 2. Configure according to your preferences
 
+### SketchyBar
+
+Select SketchyBar in `./os` to link the configuration. The default entry point
+loads `sketchybarrc-laptop`.
+
+```bash
+brew install FelixKratz/formulae/sketchybar jq
+brew install --cask font-blex-mono-nerd-font font-jetbrains-mono-nerd-font
+brew services start sketchybar
+```
+
+The laptop profile uses **BlexMono Nerd Font**; the desktop profile uses
+**JetBrainsMono Nerd Font**. Missing fonts cause the private-use icon characters
+to appear as boxes. After installing a font or changing the config, run
+`sketchybar --reload`. The laptop profile explicitly loads its installed Bold
+font before creating items. If a running service still shows missing icons
+after a font installation, restart it with `brew services restart sketchybar`.
+
+The laptop profile puts the app name, Pomodoro timer, CPU, memory and network
+together in the normal left-hand flow and limits long labels on the right.
+The timer follows the app name rather than being independently anchored beside
+the notch. `notch_width=200` defines the notch width; it does not automatically
+prevent ordinary left/right items from reaching the notch. Weather and meeting
+labels scroll within their character limits.
+
+On macOS Tahoe, open **System Settings → Menu Bar → Automatically hide and show
+the menu bar → Always**. This setting persists, but the native menu bar still
+appears when the pointer reaches the top edge. macOS does not offer a global
+setting to disable that reveal permanently. See
+[Apple's Menu Bar settings](https://support.apple.com/en-gb/guide/mac-help/mchlad96d366/26/mac/26)
+and the [SketchyBar setup guide](https://felixkratz.github.io/SketchyBar/setup).
+
 ### Homerow
 
 1. Download from [homerow.app](https://www.homerow.app)

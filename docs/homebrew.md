@@ -66,6 +66,7 @@ Uses `brew leaves` (formulae) and `brew list --cask` (casks) to compare against 
 | lftp | FTP client |
 | libpq | PostgreSQL client library |
 | poppler | PDF rendering library |
+| jq | JSON parsing for SketchyBar weather |
 
 ## Casks
 
@@ -73,6 +74,8 @@ Uses `brew leaves` (formulae) and `brew list --cask` (casks) to compare against 
 |---------|---------|
 | claude-code | Claude Code CLI |
 | aerospace | Tiling window manager |
+| font-blex-mono-nerd-font | SketchyBar laptop icons and text |
+| font-jetbrains-mono-nerd-font | SketchyBar desktop icons and text |
 
 ## TUI Integration
 

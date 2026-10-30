@@ -1,6 +1,14 @@
 #!/usr/bin/env zsh
 
+# Install with: brew install --cask font-blex-mono-nerd-font
 FONT_FACE="BlexMono Nerd Font"
+
+# Register the installed face with SketchyBar before creating any text. This
+# also makes a font installed after the service started available on reload.
+FONT_FILE="$HOME/Library/Fonts/BlexMonoNerdFont-Bold.ttf"
+if [[ -f "$FONT_FILE" ]]; then
+    sketchybar --load-font "$FONT_FILE"
+fi
 
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins-laptop"
 PLUGIN_SHARED_DIR="$HOME/.config/sketchybar/plugins"
@@ -52,6 +60,7 @@ sketchybar --add item front_app left \
     --set front_app \
     icon.drawing=off \
     label.font="$FONT_FACE:Bold:14.0" \
+    label.max_chars=18 \
     label.color=$TEXT \
     label.padding_left=10 \
     label.padding_right=10 \
@@ -63,6 +72,8 @@ sketchybar --add item next_meeting left \
     icon= \
     icon.color=$ACCENT_MEET \
     label.color=$TEXT \
+    label.max_chars=12 \
+    scroll_texts=on \
     drawing=off \
     update_freq=60 \
     script="$PLUGIN_SHARED_DIR/next_meeting.sh"
@@ -99,8 +110,7 @@ sketchybar --add item clock right \
 sketchybar --add item battery right \
     --set battery \
     icon.color=$ACCENT_BAT \
-    label.width=40 \
-    label.align=left \
+    label.align=center \
     update_freq=20 \
     script="$PLUGIN_DIR/battery.sh"
 
