@@ -31,7 +31,7 @@ ACCENT_WORK=0xff94e2d5
 ACCENT_FREE=0xffa6e3a1
 
 sketchybar --bar \
-    height=40 \
+    height=32 \
     color=$BAR_BG \
     margin=0 \
     sticky=on \
@@ -44,11 +44,11 @@ sketchybar --default \
     background.color=$ITEM_BG \
     background.corner_radius=6 \
     background.padding_right=5 \
-    background.height=30 \
-    icon.font="$FONT_FACE:Bold:16.0" \
+    background.height=24 \
+    icon.font="$FONT_FACE:Bold:14.0" \
     icon.padding_left=8 \
     icon.padding_right=5 \
-    label.font="$FONT_FACE:Bold:13.0" \
+    label.font="$FONT_FACE:Bold:12.0" \
     label.color=$TEXT \
     label.y_offset=0 \
     label.padding_left=0 \
@@ -59,7 +59,7 @@ sketchybar --default \
 sketchybar --add item front_app left \
     --set front_app \
     icon.drawing=off \
-    label.font="$FONT_FACE:Bold:14.0" \
+    label.font="$FONT_FACE:Bold:13.0" \
     label.max_chars=18 \
     label.color=$TEXT \
     label.padding_left=10 \
