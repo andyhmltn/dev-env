@@ -42,6 +42,13 @@ FORMULAE=(
     semgrep
     yarn
     jq          # SketchyBar weather JSON parsing
+    awscli
+    blueutil
+    docker
+    felixkratz/formulae/borders
+    felixkratz/formulae/sketchybar
+    glow
+    htop
 )
 
 # Casks
