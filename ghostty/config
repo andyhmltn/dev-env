@@ -1,7 +1,7 @@
 command = /opt/homebrew/bin/fish
 shell-integration = fish
 font-family = "BlexMono Nerd Font Mono"
-font-size = 18
+font-size = 21
 theme = Oxocarbon
 
 macos-option-as-alt = true

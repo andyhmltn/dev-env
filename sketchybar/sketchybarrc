@@ -1,4 +1,19 @@
 #!/usr/bin/env zsh
 
 SKETCHYBAR_CONFIG="$HOME/.config/sketchybar"
+
+WIDTH=$(/usr/bin/swift - <<'SWIFT' 2>/dev/null
+import AppKit
+if let s = NSScreen.main { print(Int(s.frame.width)) }
+SWIFT
+)
+
+if [[ -n "$WIDTH" && "$WIDTH" -lt 3440 ]]; then
+    export BAR_HEIGHT=32
+    export BG_HEIGHT=24
+    export ICON_SIZE=14.0
+    export LABEL_SIZE=12.0
+    export FRONT_LABEL_SIZE=13.0
+fi
+
 source "$SKETCHYBAR_CONFIG/sketchybarrc-laptop"

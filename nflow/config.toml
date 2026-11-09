@@ -28,6 +28,7 @@ apps = ["Raycast", "Spotlight", "Alfred", "1Password"]
 "alt-cmd-shift-6" = "Notion"
 "alt-cmd-shift-7" = "DataGrip"
 "alt-cmd-shift-8" = "Microsoft Teams"
+"alt-cmd-shift-c" = "CtrlPanel"
 
 [profile.laptop]
 screen-width-max = 3439
@@ -65,7 +66,7 @@ apps = ["Ghostty", "Linear"]
 number = 2
 
 [profile.ultrawide.scene.chat.spaces.1]
-apps = ["Google Chrome",   "Microsoft Teams", "Ghostty",]
+apps = ["Google Chrome",   "Microsoft Teams", "Ghostty"]
 weights = { "Microsoft Teams" = 2.0 }
 hide-windows = ["Calendar"]
 

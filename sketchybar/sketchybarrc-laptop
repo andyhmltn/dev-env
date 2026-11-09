@@ -13,6 +13,12 @@ fi
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins-laptop"
 PLUGIN_SHARED_DIR="$HOME/.config/sketchybar/plugins"
 
+: ${BAR_HEIGHT:=40}
+: ${BG_HEIGHT:=30}
+: ${ICON_SIZE:=16.0}
+: ${LABEL_SIZE:=13.0}
+: ${FRONT_LABEL_SIZE:=14.0}
+
 # Palette: bolder, darker
 BAR_BG=0x00000000
 ITEM_BG=0xff1e1e2e
@@ -31,7 +37,7 @@ ACCENT_WORK=0xff94e2d5
 ACCENT_FREE=0xffa6e3a1
 
 sketchybar --bar \
-    height=32 \
+    height=$BAR_HEIGHT \
     color=$BAR_BG \
     margin=0 \
     sticky=on \
@@ -44,11 +50,11 @@ sketchybar --default \
     background.color=$ITEM_BG \
     background.corner_radius=6 \
     background.padding_right=5 \
-    background.height=24 \
-    icon.font="$FONT_FACE:Bold:14.0" \
+    background.height=$BG_HEIGHT \
+    icon.font="$FONT_FACE:Bold:$ICON_SIZE" \
     icon.padding_left=8 \
     icon.padding_right=5 \
-    label.font="$FONT_FACE:Bold:12.0" \
+    label.font="$FONT_FACE:Bold:$LABEL_SIZE" \
     label.color=$TEXT \
     label.y_offset=0 \
     label.padding_left=0 \
@@ -59,7 +65,7 @@ sketchybar --default \
 sketchybar --add item front_app left \
     --set front_app \
     icon.drawing=off \
-    label.font="$FONT_FACE:Bold:13.0" \
+    label.font="$FONT_FACE:Bold:$FRONT_LABEL_SIZE" \
     label.max_chars=18 \
     label.color=$TEXT \
     label.padding_left=10 \
@@ -72,7 +78,7 @@ sketchybar --add item next_meeting left \
     icon= \
     icon.color=$ACCENT_MEET \
     label.color=$TEXT \
-    label.max_chars=12 \
+    label.max_chars=50 \
     scroll_texts=on \
     drawing=off \
     update_freq=60 \
