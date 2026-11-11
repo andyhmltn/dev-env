@@ -8,12 +8,13 @@ if let s = NSScreen.main { print(Int(s.frame.width)) }
 SWIFT
 )
 
-if [[ -n "$WIDTH" && "$WIDTH" -lt 3440 ]]; then
-    export BAR_HEIGHT=32
-    export BG_HEIGHT=24
-    export ICON_SIZE=14.0
-    export LABEL_SIZE=12.0
-    export FRONT_LABEL_SIZE=13.0
+if [[ -n "$WIDTH" && "$WIDTH" -ge 3440 ]]; then
+    source "$SKETCHYBAR_CONFIG/sketchybarrc-desktop"
+else
+    source "$SKETCHYBAR_CONFIG/sketchybarrc-laptop"
 fi
 
-source "$SKETCHYBAR_CONFIG/sketchybarrc-laptop"
+sketchybar --add item display_watcher left \
+    --set display_watcher drawing=off \
+    script="sketchybar --reload" \
+    --subscribe display_watcher display_change

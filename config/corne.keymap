@@ -410,7 +410,7 @@
             bindings = <
 &trans  &trans  &trans  &trans  &kp LG(LA(LEFT))   &kp LG(LA(RIGHT))         &kp LG(SPACE)       &kp LA(LG(LS(N8)))  &trans              &trans              &trans  &trans
 &trans  &kp LA(LC(N0))  &kp LA(LC(N1))  &kp LA(LC(N2))  &to 7   &trans          &kp LG(N4)          &kp LA(LG(LC(N2)))  &kp LA(LG(LC(N3)))  &kp LA(LG(LC(N4)))  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans          &kp LA(LG(LS(N5)))  &kp LA(LG(LS(N6)))  &kp LA(LG(LS(N7)))  &trans              &trans  &trans
+&trans  &kp LA(LG(LS(Z)))  &trans  &trans  &trans  &trans          &kp LA(LG(LS(N5)))  &kp LA(LG(LS(N6)))  &kp LA(LG(LS(N7)))  &trans              &trans  &trans
                         &trans  &trans  &trans          &trans  &trans  &trans
             >;
         };

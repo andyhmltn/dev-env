@@ -13,11 +13,11 @@ fi
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins-laptop"
 PLUGIN_SHARED_DIR="$HOME/.config/sketchybar/plugins"
 
-: ${BAR_HEIGHT:=40}
-: ${BG_HEIGHT:=30}
-: ${ICON_SIZE:=16.0}
-: ${LABEL_SIZE:=13.0}
-: ${FRONT_LABEL_SIZE:=14.0}
+: ${BAR_HEIGHT:=32}
+: ${BG_HEIGHT:=24}
+: ${ICON_SIZE:=14.0}
+: ${LABEL_SIZE:=12.0}
+: ${FRONT_LABEL_SIZE:=13.0}
 
 # Palette: bolder, darker
 BAR_BG=0x00000000

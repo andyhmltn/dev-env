@@ -284,7 +284,7 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
 		opts = {
-			ensure_installed = { "gopls", "rust-analyzer" },
+			ensure_installed = { "gopls", "rust_analyzer" },
 		},
 	},
 

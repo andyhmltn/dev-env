@@ -1,88 +1,125 @@
 #!/usr/bin/env zsh
 
-FONT_FACE="JetBrainsMono Nerd Font"
+FONT_FACE="BlexMono Nerd Font"
+
+FONT_FILE="$HOME/Library/Fonts/BlexMonoNerdFont-Bold.ttf"
+if [[ -f "$FONT_FILE" ]]; then
+    sketchybar --load-font "$FONT_FILE"
+fi
+
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins-desktop"
 PLUGIN_SHARED_DIR="$HOME/.config/sketchybar/plugins"
 
-SPOTIFY_EVENT="com.spotify.client.PlaybackStateChanged"
+: ${BAR_HEIGHT:=44}
+: ${BG_HEIGHT:=32}
+: ${ICON_SIZE:=18.0}
+: ${LABEL_SIZE:=15.0}
+: ${FRONT_LABEL_SIZE:=17.0}
+
+BAR_BG=0x00000000
+ITEM_BG=0xff1e1e2e
+TEXT=0xffe4e4ef
+ACCENT_CPU=0xfff38ba8
+ACCENT_MEM=0xfffab387
+ACCENT_NET=0xff94e2d5
+ACCENT_MEET=0xfff9e2af
+ACCENT_POMO=0xffeba0ac
+ACCENT_WEATHER=0xff89b4fa
+ACCENT_MOON=0xffb4befe
+ACCENT_CLOCK=0xffcba6f7
+ACCENT_BAT=0xffa6e3a1
+ACCENT_VOL=0xff89dceb
+ACCENT_WORK=0xff94e2d5
+ACCENT_FREE=0xffa6e3a1
 
 sketchybar --bar \
-    height=32 \
-    color=0x66494d64 \
+    height=$BAR_HEIGHT \
+    color=$BAR_BG \
     margin=0 \
     sticky=on \
-    padding_left=0 \
-    padding_right=0 \
-    notch_width=188 \
+    topmost=on \
+    padding_left=10 \
+    padding_right=10 \
     display=main
 
 sketchybar --default \
-    background.height=32 \
-    icon.color=0xff24273a \
-    icon.font="$FONT_FACE:Medium:20.0" \
-    icon.padding_left=5 \
-    icon.padding_right=5 \
-    label.color=0xff24273a \
-    label.font="$FONT_FACE:Bold:14.0" \
-    label.y_offset=1 \
+    background.color=$ITEM_BG \
+    background.corner_radius=8 \
+    background.padding_left=10 \
+    background.padding_right=10 \
+    background.height=$BG_HEIGHT \
+    icon.font="$FONT_FACE:Bold:$ICON_SIZE" \
+    icon.padding_left=12 \
+    icon.padding_right=8 \
+    label.font="$FONT_FACE:Bold:$LABEL_SIZE" \
+    label.color=$TEXT \
+    label.y_offset=0 \
     label.padding_left=0 \
-    label.padding_right=5
+    label.padding_right=12
 
-sketchybar --add item current_space left \
-    --set current_space \
-    background.color=0xfff5a97f \
-    label.drawing=off \
-    script="$PLUGIN_SHARED_DIR/current_space.sh" \
-    --subscribe current_space space_change mouse.clicked
+##### LEFT #####
 
 sketchybar --add item front_app left \
     --set front_app \
-    background.color=0xffa6da95 \
-    background.padding_left=0 \
-    background.padding_right=0 \
-    icon.y_offset=1 \
-    label.drawing=no \
-    script="$PLUGIN_SHARED_DIR/front_app.sh" \
-    --add item front_app.separator left \
-    --set front_app.separator \
-    background.color=0x00000000 \
-    icon= \
-    icon.color=0xffa6da95 \
-    icon.font="$FONT_FACE:Bold:23.0" \
-    icon.padding_left=0 \
-    icon.padding_right=0 \
-    icon.y_offset=1 \
-    label.drawing=no \
-    --add item front_app.name left \
-    --set front_app.name \
-    background.color=0x00000000 \
     icon.drawing=off \
-    label.font="$FONT_FACE:Bold:16.0" \
-    label.color=0xffcad3f5 \
-    label.padding_left=5
-
-sketchybar --add bracket front_app_bracket \
-    front_app \
-    front_app.separator \
-    front_app.name \
+    label.font="$FONT_FACE:Bold:$FRONT_LABEL_SIZE" \
+    label.max_chars=18 \
+    label.color=$TEXT \
+    label.padding_left=10 \
+    label.padding_right=10 \
+    script="$PLUGIN_SHARED_DIR/front_app.sh" \
     --subscribe front_app front_app_switched
+
+sketchybar --add item next_meeting left \
+    --set next_meeting \
+    icon= \
+    icon.color=$ACCENT_MEET \
+    label.color=$TEXT \
+    label.max_chars=50 \
+    scroll_texts=on \
+    drawing=off \
+    update_freq=60 \
+    script="$PLUGIN_SHARED_DIR/next_meeting.sh"
+
+sketchybar --add item free_block left \
+    --set free_block \
+    icon=󰃭 \
+    icon.color=$ACCENT_FREE \
+    label.color=$TEXT \
+    drawing=off \
+    update_freq=120 \
+    script="$PLUGIN_SHARED_DIR/free_block.sh"
+
+sketchybar --add item workday left \
+    --set workday \
+    icon=󰅐 \
+    icon.color=$ACCENT_WORK \
+    label.color=$TEXT \
+    drawing=off \
+    update_freq=60 \
+    script="$PLUGIN_SHARED_DIR/workday.sh"
+
+
+##### RIGHT (reverse order of visual placement) #####
+
 
 sketchybar --add item clock right \
     --set clock \
     icon=󰃰 \
-    background.color=0xffed8796 \
+    icon.color=$ACCENT_CLOCK \
     update_freq=10 \
     script="$PLUGIN_SHARED_DIR/clock.sh"
 
-sketchybar --add event spotify_change $SPOTIFY_EVENT \
-    --add item spotify right \
-    --set spotify \
-    icon= \
-    icon.y_offset=1 \
-    label.drawing=off \
-    label.padding_left=3 \
-    script="$PLUGIN_DIR/spotify.sh" \
-    --subscribe spotify spotify_change mouse.clicked
+sketchybar --add item weather right \
+    --set weather \
+    icon=󰖙 \
+    icon.color=$ACCENT_WEATHER \
+    update_freq=1800 \
+    script="$PLUGIN_SHARED_DIR/weather.sh" \
+    --subscribe weather system_woke
+
+
+
 
 ##### Finalizing Setup #####
 sketchybar --update
